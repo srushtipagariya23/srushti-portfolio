@@ -197,6 +197,47 @@ const About = () => {
   const memories = [mem1, mem2, mem3, mem4, mem5, mem6, mem7, mem8, mem9, mem10, mem11, mem12, mem13, mem14, mem15];
   const naturePhotos = [nat1, nat2, nat3, nat4, nat5, nat6, nat7, nat8, nat9, nat10, nat11, nat12, nat13, nat14, nat15, nat16, nat17, nat18, nat19, nat20];
 
+  const memoryCaptions = [
+    "Kedarkantha taught me that some highs are earned step by step.",
+    "Scotland said happy birthday by turning the whole trip into a gift.",
+    "The day responsibility found me, and I found a stronger version of myself.",
+    "My first snowfall in Scotland, soft proof that new chapters can arrive quietly.",
+    "One of my first Glasgow wanderings, and the city already felt like a story opening.",
+    "Representing GSA, one cup, one idea, and many countries in the room.",
+    "Mumbai gave me a sunset that felt exactly like goodbye.",
+    "A little treat to myself, and a big feeling that Mumbai had made space for me.",
+    "Undergrad done, smile saying everything for me.",
+    "After one of the biggest business seasons, the trip felt like both reward and lesson.",
+    "Edinburgh looked even better with an internship to celebrate.",
+    "Goa, the kind of place that never feels finished the first time.",
+    "Dumbarton nearly blew me away, but the view still won.",
+    "Loch Lomond, my first Scottish trip, and the beginning of a very big love story.",
+    "A project I held onto with full heart, and every bit of that showed."
+  ];
+
+  const lensCaptions = [
+    "A Delhi gate that still knows how to make an entrance.",
+    "Oban, where the view looked like a secret the sea was keeping.",
+    "The Glasgow clock, holding its breath between two seasons.",
+    "Bandra Sea Link, one of Mumbai’s longest hugs in plain sight.",
+    "A Glasgow window view that made the old world feel briefly mine.",
+    "The first sunlight I noticed in Glasgow, and I noticed it properly.",
+    "A yellow Mercedes with the kind of care you can spot from far away.",
+    "The Christmas fair, carrying me straight back to the fairs I grew up with.",
+    "A cat, a path, and a very well-timed reminder about the road not taken.",
+    "A Loch Lomond swan, all grace and no explanation needed.",
+    "A quiet walk towards Glasgow University, and then this.",
+    "The Kelpies, the cold, and me learning that Scottish evenings do not play fair.",
+    "My first real autumn, and Glasgow made sure I noticed.",
+    "A park I never expected to love this much, until I did.",
+    "A Christmas fair shop that stole my heart one tiny detail at a time.",
+    "A winter dish from home, comfort served with every chutney possible.",
+    "One of many Glasgow walks that turned into a small pause I wanted to keep.",
+    "An empty Mumbai local, rare enough to feel like the city blinking.",
+    "A park waiting for autumn to fully arrive.",
+    "A building that keeps reminding me how lucky I am to be here."
+  ];
+
   return (
     <div 
       ref={containerRef} 
@@ -240,15 +281,10 @@ const About = () => {
               <div className={`backdrop-blur-xl ${glassStyle} p-8 rounded-2xl shadow-2xl relative overflow-hidden group`}>
                 <div className="absolute inset-0 bg-gradient-to-br from-brand-accent-blue/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                 <p className={`text-lg md:text-xl font-light leading-relaxed relative z-10 ${theme === 'light' ? 'text-slate-600' : 'text-slate-300'}`}>
-                  I have always been drawn to stories—the ones people tell, the ones systems hide, and the ones design can bring to life. From journalism and media to <span className={`font-semibold ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>service design and strategy</span>, my work has grown around one core belief: when you understand people deeply, you can create experiences that feel clearer, kinder, and more meaningful.
+                  I have always been more interested in people than neat definitions. In what they carry, what they notice, what they remember, and what quietly shapes the way they move through the world.
+                  <br /><br />
+                  That is probably why I design the way I do. Through observation, feeling, systems, and stories that usually sit underneath the obvious.
                 </p>
-                <div className="mt-8 flex flex-wrap gap-3 relative z-10">
-                  {['Service Designer', 'UX Strategist', 'Storyteller', 'Systems Thinker'].map((word, i) => (
-                    <span key={i} className={`px-4 py-2 text-xs font-mono uppercase tracking-widest ${glassStyle} rounded-full hover:bg-brand-accent-blue hover:text-white transition-all duration-300 hover:scale-105 cursor-none hover:border-brand-accent-blue`}>
-                      {word}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
 
@@ -375,34 +411,33 @@ const About = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className={`backdrop-blur-md ${glassStyle} p-8 rounded-xl shadow-lg`}>
-              <h3 className={`font-poppins text-xl font-bold uppercase tracking-widest mb-6 ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>Things I <span className="text-brand-accent-blue">Love</span></h3>
-              <div className="flex flex-wrap gap-4">
-                {[
-                  { icon: '📚', text: 'Storytelling' },
-                  { icon: '☕', text: 'Ice Tea' },
-                  { icon: '🎨', text: 'Design Systems' },
-                  { icon: '🌍', text: 'Human Behavior' },
-                  { icon: '📸', text: 'Photography' }
-                ].map((item, i) => (
-                  <div key={i} className={`flex items-center gap-2 px-4 py-2 rounded-full border ${theme === 'light' ? 'border-slate-200 bg-white' : 'border-white/10 bg-white/5'} hover:scale-110 hover:border-brand-accent-blue transition-all duration-300 cursor-none group float-fast`} style={{ animationDelay: `${i * 0.15}s` }}>
-                    <span className="text-lg group-hover:scale-125 transition-transform">{item.icon}</span>
-                    <span className={`font-mono text-xs font-bold tracking-widest ${theme === 'light' ? 'text-slate-600' : 'text-slate-300'}`}>{item.text}</span>
-                  </div>
-                ))}
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
+            <div className={`backdrop-blur-md ${glassStyle} p-8 rounded-xl shadow-lg float-slow`}>
+              <h3 className={`font-poppins text-xl font-bold uppercase tracking-widest mb-4 ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>What Stays With <span className="text-brand-accent-blue">Me</span></h3>
+              <p className={`font-montserrat text-md leading-relaxed ${theme === 'light' ? 'text-slate-600' : 'text-slate-300'}`}>
+                Good conversations. Sharp observations. City walks. Photographs. Postcards. Small details. Soft hearts. Stories that know how to stay.
+              </p>
             </div>
 
-            <div className={`backdrop-blur-md ${glassStyle} p-8 rounded-xl shadow-lg`}>
-              <h3 className={`font-poppins text-xl font-bold uppercase tracking-widest mb-6 ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>Why Work With <span className="text-brand-accent-blue">Me?</span></h3>
-              <div className="flex flex-wrap gap-3">
-                {['Empathetic Listener', 'Systems Thinker', 'Fast Learner', 'Adaptable', 'Creative Problem Solver'].map((strength, i) => (
-                  <div key={i} className="timeline-node px-4 py-2 bg-brand-accent-blue/10 border border-brand-accent-blue/30 rounded-md font-mono text-xs uppercase tracking-widest text-brand-accent-blue hover:bg-brand-accent-blue hover:text-white transition-all duration-300 hover:scale-105 cursor-none">
-                    {strength}
-                  </div>
-                ))}
-              </div>
+            <div className={`backdrop-blur-md ${glassStyle} p-8 rounded-xl shadow-lg float-fast`}>
+              <h3 className={`font-poppins text-xl font-bold uppercase tracking-widest mb-4 ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>Worlds I <span className="text-brand-accent-blue">Carry</span></h3>
+              <p className={`font-montserrat text-md leading-relaxed ${theme === 'light' ? 'text-slate-600' : 'text-slate-300'}`}>
+                Not a timeline. More like a trail. A few places, feelings, questions, and versions of me that shaped how I see and how I design.
+              </p>
+            </div>
+            
+            <div className={`backdrop-blur-md ${glassStyle} p-8 rounded-xl shadow-lg float-slow`}>
+              <h3 className={`font-poppins text-xl font-bold uppercase tracking-widest mb-4 ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>Little <span className="text-brand-accent-blue">Universes</span></h3>
+              <p className={`font-montserrat text-md leading-relaxed ${theme === 'light' ? 'text-slate-600' : 'text-slate-300'}`}>
+                The tiny worlds that make me, me.
+              </p>
+            </div>
+
+            <div className={`backdrop-blur-md ${glassStyle} p-8 rounded-xl shadow-lg float-fast`}>
+              <h3 className={`font-poppins text-xl font-bold uppercase tracking-widest mb-4 ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>Who am I without that <span className="text-brand-accent-blue">wide smile?</span></h3>
+              <p className={`font-montserrat text-md leading-relaxed ${theme === 'light' ? 'text-slate-600' : 'text-slate-300'}`}>
+                Probably still me. Just with less evidence.
+              </p>
             </div>
           </div>
         </section>
@@ -421,8 +456,8 @@ const About = () => {
             return (
               <React.Fragment key={i}>
                 <div className={`relative ${width} ${marginTop} transform ${rotate} hover:rotate-0 hover:scale-125 hover:z-50 transition-all duration-500 ease-out cursor-none group`}>
-                  <span className="absolute -top-3 -left-3 bg-[#ccff00] text-black font-mono text-[9px] uppercase tracking-widest font-bold px-2 py-1 z-20 shadow-sm">
-                    [ MEMORY {i+1} ]
+                  <span className="absolute -top-3 -left-3 bg-[#ccff00] text-black font-mono text-[9px] uppercase tracking-widest font-bold px-3 py-2 z-20 shadow-sm max-w-[200px] whitespace-normal text-left leading-tight">
+                    {memoryCaptions[i]}
                   </span>
                   <div className="relative overflow-hidden bg-white p-1.5 shadow-[0_15px_40px_rgba(0,0,0,0.3)]">
                     <img src={mem} alt={`Memory ${i+1}`} className="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
@@ -433,7 +468,7 @@ const About = () => {
                 {i === 7 && (
                   <div className="relative w-80 md:w-[600px] z-20 mx-8">
                     <h3 className="font-poppins font-black text-4xl md:text-6xl text-white leading-[1.1] uppercase tracking-tighter mix-blend-difference">
-                      "We don't remember days, <br/><span className="text-[#ccff00]">we remember moments.</span>"
+                      "I leave with memories, <br/><span className="text-[#ccff00]">not empty hands.</span>"
                     </h3>
                   </div>
                 )}
@@ -465,9 +500,9 @@ const About = () => {
                   <div className="absolute top-0 left-0 w-full h-1 bg-[#ccff00]/80 blur-[2px] -translate-y-full group-hover:animate-[scan_2s_ease-in-out_infinite] z-30"></div>
                 </div>
 
-                <div className="absolute bottom-4 left-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="bg-black/80 backdrop-blur-md text-[#ccff00] font-mono text-[9px] uppercase tracking-widest font-bold px-2 py-1 shadow-sm border border-[#ccff00]/30">
-                    NATURE_{String(i+1).padStart(2, '0')}
+                <div className="absolute bottom-4 left-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 max-w-[85%]">
+                  <span className="bg-black/80 backdrop-blur-md text-[#ccff00] font-mono text-[9px] uppercase tracking-widest font-bold px-3 py-2 shadow-sm border border-[#ccff00]/30 inline-block whitespace-normal leading-relaxed">
+                    {lensCaptions[i]}
                   </span>
                 </div>
               </div>

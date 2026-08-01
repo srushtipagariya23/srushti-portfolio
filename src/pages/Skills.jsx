@@ -138,13 +138,14 @@ const Capabilities = () => {
             </span>
           </div>
 
-          <h1 className="char-reveal font-poppins text-5xl md:text-7xl lg:text-[5rem] font-black tracking-tighter text-slate-900 leading-[1.05] mb-8 max-w-5xl">
-            <div className="overflow-hidden pb-2"><span className="block origin-bottom-left">Crafting Digital</span></div>
-            <div className="overflow-hidden pb-2"><span className="block origin-bottom-left">Experiences <span className="text-brand-accent-blue">That Matter.</span></span></div>
+          <h1 className="char-reveal font-poppins text-5xl md:text-7xl lg:text-[4.5rem] font-black tracking-tighter text-slate-900 leading-[1.05] mb-8 max-w-5xl">
+            <div className="overflow-hidden pb-2"><span className="block origin-bottom-left">I design services through</span></div>
+            <div className="overflow-hidden pb-2"><span className="block origin-bottom-left text-brand-accent-blue">research, storytelling,</span></div>
+            <div className="overflow-hidden pb-2"><span className="block origin-bottom-left">systems thinking & strategy.</span></div>
           </h1>
 
           <p className="hero-fade font-montserrat text-lg md:text-xl text-slate-600 font-light leading-relaxed max-w-2xl">
-            We transcend traditional design to build premium, immersive ecosystems. From strategic brand positioning to pixel-perfect interface architecture, we turn vision into digital reality.
+            My practice is about understanding people deeply, making sense of complexity, and shaping experiences that feel thoughtful, useful, and human.
           </p>
         </section>
 

@@ -3,7 +3,8 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  base: '/srushti-portfolio/',
+  // FIX: Changed from '/srushti-portfolio/' to '/' for custom domain
+  base: '/',
   plugins: [
     react(),
     tailwindcss(),
