@@ -12,15 +12,12 @@ import news6 from '../assets/news-6.png';
 import news7 from '../assets/news-7.png';
 import news8 from '../assets/news-8.png';
 
-
 import sweet1 from '../assets/sweet-1.png';
 import sweet2 from '../assets/sweet-2.png';
 import sweet3 from '../assets/sweet-3.png';
 import sweet4 from '../assets/sweet-4.png';
 
-
 import inforens1 from '../assets/inforens-1.png';
-
 
 import scottish1 from '../assets/scottish-1.png';
 import scottish2 from '../assets/scottish-2.png';
@@ -29,7 +26,6 @@ import scottish4 from '../assets/scottish-4.png';
 import scottish5 from '../assets/scottish-5.png';
 import scottish6 from '../assets/scottish-6.png';
 import scottish7 from '../assets/scottish-7.mp4';
-
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -266,6 +262,8 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
                   alt="Cover Page" 
                   className="h-[95%] w-auto max-w-full object-contain drop-shadow-2xl" 
                   style={{ imageRendering: '-webkit-optimize-contrast' }} 
+                  loading="lazy"
+                  decoding="async"
                 />
               )}
             </div>
@@ -285,6 +283,8 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
                       alt={`Left Page ${leftImageIndex + 1}`} 
                       className="w-full h-full object-contain" 
                       style={{ imageRendering: '-webkit-optimize-contrast' }} 
+                      loading="lazy"
+                      decoding="async"
                     />
                   </>
                 )}
@@ -302,6 +302,8 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
                     alt={`Right Page ${rightImageIndex + 1}`} 
                     className="w-full h-full object-contain" 
                     style={{ imageRendering: '-webkit-optimize-contrast' }} 
+                    loading="lazy"
+                    decoding="async"
                   />
                 )}
               </div>
@@ -441,24 +443,24 @@ const CaseStudy = () => {
         {image.type === 'split' && image.srcs ? (
             <div className="flex flex-col md:flex-row w-full z-10 relative bg-white overflow-hidden">
               <div className="w-full md:w-1/2 relative border-b md:border-b-0 md:border-r border-slate-200">
-                <img src={image.srcs[0]} alt="Split left" className="w-full h-full max-h-[450px] md:max-h-[600px] object-cover m-0 block" />
+                <img src={image.srcs[0]} alt="Split left" className="w-full h-full max-h-[450px] md:max-h-[600px] object-cover m-0 block" loading="lazy" decoding="async" />
               </div>
               <div className="w-full md:w-1/2 relative">
-                <img src={image.srcs[1]} alt="Split right" className="w-full h-full max-h-[450px] md:max-h-[600px] object-cover m-0 block" />
+                <img src={image.srcs[1]} alt="Split right" className="w-full h-full max-h-[450px] md:max-h-[600px] object-cover m-0 block" loading="lazy" decoding="async" />
               </div>
             </div>
           ) : image.type === 'video' && image.src ? (
             <video 
               src={image.src} 
               controls 
-              preload="metadata"
+              preload="none"
               playsInline 
               /* Replaced h-auto with aspect-video to physically lock the height and prevent the browser collapse bug */
               className="w-full aspect-video object-cover block z-10 relative bg-black" 
             />
           ) : image.src ? (
             /* Added max-h limits and object-contain so tall photos shrink to fit the screen elegantly without zooming in */
-            <img src={image.src} alt={image.text} className="w-full h-auto max-h-[450px] md:max-h-[600px] block z-10 object-contain mx-auto relative p-0" />
+            <img src={image.src} alt={image.text} className="w-full h-auto max-h-[450px] md:max-h-[600px] block z-10 object-contain mx-auto relative p-0" loading="lazy" decoding="async" />
           ) : (
             <div className="w-full aspect-video flex items-center justify-center p-6 text-center z-10 text-slate-400 font-mono text-xs">{image.text}</div>
           )}

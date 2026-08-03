@@ -152,13 +152,13 @@ const Home = () => {
           <div className="lg:col-span-6 flex flex-col items-start">
             <div className="hero-fade mb-6">
               <span className="px-4 py-1.5 bg-brand-accent-blue/10 border border-brand-accent-blue/20 text-brand-accent-blue text-[10px] font-mono uppercase tracking-[0.25em] font-bold rounded-full shadow-sm">
-                सृष्टि // The Beginning of Everything
+                SERVICE Designer
               </span>
             </div>
 
             <h1 className="char-reveal font-poppins text-4xl md:text-5xl lg:text-[3.5rem] font-black tracking-tighter text-brand-blue leading-[1.1] mb-8">
-              <div className="overflow-hidden pb-1"><span className="block origin-bottom-left">I design for the gap between</span></div>
-              <div className="overflow-hidden pb-1"><span className="block origin-bottom-left text-brand-accent-blue">systems and lived experience.</span></div>
+              <div className="overflow-hidden pb-1"><span className="block origin-bottom-left">I Make Services Make sense</span></div>
+              <div className="overflow-hidden pb-1"><span className="block origin-bottom-left text-brand-accent-blue"></span></div>
             </h1>
 
             <p className="hero-fade font-montserrat font-light text-slate-500 text-lg md:text-xl leading-relaxed mb-6 max-w-xl">

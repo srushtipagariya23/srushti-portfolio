@@ -215,29 +215,6 @@ const About = () => {
     "A project I held onto with full heart, and every bit of that showed."
   ];
 
-  const lensCaptions = [
-    "A Delhi gate that still knows how to make an entrance.",
-    "Oban, where the view looked like a secret the sea was keeping.",
-    "The Glasgow clock, holding its breath between two seasons.",
-    "Bandra Sea Link, one of Mumbai’s longest hugs in plain sight.",
-    "A Glasgow window view that made the old world feel briefly mine.",
-    "The first sunlight I noticed in Glasgow, and I noticed it properly.",
-    "A yellow Mercedes with the kind of care you can spot from far away.",
-    "The Christmas fair, carrying me straight back to the fairs I grew up with.",
-    "A cat, a path, and a very well-timed reminder about the road not taken.",
-    "A Loch Lomond swan, all grace and no explanation needed.",
-    "A quiet walk towards Glasgow University, and then this.",
-    "The Kelpies, the cold, and me learning that Scottish evenings do not play fair.",
-    "My first real autumn, and Glasgow made sure I noticed.",
-    "A park I never expected to love this much, until I did.",
-    "A Christmas fair shop that stole my heart one tiny detail at a time.",
-    "A winter dish from home, comfort served with every chutney possible.",
-    "One of many Glasgow walks that turned into a small pause I wanted to keep.",
-    "An empty Mumbai local, rare enough to feel like the city blinking.",
-    "A park waiting for autumn to fully arrive.",
-    "A building that keeps reminding me how lucky I am to be here."
-  ];
-
   return (
     <div 
       ref={containerRef} 
@@ -271,11 +248,18 @@ const About = () => {
             
             <div className="lg:col-span-7 transform-gpu" style={{ transform: 'rotateX(var(--tilt-x)) rotateY(var(--tilt-y))', transformStyle: 'preserve-3d' }}>
               <h1 className={`font-poppins text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6 flex flex-wrap ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>
-                {'Designing'.split('').map((char, i) => <span key={i} className="char-reveal block">{char}</span>)}
-                <span className="w-4"></span>
-                {'The'.split('').map((char, i) => <span key={i} className="char-reveal block">{char}</span>)}
-                <span className="w-4"></span>
-                {'Future.'.split('').map((char, i) => <span key={i} className="char-reveal block text-brand-accent-blue">{char}</span>)}
+                <span className="flex">
+                  {'Designing'.split('').map((char, i) => <span key={i} className="char-reveal block">{char}</span>)}
+                </span>
+                <span className="w-4 md:w-6"></span>
+                <span className="flex">
+                  {'The'.split('').map((char, i) => <span key={i} className="char-reveal block">{char}</span>)}
+                </span>
+                {/* This invisible div forces the next item onto a new line */}
+                <div className="w-full h-0"></div>
+                <span className="flex mt-2 md:mt-4">
+                  {'Future.'.split('').map((char, i) => <span key={i} className="char-reveal block text-brand-accent-blue">{char}</span>)}
+                </span>
               </h1>
               <div className="grow-line h-[2px] w-full bg-gradient-to-r from-brand-accent-blue to-transparent mb-8 origin-left"></div>
               <div className={`backdrop-blur-xl ${glassStyle} p-8 rounded-2xl shadow-2xl relative overflow-hidden group`}>
@@ -498,12 +482,6 @@ const About = () => {
                 <div className="relative overflow-hidden">
                   <img src={nat} alt={`Nature ${i+1}`} className="w-full h-auto object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]" />
                   <div className="absolute top-0 left-0 w-full h-1 bg-[#ccff00]/80 blur-[2px] -translate-y-full group-hover:animate-[scan_2s_ease-in-out_infinite] z-30"></div>
-                </div>
-
-                <div className="absolute bottom-4 left-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 max-w-[85%]">
-                  <span className="bg-black/80 backdrop-blur-md text-[#ccff00] font-mono text-[9px] uppercase tracking-widest font-bold px-3 py-2 shadow-sm border border-[#ccff00]/30 inline-block whitespace-normal leading-relaxed">
-                    {lensCaptions[i]}
-                  </span>
                 </div>
               </div>
             ))}

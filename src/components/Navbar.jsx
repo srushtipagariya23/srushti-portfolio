@@ -12,7 +12,7 @@ const Navbar = () => {
         to="/" 
         className="font-poppins font-black text-xl md:text-2xl tracking-tighter uppercase text-brand-blue pointer-events-auto hover:text-brand-accent-blue transition-colors cursor-none bg-white/70 backdrop-blur-md px-3 py-1.5 rounded-md shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-white/50"
       >
-        SRUSHTI PAGARIYA
+        SRUSHTI <span className="ml-2">PAGARIYA</span>
       </Link>
 
       {/* Floating Glassmorphism Menu */}
