@@ -1,0 +1,226 @@
+<!DOCTYPE html> <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Tree Recursion Visualizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0"></script>
+    <style>
+        :root {
+            --primary: #0b57d0;
+            --surface: #fff;
+            --surface-container: #f0f4f9;
+            --surface-container-high: #e9ebf0;
+            --on-surface: #1b1c1d;
+            --on-surface-variant: #444746;
+            --stroke: #dcdfe5;
+            --success: #146c2e;
+            --warning: #b3261e;
+            --ff-sans: "Google Sans", sans-serif;
+        }
+        body, html { height: 100%; margin: 0; padding: 0; font-family: var(--ff-sans); background: var(--surface); color: var(--on-surface); overflow: hidden; }
+        .app-layout { height: 100%; display: flex; flex-direction: column; }
+        .widget-header { padding: 12px 16px; background: var(--surface); border-bottom: 1px solid var(--stroke); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+        .widget-title { margin: 0; font-size: 18px; font-weight: 500; }
+        
+        .hud-panel { display: flex; gap: 24px; padding: 12px 16px; background: var(--surface-container); border-bottom: 1px solid var(--stroke); flex-shrink: 0; }
+        .hud-item { display: flex; flex-direction: column; }
+        .hud-label { font-size: 11px; color: var(--on-surface-variant); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+        .hud-value { font-size: 15px; font-weight: 600; color: var(--primary); margin-top: 2px; }
+
+        .viz-container { flex-grow: 1; position: relative; overflow: hidden; background: var(--surface); display: flex; justify-content: center; align-items: center; }
+        canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; outline: none; }
+        
+        .controls-root { padding: 16px; background: var(--surface-container-high); border-top: 1px solid var(--stroke); flex-shrink: 0; display: flex; justify-content: center; gap: 12px; }
+        .btn { height: 36px; padding: 0 20px; border-radius: 18px; border: none; font-family: var(--ff-sans); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { filter: brightness(0.9); }
+        .btn-secondary { background: var(--surface); color: var(--on-surface); border: 1px solid var(--stroke); }
+        .btn-secondary:hover { background: var(--surface-container); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <div class="widget-header">
+            <h3 class="widget-title">Maximum Depth (Recursion)</h3>
+        </div>
+        
+        <div class="hud-panel" id="hud">
+            <div class="hud-item"><span class="hud-label">Current Action</span><span class="hud-value" id="hud-action">Ready</span></div>
+            <div class="hud-item"><span class="hud-label">Call Stack Depth</span><span class="hud-value" id="hud-stack">0</span></div>
+        </div>
+        
+        <div class="viz-container" id="viz">
+            <canvas id="sim-canvas"></canvas>
+        </div>
+        
+        <div class="controls-root">
+            <button class="btn btn-secondary" id="btn-reset"><span class="material-icons" style="font-size: 18px;">restart_alt</span> Reset</button>
+            <button class="btn btn-primary" id="btn-step">Step Forward <span class="material-icons" style="font-size: 18px;">arrow_forward</span></button>
+        </div>
+    </div>
+
+    <script>
+        // Tree Structure
+        //       3
+        //      / \
+        //     9  20
+        //       /  \
+        //      15   7
+        const nodes = [
+            { id: 3, x: 0.5, y: 0.2, val: 3, left: 9, right: 20 },
+            { id: 9, x: 0.3, y: 0.45, val: 9, left: null, right: null },
+            { id: 20, x: 0.7, y: 0.45, val: 20, left: 15, right: 7 },
+            { id: 15, x: 0.55, y: 0.7, val: 15, left: null, right: null },
+            { id: 7, x: 0.85, y: 0.7, val: 7, left: null, right: null }
+        ];
+
+        // Hardcoded execution steps for visual clarity
+        const steps = [
+            { activeNode: null, action: "Ready to calculate maxDepth(root)", stack: 0, states: {} },
+            { activeNode: 3, action: "maxDepth(3): What is the depth of my left child?", stack: 1, states: {3: 'computing-left'} },
+            { activeNode: 9, action: "maxDepth(9): What is the depth of my left child?", stack: 2, states: {3: 'computing-left', 9: 'computing-left'} },
+            { activeNode: 9, action: "maxDepth(9): Left is null (0). What is right child?", stack: 2, states: {3: 'computing-left', 9: 'computing-right'} },
+            { activeNode: 9, action: "maxDepth(9): Right is null (0). I return max(0,0) + 1 = 1.", stack: 2, states: {3: 'computing-left', 9: 'done', 9_ret: 1} },
+            { activeNode: 3, action: "maxDepth(3): Left returned 1. What is my right child?", stack: 1, states: {3: 'computing-right', 9: 'done', 9_ret: 1} },
+            { activeNode: 20, action: "maxDepth(20): What is the depth of my left child?", stack: 2, states: {3: 'computing-right', 9: 'done', 9_ret: 1, 20: 'computing-left'} },
+            { activeNode: 15, action: "maxDepth(15): No children. I return max(0,0) + 1 = 1.", stack: 3, states: {3: 'computing-right', 9: 'done', 9_ret: 1, 20: 'computing-left', 15: 'done', 15_ret: 1} },
+            { activeNode: 20, action: "maxDepth(20): Left returned 1. What is my right child?", stack: 2, states: {3: 'computing-right', 9: 'done', 9_ret: 1, 20: 'computing-right', 15: 'done', 15_ret: 1} },
+            { activeNode: 7, action: "maxDepth(7): No children. I return max(0,0) + 1 = 1.", stack: 3, states: {3: 'computing-right', 9: 'done', 9_ret: 1, 20: 'computing-right', 15: 'done', 15_ret: 1, 7: 'done', 7_ret: 1} },
+            { activeNode: 20, action: "maxDepth(20): Left=1, Right=1. I return max(1,1) + 1 = 2.", stack: 2, states: {3: 'computing-right', 9: 'done', 9_ret: 1, 20: 'done', 20_ret: 2, 15: 'done', 15_ret: 1, 7: 'done', 7_ret: 1} },
+            { activeNode: 3, action: "maxDepth(3): Left=1, Right=2. I return max(1,2) + 1 = 3.", stack: 1, states: {3: 'done', 3_ret: 3, 9: 'done', 9_ret: 1, 20: 'done', 20_ret: 2, 15: 'done', 15_ret: 1, 7: 'done', 7_ret: 1} },
+            { activeNode: null, action: "Final Result: Max Depth is 3!", stack: 0, states: {3: 'done', 3_ret: 3, 9: 'done', 9_ret: 1, 20: 'done', 20_ret: 2, 15: 'done', 15_ret: 1, 7: 'done', 7_ret: 1} }
+        ];
+
+        let currentStep = 0;
+
+        const updateHUD = () => {
+            const stepData = steps[currentStep];
+            document.getElementById('hud-action').innerText = stepData.action;
+            document.getElementById('hud-stack').innerText = stepData.stack;
+            document.getElementById('btn-step').disabled = currentStep === steps.length - 1;
+        };
+
+        const canvas = document.getElementById('sim-canvas');
+        const ctx = canvas.getContext('2d');
+
+        const resize = () => {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width * devicePixelRatio;
+            canvas.height = rect.height * devicePixelRatio;
+            ctx.scale(devicePixelRatio, devicePixelRatio);
+            draw();
+        };
+
+        window.addEventListener('resize', resize);
+
+        const draw = () => {
+            const w = canvas.width / devicePixelRatio;
+            const h = canvas.height / devicePixelRatio;
+            ctx.clearRect(0, 0, w, h);
+
+            const stepData = steps[currentStep];
+            const nodeStates = stepData.states;
+
+            // Draw Edges
+            ctx.lineWidth = 2;
+            nodes.forEach(node => {
+                const px = node.x * w;
+                const py = node.y * h;
+                
+                ['left', 'right'].forEach(childKey => {
+                    if (node[childKey]) {
+                        const child = nodes.find(n => n.id === node[childKey]);
+                        const cx = child.x * w;
+                        const cy = child.y * h;
+
+                        ctx.beginPath();
+                        ctx.moveTo(px, py);
+                        ctx.lineTo(cx, cy);
+                        
+                        // Color edge if active direction
+                        if ((childKey === 'left' && nodeStates[node.id] === 'computing-left') ||
+                            (childKey === 'right' && nodeStates[node.id] === 'computing-right')) {
+                            ctx.strokeStyle = '#0b57d0'; // Active blue
+                            ctx.lineWidth = 4;
+                        } else {
+                            ctx.strokeStyle = '#dcdfe5'; // Default gray
+                            ctx.lineWidth = 2;
+                        }
+                        ctx.stroke();
+                    }
+                });
+            });
+
+            // Draw Nodes
+            nodes.forEach(node => {
+                const px = node.x * w;
+                const py = node.y * h;
+                const radius = 22;
+                const state = nodeStates[node.id];
+
+                // Node background
+                ctx.beginPath();
+                ctx.arc(px, py, radius, 0, Math.PI * 2);
+                
+                if (stepData.activeNode === node.id) {
+                    ctx.fillStyle = '#d3e3fd'; // Highlight current
+                    ctx.strokeStyle = '#0b57d0';
+                    ctx.lineWidth = 3;
+                } else if (state === 'done') {
+                    ctx.fillStyle = '#c4eed0'; // Done green
+                    ctx.strokeStyle = '#146c2e';
+                    ctx.lineWidth = 2;
+                } else {
+                    ctx.fillStyle = '#fff';
+                    ctx.strokeStyle = '#80858c';
+                    ctx.lineWidth = 2;
+                }
+                
+                ctx.fill();
+                ctx.stroke();
+
+                // Node Value
+                ctx.fillStyle = '#1b1c1d';
+                ctx.font = 'bold 14px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(node.val, px, py);
+
+                // Draw Return Value Bubble if done
+                if (state === 'done' && nodeStates[`${node.id}_ret`] !== undefined) {
+                    const retVal = nodeStates[`${node.id}_ret`];
+                    ctx.fillStyle = '#146c2e'; // Dark green
+                    ctx.beginPath();
+                    ctx.roundRect(px + 15, py - 30, 24, 20, 4);
+                    ctx.fill();
+                    
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 12px monospace';
+                    ctx.fillText(retVal, px + 27, py - 20);
+                }
+            });
+        };
+
+        document.getElementById('btn-step').onclick = () => {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                updateHUD();
+                draw();
+            }
+        };
+
+        document.getElementById('btn-reset').onclick = () => {
+            currentStep = 0;
+            updateHUD();
+            draw();
+        };
+
+        // Init
+        updateHUD();
+        setTimeout(resize, 100);
+    </script>
+</body>
+</html>

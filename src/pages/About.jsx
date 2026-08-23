@@ -395,35 +395,7 @@ const About = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
-            <div className={`backdrop-blur-md ${glassStyle} p-8 rounded-xl shadow-lg float-slow`}>
-              <h3 className={`font-poppins text-xl font-bold uppercase tracking-widest mb-4 ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>What Stays With <span className="text-brand-accent-blue">Me</span></h3>
-              <p className={`font-montserrat text-md leading-relaxed ${theme === 'light' ? 'text-slate-600' : 'text-slate-300'}`}>
-                Good conversations. Sharp observations. City walks. Photographs. Postcards. Small details. Soft hearts. Stories that know how to stay.
-              </p>
-            </div>
-
-            <div className={`backdrop-blur-md ${glassStyle} p-8 rounded-xl shadow-lg float-fast`}>
-              <h3 className={`font-poppins text-xl font-bold uppercase tracking-widest mb-4 ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>Worlds I <span className="text-brand-accent-blue">Carry</span></h3>
-              <p className={`font-montserrat text-md leading-relaxed ${theme === 'light' ? 'text-slate-600' : 'text-slate-300'}`}>
-                Not a timeline. More like a trail. A few places, feelings, questions, and versions of me that shaped how I see and how I design.
-              </p>
-            </div>
-            
-            <div className={`backdrop-blur-md ${glassStyle} p-8 rounded-xl shadow-lg float-slow`}>
-              <h3 className={`font-poppins text-xl font-bold uppercase tracking-widest mb-4 ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>Little <span className="text-brand-accent-blue">Universes</span></h3>
-              <p className={`font-montserrat text-md leading-relaxed ${theme === 'light' ? 'text-slate-600' : 'text-slate-300'}`}>
-                The tiny worlds that make me, me.
-              </p>
-            </div>
-
-            <div className={`backdrop-blur-md ${glassStyle} p-8 rounded-xl shadow-lg float-fast`}>
-              <h3 className={`font-poppins text-xl font-bold uppercase tracking-widest mb-4 ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>Who am I without that <span className="text-brand-accent-blue">wide smile?</span></h3>
-              <p className={`font-montserrat text-md leading-relaxed ${theme === 'light' ? 'text-slate-600' : 'text-slate-300'}`}>
-                Probably still me. Just with less evidence.
-              </p>
-            </div>
-          </div>
+           
         </section>
       </div>
 
@@ -440,7 +412,7 @@ const About = () => {
             return (
               <React.Fragment key={i}>
                 <div className={`relative ${width} ${marginTop} transform ${rotate} hover:rotate-0 hover:scale-125 hover:z-50 transition-all duration-500 ease-out cursor-none group`}>
-                  <span className="absolute -top-3 -left-3 bg-[#ccff00] text-black font-mono text-[9px] uppercase tracking-widest font-bold px-3 py-2 z-20 shadow-sm max-w-[200px] whitespace-normal text-left leading-tight">
+                  <span className="absolute -bottom-4 -left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#ccff00] text-black font-mono text-[9px] uppercase tracking-widest font-bold px-3 py-2 z-20 shadow-sm max-w-[200px] whitespace-normal text-left leading-tight">
                     {memoryCaptions[i]}
                   </span>
                   <div className="relative overflow-hidden bg-white p-1.5 shadow-[0_15px_40px_rgba(0,0,0,0.3)]">
@@ -452,7 +424,7 @@ const About = () => {
                 {i === 7 && (
                   <div className="relative w-80 md:w-[600px] z-20 mx-8">
                     <h3 className="font-poppins font-black text-4xl md:text-6xl text-white leading-[1.1] uppercase tracking-tighter mix-blend-difference">
-                      "I leave with memories, <br/><span className="text-[#ccff00]">not empty hands.</span>"
+                      "WHO AM I, <br/><span className="text-[#8244F5]">WITHOUT MY WIDE SMILE.</span>"
                     </h3>
                   </div>
                 )}

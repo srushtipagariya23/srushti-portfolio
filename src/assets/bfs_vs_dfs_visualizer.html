@@ -1,0 +1,216 @@
+<!DOCTYPE html> <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFS vs DFS Island Visualizer</title>
+    <style>
+        body, html { height: 100%; margin: 0; padding: 0; font-family: "Google Sans", sans-serif; background: #fff; color: #1b1c1d; overflow: hidden; }
+        .app-layout { height: 100%; display: flex; flex-direction: column; }
+        .widget-header { padding: 12px 16px; background: #fff; border-bottom: 1px solid #dcdfe5; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+        .widget-title { margin: 0; font-size: 18px; font-weight: 500; }
+        .hud-panel { display: flex; gap: 24px; padding: 12px 16px; background: #f0f4f9; border-bottom: 1px solid #dcdfe5; flex-shrink: 0; }
+        .hud-item { display: flex; flex-direction: column; flex-grow: 1; }
+        .hud-label { font-size: 11px; color: #444746; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+        .hud-value { font-size: 15px; font-weight: 600; color: #0b57d0; margin-top: 2px; }
+        
+        .viz-container { flex-grow: 1; display: flex; flex-direction: column; background: #fff; overflow: hidden; position: relative; }
+        
+        .grid-container { flex-grow: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+        .cell { width: 50px; height: 50px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 18px; transition: all 0.3s; }
+        
+        .cell-water { background-color: #d3e3fd; color: #041e49; border: 2px solid #a8c7fa; }
+        .cell-land { background-color: #146c2e; color: #fff; border: 2px solid #0f5223; }
+        .cell-queued { background-color: #f9ab00; color: #fff; border: 2px solid #b37a00; transform: scale(0.95); }
+        .cell-visited { background-color: #444746; color: #fff; border: 2px solid #1b1c1d; transform: scale(0.9); }
+        .cell-active { box-shadow: 0 0 0 4px #0b57d0; z-index: 10; transform: scale(1.1); }
+
+        .memory-panel { height: 100px; background: #e9ebf0; border-top: 1px solid #dcdfe5; padding: 12px; display: flex; flex-direction: column; flex-shrink: 0; }
+        .memory-title { font-size: 12px; font-weight: 600; color: #444746; text-transform: uppercase; margin-bottom: 8px; }
+        .memory-track { display: flex; gap: 8px; overflow-x: auto; flex-grow: 1; align-items: center; }
+        .memory-item { background: #fff; border: 2px solid #80858c; padding: 4px 12px; border-radius: 16px; font-family: monospace; font-weight: bold; font-size: 14px; animation: popIn 0.2s ease-out; }
+        
+        .controls-root { padding: 16px; background: #f0f4f9; border-top: 1px solid #dcdfe5; flex-shrink: 0; display: flex; justify-content: center; gap: 12px; align-items: center;}
+        .btn { height: 36px; padding: 0 20px; border-radius: 18px; border: none; font-family: "Google Sans", sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .btn-primary { background: #0b57d0; color: #fff; }
+        .btn-primary:hover { filter: brightness(0.9); }
+        .btn-secondary { background: #fff; color: #1b1c1d; border: 1px solid #dcdfe5; }
+        .btn-secondary:hover { background: #e9ebf0; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        select { height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #dcdfe5; font-family: "Google Sans"; font-size: 14px; font-weight: 500; outline: none;}
+
+        @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <div class="widget-header">
+            <h3 class="widget-title">Island Traversal (BFS vs DFS)</h3>
+        </div>
+        
+        <div class="hud-panel" id="hud">
+            <div class="hud-item"><span class="hud-label">Island Size</span><span class="hud-value" id="hud-size">0</span></div>
+            <div class="hud-item"><span class="hud-label">Action</span><span class="hud-value" id="hud-action">Ready</span></div>
+        </div>
+        
+        <div class="viz-container">
+            <div class="grid-container">
+                <div class="grid" id="grid"></div>
+            </div>
+            <div class="memory-panel">
+                <div class="memory-title" id="memory-title">Collection Memory (Empty)</div>
+                <div class="memory-track" id="memory-track"></div>
+            </div>
+        </div>
+        
+        <div class="controls-root">
+            <select id="mode-select">
+                <option value="bfs">BFS (Queue / Level-by-Level)</option>
+                <option value="dfs">DFS (Stack / Deep-Dive)</option>
+            </select>
+            <button class="btn btn-secondary" id="btn-reset">Reset</button>
+            <button class="btn btn-primary" id="btn-step">Step Forward</button>
+        </div>
+    </div>
+
+    <script>
+        const INITIAL_GRID = [
+            [0, 1, 1, 0, 0],
+            [0, 1, 0, 0, 0],
+            [0, 1, 1, 1, 0],
+            [0, 0, 0, 1, 0],
+            [0, 0, 0, 1, 1]
+        ];
+
+        let gridState = [];
+        let collection = []; // Will act as Queue (BFS) or Stack (DFS)
+        let islandSize = 0;
+        let isFinished = false;
+        let activeCell = null;
+
+        const gridEl = document.getElementById('grid');
+        const trackEl = document.getElementById('memory-track');
+        const modeSelect = document.getElementById('mode-select');
+
+        const initGrid = () => {
+            gridEl.innerHTML = '';
+            gridState = INITIAL_GRID.map(row => row.slice());
+            
+            for (let r = 0; r < 5; r++) {
+                for (let c = 0; c < 5; c++) {
+                    const cell = document.createElement('div');
+                    cell.id = `cell-${r}-${c}`;
+                    cell.className = `cell ${gridState[r][c] === 1 ? 'cell-land' : 'cell-water'}`;
+                    cell.innerText = gridState[r][c];
+                    gridEl.appendChild(cell);
+                }
+            }
+        };
+
+        const updateCellUI = (r, c, type) => {
+            const cell = document.getElementById(`cell-${r}-${c}`);
+            cell.className = `cell cell-${type}`;
+            if (type === 'active') cell.classList.add('cell-active');
+        };
+
+        const updateHUD = (actionText) => {
+            document.getElementById('hud-size').innerText = islandSize;
+            document.getElementById('hud-action').innerText = actionText;
+            
+            const mode = modeSelect.value;
+            document.getElementById('memory-title').innerText = `${mode === 'bfs' ? 'Queue (FIFO)' : 'Stack (LIFO)'} - Size: ${collection.length}`;
+            
+            trackEl.innerHTML = '';
+            // Display memory left-to-right. 
+            // For Queue: front is left, back is right.
+            // For Stack: bottom is left, top is right.
+            collection.forEach(coord => {
+                const div = document.createElement('div');
+                div.className = 'memory-item';
+                div.innerText = `(${coord[0]},${coord[1]})`;
+                trackEl.appendChild(div);
+            });
+
+            document.getElementById('btn-step').disabled = isFinished;
+        };
+
+        const resetSim = () => {
+            initGrid();
+            collection = [[0, 1]]; // Start at the first '1'
+            islandSize = 0;
+            isFinished = false;
+            activeCell = null;
+            
+            // Mark start as queued
+            updateCellUI(0, 1, 'queued');
+            gridState[0][1] = 2; // 2 means queued/visited
+            
+            updateHUD("Landed on (0,1). Added to collection.");
+        };
+
+        const stepSim = () => {
+            if (isFinished) return;
+
+            // Clear previous active highlight
+            if (activeCell) {
+                updateCellUI(activeCell[0], activeCell[1], 'visited');
+            }
+
+            if (collection.length === 0) {
+                isFinished = true;
+                updateHUD("Collection empty! Island fully mapped.");
+                return;
+            }
+
+            const mode = modeSelect.value;
+            let current;
+            
+            // THE CORE DIFFERENCE
+            if (mode === 'bfs') {
+                current = collection.shift(); // Queue: Remove from FRONT
+            } else {
+                current = collection.pop();   // Stack: Remove from BACK (Top)
+            }
+
+            const [r, c] = current;
+            activeCell = current;
+            islandSize++;
+            updateCellUI(r, c, 'active');
+
+            // Find valid neighbors (Up, Right, Down, Left)
+            const directions = [[-1, 0], [0, 1], [1, 0], [0, -1]];
+            let addedCount = 0;
+
+            for (let [dr, dc] of directions) {
+                const nr = r + dr;
+                const nc = c + dc;
+
+                // If neighbor is within bounds and is untouched land
+                if (nr >= 0 && nr < 5 && nc >= 0 && nc < 5 && gridState[nr][nc] === 1) {
+                    collection.push([nr, nc]);
+                    gridState[nr][nc] = 2; // Mark as queued immediately to avoid duplicates
+                    updateCellUI(nr, nc, 'queued');
+                    addedCount++;
+                }
+            }
+
+            let actionTxt = `Processed (${r},${c}). `;
+            if (addedCount > 0) {
+                actionTxt += `Found ${addedCount} unvisited neighbors.`;
+            } else {
+                actionTxt += `Dead end.`;
+            }
+
+            updateHUD(actionTxt);
+        };
+
+        document.getElementById('btn-reset').onclick = resetSim;
+        document.getElementById('btn-step').onclick = stepSim;
+        modeSelect.onchange = resetSim;
+
+        // Boot
+        resetSim();
+    </script>
+</body>
+</html>
