@@ -7,6 +7,7 @@ import profilePhoto from '../assets/srushti.png';
 import inforensCover from '../assets/inforens-cover.png';
 import widowsCover from '../assets/widows-cover.png';
 import sweetLiesCover from '../assets/sweet-lies-cover.png';
+//import boredDirectorsCover from '../assets/bored-directors-cover.png'; // Make sure you add this image to your assets!
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -131,7 +132,8 @@ const Home = () => {
   const projects = [
     { id: "inforens", tag: "UX Strategy", title: "Inforens", desc: "Helping a student platform feel as trustworthy as the service behind it.", image: inforensCover },
     { id: "scottish-widows", tag: "Financial Wellbeing", title: "Scottish Widows x GSA", desc: "Designing income protection for people whose lives do not fit a fixed salary.", image: widowsCover },
-    { id: "sweet-lies", tag: "Inclusive Education", title: "Sweet Lies & Bitter Truth", desc: "Using one biscuit to open up a much bigger story about empire, labour, and identity.", image: sweetLiesCover }
+    { id: "sweet-lies", tag: "Inclusive Education", title: "Sweet Lies & Bitter Truth", desc: "Using one biscuit to open up a much bigger story about empire, labour, and identity.", image: sweetLiesCover },
+    { id: "bored-directors", tag: "Education / Research", title: "Bored Directors", desc: "Designing for the phone-free time that remains when the screen is put away.", image: null }
   ];
 
   return (
@@ -254,12 +256,18 @@ const Home = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {projects.map((project, idx) => (
               <Link to={`/case-study/${project.id}`} key={idx} className="scroll-anim group flex flex-col h-full bg-white rounded-2xl border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_25px_60px_rgba(124,58,237,0.08)] hover:-translate-y-2 transition-all duration-500 overflow-hidden cursor-none">
-                <div className="h-64 bg-slate-50 relative overflow-hidden">
+                <div className="h-64 bg-slate-50 relative overflow-hidden flex items-center justify-center">
                   <div className="absolute inset-0 bg-brand-blue/5 group-hover:bg-transparent z-10 transition-colors duration-500"></div>
-                  <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]" />
+                  {project.image ? (
+                    <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]" />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center text-slate-400 font-mono text-[10px] tracking-widest bg-slate-200/50">
+                      [ Visual ]
+                    </div>
+                  )}
                   <div className="absolute top-4 left-4 z-20">
                     <span className="px-3 py-1.5 bg-white/90 backdrop-blur-md text-brand-blue text-[9px] font-mono uppercase tracking-widest font-bold rounded-sm shadow-sm">
                       {project.tag}

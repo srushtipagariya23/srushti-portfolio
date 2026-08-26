@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import inforensCover from '../assets/inforens-cover.png'; 
 import widowsCover from '../assets/widows-cover.png';
 import sweetLiesCover from '../assets/sweet-lies-cover.png';
+// import boredDirectorsCover from '../assets/bored-directors-cover.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,7 +40,7 @@ const Work = () => {
     return () => ctx.revert();
   }, []);
 
-  // SRUSHTI'S EXACT PROJECT DATA - REORDERED
+  // SRUSHTI'S EXACT PROJECT DATA - REORDERED & UPDATED
   const projects = [
     {
       id: "scottish-widows",
@@ -82,6 +83,20 @@ const Work = () => {
       ],
       image: inforensCover,
       placeholder: "[ Inforens Visual ]"
+    },
+    {
+      id: "bored-directors",
+      tag: "Service Design / Education",
+      title: "Bored Directors",
+      headline: "Designing for the phone-free time that remains when the screen is put away.",
+      body: "An independent Masters research project investigating the gap left by school phone restrictions, resulting in a physical instructional card system that offers voluntary prompts for noticing, making, and thinking differently.",
+      inside: [
+        "Primary research and co-design with stakeholders.",
+        "A physical instructional card system with six entry points.",
+        "A service model built around choice, recognition and reuse."
+      ],
+      image: null, // Since you may not have the image yet, setting to null prevents build crash!
+      placeholder: "[ Bored Directors Visual ]"
     }
   ];
 
