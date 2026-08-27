@@ -57,18 +57,18 @@ const Work = () => {
       placeholder: "[ Scottish Widows Visual ]"
     },
     {
-      id: "sweet-lies",
-      tag: "Inclusive Education / Editorial Design",
-      title: "Sweet Lies and Bitter Truth",
-      headline: "Using one biscuit to open up a much bigger story about empire, labour, and identity.",
-      body: "An eight-page educational newspaper designed for 13–16 year olds, turning difficult colonial histories into a learning experience that is honest, structured, and respectful.",
+      id: "bored-directors",
+      tag: "Service Design / Education",
+      title: "Bored Directors",
+      headline: "Designing for the phone-free time that remains when the screen is put away.",
+      body: "An independent Masters research project investigating the gap left by school phone restrictions, resulting in a physical instructional card system that offers voluntary prompts for noticing, making, and thinking differently.",
       inside: [
-        "A story-led editorial format for classroom learning.",
-        "A process shaped by accessibility and stakeholder insight.",
-        "A final outcome that values clarity over spectacle."
+        "Primary research and co-design with stakeholders.",
+        "A physical instructional card system with six entry points.",
+        "A service model built around choice, recognition and reuse."
       ],
-      image: sweetLiesCover,
-      placeholder: "[ Sweet Lies Visual ]"
+      image: null, // Since you may not have the image yet, setting to null prevents build crash!
+      placeholder: "[ Bored Directors Visual ]"
     },
     {
       id: "inforens",
@@ -85,18 +85,18 @@ const Work = () => {
       placeholder: "[ Inforens Visual ]"
     },
     {
-      id: "bored-directors",
-      tag: "Service Design / Education",
-      title: "Bored Directors",
-      headline: "Designing for the phone-free time that remains when the screen is put away.",
-      body: "An independent Masters research project investigating the gap left by school phone restrictions, resulting in a physical instructional card system that offers voluntary prompts for noticing, making, and thinking differently.",
+      id: "sweet-lies",
+      tag: "Inclusive Education / Editorial Design",
+      title: "Sweet Lies and Bitter Truth",
+      headline: "Using one biscuit to open up a much bigger story about empire, labour, and identity.",
+      body: "An eight-page educational newspaper designed for 13–16 year olds, turning difficult colonial histories into a learning experience that is honest, structured, and respectful.",
       inside: [
-        "Primary research and co-design with stakeholders.",
-        "A physical instructional card system with six entry points.",
-        "A service model built around choice, recognition and reuse."
+        "A story-led editorial format for classroom learning.",
+        "A process shaped by accessibility and stakeholder insight.",
+        "A final outcome that values clarity over spectacle."
       ],
-      image: null, // Since you may not have the image yet, setting to null prevents build crash!
-      placeholder: "[ Bored Directors Visual ]"
+      image: sweetLiesCover,
+      placeholder: "[ Sweet Lies Visual ]"
     }
   ];
 
@@ -130,7 +130,7 @@ const Work = () => {
             <div key={project.id} className="project-row group flex flex-col md:flex-row gap-12 md:gap-20 items-center cursor-none">
               
               {/* IMAGE SECTION (Alternates left/right based on odd/even index) */}
-              <div className={`project-image-container w-full md:w-1/2 aspect-[4/5] md:aspect-square relative overflow-hidden rounded-sm bg-slate-100 flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.05)] group-hover:shadow-[0_30px_60px_rgba(124,58,237,0.15)] transition-shadow duration-700 ${index % 2 !== 0 ? 'md:order-2' : ''}`}>
+              <Link to={`/case-study/${project.id}`} className={`project-image-container block cursor-none w-full md:w-1/2 aspect-[4/5] md:aspect-square relative overflow-hidden rounded-sm bg-slate-100 flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.05)] group-hover:shadow-[0_30px_60px_rgba(124,58,237,0.15)] transition-shadow duration-700 ${index % 2 !== 0 ? 'md:order-2' : ''}`}>
                 
                 {/* Hover Glow */}
                 <div className="absolute inset-0 bg-brand-accent-blue/0 group-hover:bg-brand-accent-blue/10 transition-colors duration-700 z-10 pointer-events-none mix-blend-multiply"></div>
@@ -160,7 +160,7 @@ const Work = () => {
                     View Project <svg className="w-4 h-4 transform -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                   </div>
                 </div>
-              </div>
+              </Link>
 
               {/* TEXT SECTION */}
               <div className="project-text w-full md:w-1/2 flex flex-col justify-center">

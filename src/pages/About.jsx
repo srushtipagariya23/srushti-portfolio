@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-import profilePhoto from '../assets/Srushti-Profile.png';
-
+import profilePhoto from "../assets/Srushti-Profile.png";
 // ALL 15 MEMORY PHOTOS
 import mem1 from '../assets/mem-1.jpg';
 import mem2 from '../assets/mem-2.jpg';
