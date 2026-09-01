@@ -27,11 +27,12 @@ import scottish5 from '../assets/scottish-5.png';
 import scottish6 from '../assets/scottish-6.png';
 import scottish7 from '../assets/scottish-7.mp4';
 
-import bored1 from '../assets/bored-1.png';
-import bored2 from '../assets/bored-2-1.png';
-import bored3 from '../assets/bored-2-2.png';
-import bored4 from '../assets/bored-3.png';
-import bored5 from '../assets/bored-4.png';
+import bored1 from  '../assets/bored-cover.png';
+import bored2 from  '../assets/bored-1.png';
+import bored3 from '../assets/bored-2-1.png';
+import bored4 from '../assets/bored-2-2.png';
+import bored5 from '../assets/bored-3.png';
+import bored6 from '../assets/bored-4.png';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -243,8 +244,7 @@ const projectData = {
     ],
     image1: { src: bored1, caption: "The research question narrowed through evidence, stakeholder feedback and testing." },
     brief: "The project began with a broad question about boredom and creativity in Scottish secondary schools. It quickly became clear that the more urgent question sat inside a live policy moment: phones were being restricted, but no one had designed for the time left behind. The brief was not about whether phones are good or bad. It was about what comes after restriction. What fills the time. Who takes responsibility for it. And what conditions might help something creative, reflective or self-directed emerge. I began with the question: How is boredom linked to creativity in Scottish secondary schools? I finished with: What conditions could support creative and critical thinking in phone-free unstructured time for young people aged 14–16? Each shift was forced by research and feedback, not intuition.",
-    image2: { type: 'split', 
-    srcs: [bored2, bored3], caption: "The research question narrowed through evidence, stakeholder feedback and testing." },
+    image2: { src: bored2, caption: "The research question narrowed through evidence, stakeholder feedback and testing." },
     approach: "I used the Double Diamond to separate problem framing from problem solving. The first phase focused on understanding the gap between phone restriction and the experience of young people inside that policy. The second phase translated the research into possible design directions. I used three main approaches: Affinity clustering to identify repeated patterns across eight stakeholder interviews. Co-design to explore emerging ideas through a shared session with Daydream Believers. Precedent-led design to test ideas against creative practices such as Brian Eno’s Oblique Strategies, Yoko Ono’s Grapefruit and Bruno Munari’s approach to curiosity and making. The final deck did not begin as a predetermined answer. It developed from the evidence.",
     approachBullets: [
       "Affinity clustering to identify repeated patterns across eight stakeholder interviews.",
@@ -258,8 +258,8 @@ const projectData = {
       "Restriction is not restoration. Phone-free time is an unfamiliar experience that needs to be entered, not imposed.",
       "The gap is systemic. No single person currently owns the transition from phone access to phone-free time."
     ],
-    image3: { src: bored3 , caption: "The research moved from literature, to people, to systems, to a physical prototype." },
-    image4: { src: bored4 , caption: "Every design decision traces back to a research finding." },
+    image3: { type: 'split', srcs: [bored3, bored4] , caption: "The research moved from literature, to people, to systems, to a physical prototype." },
+    image4: { src: bored5 , caption: "Every design decision traces back to a research finding." },
     output: "Bored Directors is a physical instructional card system for young people aged 14–16. The deck creates small, voluntary invitations into phone-free unstructured time. It does not tell young people to be creative, productive or sociable. Instead, it gives them different ways to begin: noticing, making, imagining, communicating, pausing or defining an open problem. There are no correct answers, scores or required outcomes. A card can be picked up, adapted, ignored, passed on or used in a completely unexpected way. The name positions young people as directors of their own unstructured time. The tone is slightly formal, deadpan and speculative, as if the organisation issuing the cards is real. Each department translates a research insight into a different entry point: Observation, Misdirection, Communication, Making, Stillness, and De-Brief.",
     outputBullets: [
       "Voluntary entry into phone-free time",
@@ -268,7 +268,22 @@ const projectData = {
       "No marking, collection or homework",
       "Reusable across future sessions",
       "Designed to fit existing school spaces"
-    ] 
+    ],
+    image5: { src: bored6, caption: "Thirty cards. Six departments. No correct answers." },
+    outcome: "Bored Directors is not a solution to phone dependence. It is a testable invitation into the space that remains when phone access is restricted. The project demonstrates that the gap between restriction and replacement can be designed for without turning unstructured time into another lesson. It offers a reusable system that makes room for choice, attention, reflection, making and conversation. The next phase is testing the deck with young people in an appropriate educational context. The question is not simply whether they enjoy the cards. It is what they choose to do in the first moments of phone-free unstructured time.",
+    outcomeBullets: [
+      "Young person: A voluntary, low-pressure entry point into unstructured time.",
+      "School: A reusable resource requiring little setup and no specialist training.",
+      "Service system: A structured moment of choice, recognition and reuse.",
+      "Wider context: A prototype response to the gap between phone restriction and meaningful replacement."
+    ],
+    reflections: "This project taught me that narrowing is not a loss of ambition. Each time the question became more specific, the design became more honest and more useful. It also showed me that better questions produce better design. Asking what young people do in the first moments of genuinely unstructured time revealed more than asking whether phones are good or bad. Finally, I learned that constraints can sharpen a project. The absence of direct youth research made the limits of adult assumptions visible. The next phase is not to claim certainty, but to test whether a tool designed by adults can feel genuinely chosen by a young person.",
+    reflectionCards: [
+      "Scoping is not retreat. Narrowing makes a question answerable.",
+      "Better questions create more useful insight than more general research.",
+      "Constraints can produce more precise design decisions.",
+      "Naming what is unknown is part of responsible design practice."
+    ]
   }
 };
 
