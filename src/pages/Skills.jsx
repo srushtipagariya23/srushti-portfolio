@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Capabilities = () => {
+const Skills = () => {
   const containerRef = useRef(null);
   const [cursorText, setCursorText] = useState('');
   const [cursorVariant, setCursorVariant] = useState('default');
@@ -63,35 +63,35 @@ const Capabilities = () => {
     return () => ctx.revert();
   }, []);
 
-  // EXACT CAPABILITY DATA FROM YOUR SCREENSHOTS
+  // EXACT CAPABILITY DATA UPDATED WITH YOUR SKILLS
   const skillCategories = [
     { 
       id: "MOD-01",
       title: "Service Design", 
       spec: "SPEC: JOURNEYS & ECOSYSTEMS",
       description: "Mapping complex systems and uncovering opportunities to shape end-to-end service experiences that feel intuitive, accessible, and deeply human-centred.",
-      items: ["Journey Mapping", "Service Blueprinting", "Co-design", "Systems Thinking", "Rapid Prototyping"] 
+      items: ["Journey Mapping", "Service Blueprinting", "Co-design", "Rapid Prototyping", "Inclusive Services"] 
     },
     { 
       id: "MOD-02",
       title: "Research & Insight", 
       spec: "SPEC: DISCOVERY & SYNTHESIS",
       description: "Uncovering hidden needs through mixed-methods research, careful listening, and translating complex qualitative data into clear, actionable design directions.",
-      items: ["Mixed-Methods", "Qualitative Interviews", "Surveys", "Insight Synthesis", "Problem Framing"] 
+      items: ["Audience Research", "Qualitative Interviews", "Surveys", "Insight Synthesis", "Problem Framing"] 
     },
     { 
       id: "MOD-03",
       title: "Strategy & Storytelling", 
       spec: "SPEC: NARRATIVE & POSITIONING",
       description: "Translating insights into compelling narratives that align business goals with user trust, ensuring every touchpoint communicates clear value and purpose.",
-      items: ["Narrative Design", "Content Strategy", "Brand Thinking", "Workshop Facilitation"] 
+      items: ["Narrative Design", "Content Strategy", "Business Objectives", "Communication Strategy"] 
     },
     { 
       id: "MOD-04",
       title: "Design & Visuals", 
       spec: "SPEC: PROTOTYPING & PRODUCTION",
       description: "Bringing concepts to life through rapid prototyping, high-fidelity visual design, and editorial layouts that prioritize clarity and user engagement.",
-      items: ["Figma", "Miro", "Editorial Layout", "Visual Storytelling", "Adobe Creative Suite"] 
+      items: ["Figma & Miro", "Editorial Layout", "Visual Storytelling", "Creative Direction"] 
     }
   ];
 
@@ -134,18 +134,17 @@ const Capabilities = () => {
         <section className="min-h-[70vh] flex flex-col justify-center pb-20">
           <div className="hero-fade mb-6">
             <span className="px-4 py-1.5 bg-white border border-slate-200 text-slate-500 text-[10px] font-mono uppercase tracking-[0.25em] font-bold rounded-full shadow-sm">
-              Srushti Creative Studio
+              The Evolution
             </span>
           </div>
 
-          <h1 className="char-reveal font-poppins text-5xl md:text-7xl lg:text-[4.5rem] font-black tracking-tighter text-slate-900 leading-[1.05] mb-8 max-w-5xl">
-            <div className="overflow-hidden pb-2"><span className="block origin-bottom-left">I design services through</span></div>
-            <div className="overflow-hidden pb-2"><span className="block origin-bottom-left text-brand-accent-blue">research, storytelling,</span></div>
-            <div className="overflow-hidden pb-2"><span className="block origin-bottom-left">systems thinking & strategy.</span></div>
+          <h1 className="char-reveal font-poppins text-5xl md:text-7xl lg:text-[4.5rem] font-black tracking-tighter text-slate-900 leading-[1.05] mb-8 max-w-5xl uppercase">
+            <div className="overflow-hidden pb-2"><span className="block origin-bottom-left">From the message</span></div>
+            <div className="overflow-hidden pb-2"><span className="block origin-bottom-left text-brand-accent-blue">to the moment.</span></div>
           </h1>
 
           <p className="hero-fade font-montserrat text-lg md:text-xl text-slate-600 font-light leading-relaxed max-w-2xl">
-            My practice is about understanding people deeply, making sense of complexity, and shaping experiences that feel thoughtful, useful, and human.
+            My practice bridges creative communication and service design—moving from studying how people receive messages to designing the systems, journeys, and services that shape their everyday choices.
           </p>
         </section>
 
@@ -153,7 +152,7 @@ const Capabilities = () => {
        <section className="py-16 md:py-20 scroll-up relative flex flex-col items-center border-y border-slate-200/50">
           <div className="text-center mb-10 md:mb-12">
             <h2 className="font-poppins text-3xl md:text-4xl font-bold tracking-tight mb-4">The Innovation Ecosystem</h2>
-            <p className="text-slate-500 max-w-lg mx-auto">An interconnected approach where research, design, and technology orbit a single core philosophy.</p>
+            <p className="text-slate-500 max-w-lg mx-auto">An interconnected approach where research, design, and storytelling orbit a single core philosophy.</p>
           </div>
           <div className="relative w-[280px] h-[280px] md:w-[450px] md:h-[450px] flex items-center justify-center my-10">
             
@@ -194,8 +193,14 @@ const Capabilities = () => {
           </div>
         </section>
 
-       {/* --- SECTION 3: EXACT "MOD" CAPABILITIES CARDS FROM SCREENSHOTS --- */}
+       {/* --- SECTION 3: EXACT "MOD" CAPABILITIES CARDS --- */}
        <section className="pt-16 pb-32">
+          <div className="scroll-up text-center mb-16 max-w-3xl mx-auto">
+            <p className="font-montserrat text-lg text-slate-600 font-medium">
+              That combination is a genuine advantage, not a detour. My advertising foundation gave me experience in audience research and communication strategy, while service design extends that into mapping, co-design, and inclusive service experiences.
+            </p>
+          </div>
+
           <div className="scroll-up grid grid-cols-1 md:grid-cols-2 gap-10">
             {skillCategories.map((category, idx) => (
               <div 
@@ -248,11 +253,11 @@ const Capabilities = () => {
           </div>
         </section>
 
-        {/* --- SECTION 4: THE PROCESS TIMELINE --- */}
+        {/* --- SECTION 4: THE EVOLUTION TIMELINE --- */}
         <section className="py-32 scroll-up bg-white rounded-3xl border border-slate-200 p-8 md:p-20 shadow-[0_20px_60px_rgba(0,0,0,0.02)] my-20">
           <div className="text-center mb-24">
-            <h2 className="font-poppins text-3xl md:text-5xl font-black tracking-tight mb-6 text-brand-blue">How We Create.</h2>
-            <p className="text-slate-500 max-w-xl mx-auto font-montserrat">A meticulous, highly collaborative process designed to eliminate guesswork and deliver extraordinary outcomes.</p>
+            <h2 className="font-poppins text-3xl md:text-5xl font-black tracking-tight mb-6 text-brand-blue">How My Practice Evolved.</h2>
+            <p className="text-slate-500 max-w-xl mx-auto font-montserrat">From understanding what people notice, to designing the ecosystems they move through.</p>
           </div>
 
           <div className="process-container relative max-w-4xl mx-auto">
@@ -262,10 +267,10 @@ const Capabilities = () => {
             <div className="process-line-fill absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-full bg-brand-accent-blue"></div>
 
             {[
-              { step: '01', title: 'Discovery & Research', desc: 'Deep diving into your brand, market, and user needs to establish a rock-solid strategic foundation.' },
-              { step: '02', title: 'Strategic Blueprinting', desc: 'Mapping user journeys, defining architecture, and establishing the core narrative direction.' },
-              { step: '03', title: 'Design & Prototyping', desc: 'Crafting high-fidelity interfaces and interactive prototypes that bring the strategy to visual life.' },
-              { step: '04', title: 'Refinement & Delivery', desc: 'Rigorous testing, aesthetic polishing, and seamless handover of a premium digital ecosystem.' }
+              { step: '01', title: 'The Foundation', desc: 'I started in advertising, learning how people notice, interpret, question, and choose in crowded environments. I learned that a message only works when it meets someone where they already are.' },
+              { step: '02', title: 'The Shift', desc: 'Service design took that instinct further. Instead of only asking how to communicate an idea, I now ask what happens before, during, and after someone encounters a service.' },
+              { step: '03', title: 'The Synthesis', desc: 'My background helps me listen for the real question behind the words, connect human needs with business intent, and turn complex ideas into experiences people can understand and use.' },
+              { step: '04', title: 'The Ethos', desc: 'I moved from studying how people receive messages to designing the systems, journeys, and services that shape their everyday choices. The same curiosity. A wider responsibility.' }
             ].map((phase, i) => (
               <div key={i} className={`process-node relative flex items-center justify-between w-full mb-20 ${i % 2 === 0 ? 'flex-row-reverse' : ''}`}>
                 
@@ -286,19 +291,22 @@ const Capabilities = () => {
           </div>
         </section>
 
-        {/* --- SECTION 5: POWERFUL CTA --- */}
+        {/* --- SECTION 5: CREATIVE BEHANCE CTA --- */}
         <section className="py-40 scroll-up flex flex-col items-center text-center">
-          <h2 className="font-poppins text-5xl md:text-7xl font-black tracking-tighter text-slate-900 mb-10 max-w-4xl leading-[1.1]">
-            Let's Build Something <span className="text-brand-accent-blue">Extraordinary</span> Together.
+          <h2 className="font-poppins text-5xl md:text-7xl font-black tracking-tighter text-slate-900 mb-6 max-w-4xl leading-[1.1]">
+            Curious where the <br/> <span className="text-brand-accent-blue">visual storytelling</span> started?
           </h2>
+          <p className="font-montserrat text-lg md:text-xl text-slate-500 font-medium mb-12 max-w-2xl leading-relaxed">
+            Before mapping systems, I was designing the visuals. Explore my earlier archive of graphic design, advertising, and creative direction.
+          </p>
           
           <a 
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=srushtisachinpagariya@gmail.com" 
+              href="https://www.behance.net/srushtipagariya1" 
               target="_blank" 
               rel="noreferrer" 
               className="inline-flex items-center gap-3 bg-brand-blue text-white font-mono text-xs font-bold uppercase tracking-widest px-8 py-4 rounded-full shadow-[0_10px_30px_rgba(10,25,47,0.1)] hover:shadow-[0_15px_40px_rgba(124,58,237,0.3)] hover:bg-brand-accent-blue hover:-translate-y-1 transition-all duration-300 cursor-none group"
             >
-              Start a Project
+              Explore Behance
               <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </a>
         </section>
@@ -308,4 +316,4 @@ const Capabilities = () => {
   );
 };
 
-export default Capabilities;
+export default Skills;

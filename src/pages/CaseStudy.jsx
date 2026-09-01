@@ -326,9 +326,11 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
   return (
     <div className="scroll-fade my-16 w-full flex flex-col group cursor-none">
       
-      <div className="relative w-full bg-[#F7F7F4] rounded-2xl border border-slate-200 shadow-inner overflow-hidden flex items-center justify-center p-4 md:p-8 transition-colors hover:bg-[#f1f1eb]">
+      {/* Shrunk the outer gray background box */}
+      <div className="relative w-full max-w-4xl mx-auto bg-[#F7F7F4] rounded-2xl border border-slate-200 shadow-inner overflow-hidden flex items-center justify-center p-8 md:p-12 transition-colors hover:bg-[#f1f1eb]">
         
-        <div className="relative w-full max-w-6xl aspect-[1.4/1] flex shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.25)] rounded-sm bg-white">
+        {/* Capped the max-height to 450px so it never gets too tall on large screens */}
+        <div className="relative w-full max-w-3xl h-[300px] md:h-[450px] mx-auto flex shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.25)] rounded-sm bg-white">
           
           {spreadIndex === 0 ? (
             /* FIX 2: PAGE 1 IS NOW PERFECTLY CENTERED */
@@ -341,7 +343,7 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
                   src={srcs[0]} 
                   alt="Cover Page" 
                   onLoad={() => ScrollTrigger.refresh()}
-                  className="h-[95%] w-auto max-w-full object-contain drop-shadow-2xl" 
+                  className="h-[85%] w-auto max-w-full object-contain drop-shadow-2xl" 
                   style={{ imageRendering: '-webkit-optimize-contrast' }} 
                 />
               )}
@@ -456,9 +458,11 @@ const CarouselViewer = ({ srcs, caption, microcopy }) => {
 
   return (
     <div className="scroll-fade my-16 w-full flex flex-col group cursor-none">
-      <div className="relative w-full bg-[#F7F7F4] rounded-2xl border border-slate-200 shadow-inner overflow-hidden flex items-center justify-center p-4 md:p-8 transition-colors hover:bg-[#f1f1eb]">
+      {/* Shrunk the outer gray background box */}
+      <div className="relative w-full max-w-4xl mx-auto bg-[#F7F7F4] rounded-2xl border border-slate-200 shadow-inner overflow-hidden flex items-center justify-center p-8 md:p-12 transition-colors hover:bg-[#f1f1eb]">
         
-        <div className="relative w-full max-w-3xl aspect-[4/5] md:aspect-square flex justify-center shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.25)] rounded-xl bg-white">
+        {/* Locked the inner white box to a realistic playing card size */}
+        <div className="relative w-full max-w-[280px] md:max-w-[360px] h-[380px] md:h-[480px] flex justify-center shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.25)] rounded-xl bg-white">
           
           {/* Clickable Zones */}
           <div onClick={goPrev} className="absolute inset-y-0 left-0 w-1/2 z-20 cursor-pointer"></div>
