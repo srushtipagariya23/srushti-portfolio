@@ -7,6 +7,7 @@ import profilePhoto from '../assets/srushti.png';
 import inforensCover from '../assets/inforens-cover.png';
 import widowsCover from '../assets/widows-cover.png';
 import sweetLiesCover from '../assets/sweet-lies-cover.png';
+import boredDirectorsCover from '../assets/bored-cover.png';
 //import boredDirectorsCover from '../assets/bored-directors-cover.png'; // Make sure you add this image to your assets!
 
 gsap.registerPlugin(ScrollTrigger);
@@ -133,7 +134,7 @@ const Home = () => {
     { id: "inforens", tag: "UX Strategy", title: "Inforens", desc: "Helping a student platform feel as trustworthy as the service behind it.", image: inforensCover },
     { id: "scottish-widows", tag: "Financial Wellbeing", title: "Scottish Widows x GSA", desc: "Designing income protection for people whose lives do not fit a fixed salary.", image: widowsCover },
     { id: "sweet-lies", tag: "Inclusive Education", title: "Sweet Lies & Bitter Truth", desc: "Using one biscuit to open up a much bigger story about empire, labour, and identity.", image: sweetLiesCover },
-    { id: "bored-directors", tag: "Education / Research", title: "Bored Directors", desc: "Designing for the phone-free time that remains when the screen is put away.", image: null }
+    { id: "bored-directors", tag: "Education / Research", title: "Bored Directors", desc: "Designing for the phone-free time that remains when the screen is put away.", image: boredDirectorsCover }
   ];
 
   return (

@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import inforensCover from '../assets/inforens-cover.png'; 
 import widowsCover from '../assets/widows-cover.png';
 import sweetLiesCover from '../assets/sweet-lies-cover.png';
+import boredDirectorsCover from '../assets/bored-cover.png';
 // import boredDirectorsCover from '../assets/bored-directors-cover.png';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -67,7 +68,7 @@ const Work = () => {
         "A physical instructional card system with six entry points.",
         "A service model built around choice, recognition and reuse."
       ],
-      image: null, // Since you may not have the image yet, setting to null prevents build crash!
+      image: boredDirectorsCover, // Since you may not have the image yet, setting to null prevents build crash!
       placeholder: "[ Bored Directors Visual ]"
     },
     {

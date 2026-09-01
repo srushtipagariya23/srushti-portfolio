@@ -27,6 +27,13 @@ import scottish5 from '../assets/scottish-5.png';
 import scottish6 from '../assets/scottish-6.png';
 import scottish7 from '../assets/scottish-7.mp4';
 
+import bored1 from '../assets/bored-1.png';
+import bored2 from '../assets/bored-2-1.png';
+import bored3 from '../assets/bored-2-2.png';
+import bored4 from '../assets/bored-3.png';
+import bored5 from '../assets/bored-4.png';
+
+
 gsap.registerPlugin(ScrollTrigger);
 
 // --- FULL PROJECT DATA ENGINE ---
@@ -234,9 +241,10 @@ const projectData = {
       "Focus: Phone-free unstructured time for young people aged 14-16",
       "Methods: Desk research, stakeholder interviews, affinity clustering, co-design, precedent analysis, journey mapping, service blueprinting and physical prototyping"
     ],
-    image1: { text: "[ Bored Directors visual ]", caption: "The research question narrowed through evidence, stakeholder feedback and testing." },
+    image1: { src: bored1, caption: "The research question narrowed through evidence, stakeholder feedback and testing." },
     brief: "The project began with a broad question about boredom and creativity in Scottish secondary schools. It quickly became clear that the more urgent question sat inside a live policy moment: phones were being restricted, but no one had designed for the time left behind. The brief was not about whether phones are good or bad. It was about what comes after restriction. What fills the time. Who takes responsibility for it. And what conditions might help something creative, reflective or self-directed emerge. I began with the question: How is boredom linked to creativity in Scottish secondary schools? I finished with: What conditions could support creative and critical thinking in phone-free unstructured time for young people aged 14–16? Each shift was forced by research and feedback, not intuition.",
-    image2: { text: "[ Research question funnel diagram ]", caption: "The research question narrowed through evidence, stakeholder feedback and testing." },
+    image2: { type: 'split', 
+    srcs: [bored2, bored3], caption: "The research question narrowed through evidence, stakeholder feedback and testing." },
     approach: "I used the Double Diamond to separate problem framing from problem solving. The first phase focused on understanding the gap between phone restriction and the experience of young people inside that policy. The second phase translated the research into possible design directions. I used three main approaches: Affinity clustering to identify repeated patterns across eight stakeholder interviews. Co-design to explore emerging ideas through a shared session with Daydream Believers. Precedent-led design to test ideas against creative practices such as Brian Eno’s Oblique Strategies, Yoko Ono’s Grapefruit and Bruno Munari’s approach to curiosity and making. The final deck did not begin as a predetermined answer. It developed from the evidence.",
     approachBullets: [
       "Affinity clustering to identify repeated patterns across eight stakeholder interviews.",
@@ -250,8 +258,8 @@ const projectData = {
       "Restriction is not restoration. Phone-free time is an unfamiliar experience that needs to be entered, not imposed.",
       "The gap is systemic. No single person currently owns the transition from phone access to phone-free time."
     ],
-    image3: { text: "[ Process collage showing stakeholder map, affinity clusters, co-design board and journey map. ]", caption: "The research moved from literature, to people, to systems, to a physical prototype." },
-    image4: { text: "[ Evidence thread graphic linking interview quotes to findings, insights and design decisions. ]", caption: "Every design decision traces back to a research finding." },
+    image3: { src: bored3 , caption: "The research moved from literature, to people, to systems, to a physical prototype." },
+    image4: { src: bored4 , caption: "Every design decision traces back to a research finding." },
     output: "Bored Directors is a physical instructional card system for young people aged 14–16. The deck creates small, voluntary invitations into phone-free unstructured time. It does not tell young people to be creative, productive or sociable. Instead, it gives them different ways to begin: noticing, making, imagining, communicating, pausing or defining an open problem. There are no correct answers, scores or required outcomes. A card can be picked up, adapted, ignored, passed on or used in a completely unexpected way. The name positions young people as directors of their own unstructured time. The tone is slightly formal, deadpan and speculative, as if the organisation issuing the cards is real. Each department translates a research insight into a different entry point: Observation, Misdirection, Communication, Making, Stillness, and De-Brief.",
     outputBullets: [
       "Voluntary entry into phone-free time",
@@ -260,25 +268,7 @@ const projectData = {
       "No marking, collection or homework",
       "Reusable across future sessions",
       "Designed to fit existing school spaces"
-    ],
-    image5: { text: "[ Full deck photograph, sleeve, cards fanned out and close-up of one individual card. ]", caption: "Thirty cards. Six departments. No correct answers." },
-    outcome: "Bored Directors is not a solution to phone dependence. It is a testable invitation into the space that remains when phone access is restricted. The project demonstrates that the gap between restriction and replacement can be designed for without turning unstructured time into another lesson. It offers a reusable system that makes room for choice, attention, reflection, making and conversation. The next phase is testing the deck with young people in an appropriate educational context. The question is not simply whether they enjoy the cards. It is what they choose to do in the first moments of phone-free unstructured time.",
-    outcomeBullets: [
-      "Young person: A voluntary, low-pressure entry point into unstructured time.",
-      "School: A reusable resource requiring little setup and no specialist training.",
-      "Service system: A structured moment of choice, recognition and reuse.",
-      "Wider context: A prototype response to the gap between phone restriction and meaningful replacement."
-    ],
-    image6: { text: "[ Concentric impact diagram showing young person, school, service system and wider policy context. ]", caption: "The design works across individual experience, school routines and a wider policy gap." },
-    challenges: "This project was shaped by two major constraints: ethics and scope. I could not directly research with young people under 16 within the project timeline. Every finding therefore comes through adult accounts of young people’s experiences. Rather than hiding that limitation, I used it to make my claims more careful and to identify direct youth testing as the next necessary stage. Scope was the second challenge. The research question changed several times as the evidence became more specific. I began with boredom and creativity, then moved towards phone restriction, unstructured time, ownership and finally the conditions that might support self-directed engagement. I also rejected several earlier concepts, including a boredom journal, a newspaper format and a digital reward system. Each one either felt too much like schoolwork, centred the needs of the researcher, or repeated the attention mechanics the project was questioning.",
-    image7: { text: "[ Rejected concepts diagram. ]", caption: "Rejection was part of the design process. Each removed concept made the final direction more precise." },
-    reflections: "This project taught me that narrowing is not a loss of ambition. Each time the question became more specific, the design became more honest and more useful. It also showed me that better questions produce better design. Asking what young people do in the first moments of genuinely unstructured time revealed more than asking whether phones are good or bad. Finally, I learned that constraints can sharpen a project. The absence of direct youth research made the limits of adult assumptions visible. The next phase is not to claim certainty, but to test whether a tool designed by adults can feel genuinely chosen by a young person.",
-    reflectionCards: [
-      "Scoping is not retreat. Narrowing makes a question answerable.",
-      "Better questions create more useful insight than more general research.",
-      "Constraints can produce more precise design decisions.",
-      "Naming what is unknown is part of responsible design practice."
-    ]
+    ] 
   }
 };
 
@@ -320,10 +310,9 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
                 <img 
                   src={srcs[0]} 
                   alt="Cover Page" 
+                  onLoad={() => ScrollTrigger.refresh()}
                   className="h-[95%] w-auto max-w-full object-contain drop-shadow-2xl" 
                   style={{ imageRendering: '-webkit-optimize-contrast' }} 
-                  loading="lazy"
-                  decoding="async"
                 />
               )}
             </div>
@@ -341,10 +330,9 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
                     <img 
                       src={srcs[leftImageIndex]} 
                       alt={`Left Page ${leftImageIndex + 1}`} 
+                      onLoad={() => ScrollTrigger.refresh()}
                       className="w-full h-full object-contain" 
                       style={{ imageRendering: '-webkit-optimize-contrast' }} 
-                      loading="lazy"
-                      decoding="async"
                     />
                   </>
                 )}
@@ -360,10 +348,9 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
                   <img 
                     src={srcs[rightImageIndex]} 
                     alt={`Right Page ${rightImageIndex + 1}`} 
+                    onLoad={() => ScrollTrigger.refresh()}
                     className="w-full h-full object-contain" 
                     style={{ imageRendering: '-webkit-optimize-contrast' }} 
-                    loading="lazy"
-                    decoding="async"
                   />
                 )}
               </div>
@@ -422,6 +409,80 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
   );
 };
 
+
+// --- IMAGE BLOCK MOVED OUTSIDE OF CASESTUDY COMPONENT TO PREVENT RE-RENDER FLICKER ---
+const ImageBlock = ({ image }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "1200px" } 
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  if (!image) return null;
+  if (image.type === 'newspaper') {
+    return <BookSpreadViewer srcs={image.srcs} caption={image.caption} microcopy={image.microcopy} />;
+  }
+  
+  return (
+    <div ref={containerRef} className="scroll-fade my-12 group">
+      <div className="w-full bg-slate-50 rounded-2xl border border-slate-200 shadow-sm overflow-hidden relative mb-4 block min-h-[300px] md:min-h-[450px]">
+        
+        {isVisible && (
+          <>
+            {image.type === 'split' && image.srcs ? (
+                <div className="flex flex-col md:flex-row w-full z-10 relative bg-white overflow-hidden">
+                  <div className="w-full md:w-1/2 relative border-b md:border-b-0 md:border-r border-slate-200 aspect-[4/3] md:aspect-square">
+                    <img src={image.srcs[0]} alt="Split left" onLoad={() => ScrollTrigger.refresh()} className="absolute inset-0 w-full h-full object-cover m-0 block" />
+                  </div>
+                  <div className="w-full md:w-1/2 relative aspect-[4/3] md:aspect-square">
+                    <img src={image.srcs[1]} alt="Split right" onLoad={() => ScrollTrigger.refresh()} className="absolute inset-0 w-full h-full object-cover m-0 block" />
+                  </div>
+                </div>
+              ) : image.type === 'video' && image.src ? (
+                <video 
+                  src={image.src} 
+                  controls 
+                  preload="none"
+                  playsInline 
+                  onLoadedData={() => ScrollTrigger.refresh()}
+                  className="w-full aspect-video object-cover block z-10 relative bg-black" 
+                />
+              ) : image.src ? (
+                <img src={image.src} alt={image.text || "Project Visual"} onLoad={() => ScrollTrigger.refresh()} className="w-full h-auto max-h-[450px] md:max-h-[600px] block z-10 object-contain mx-auto relative p-0" />
+              ) : (
+                <div className="w-full aspect-video flex items-center justify-center p-6 text-center z-10 text-slate-400 font-mono text-xs">{image.text}</div>
+              )}
+              
+              {image.microcopy && (
+                <div className="absolute top-4 left-4 flex gap-2 flex-wrap z-20 pointer-events-none">
+                  {image.microcopy.map((label, idx) => (
+                    <span key={idx} className="px-3 py-1.5 bg-white/90 backdrop-blur-sm text-brand-blue text-[9px] font-bold uppercase tracking-widest rounded shadow-sm border border-slate-100 pointer-events-auto">
+                      {label}
+                    </span>
+                  ))}
+                </div>
+              )}
+          </>
+        )}
+
+      </div>
+      <p className="font-montserrat text-sm text-slate-500 font-medium pl-3 border-l-2 border-brand-accent-blue/30">{image.caption}</p>
+    </div>
+  );
+};
+
+
 const CaseStudy = () => {
   const { id } = useParams();
   const project = projectData[id] || projectData["scottish-widows"];
@@ -435,7 +496,6 @@ const CaseStudy = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId.toLowerCase());
     if (element) {
-      // Increased offset to 160px so it perfectly clears BOTH the main Navbar and the Sticky progress bar
       const offset = 160; 
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
@@ -489,81 +549,7 @@ const CaseStudy = () => {
 
   if (!project) return <div className="p-20 text-center font-mono">Case study not found.</div>;
 
-  const ImageBlock = ({ image }) => {
-    const [isVisible, setIsVisible] = useState(false);
-    const containerRef = useRef(null);
-
-    useEffect(() => {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.disconnect();
-          }
-        },
-        { rootMargin: "800px" } // Triggers mounting just before it enters the viewport
-      );
-      if (containerRef.current) observer.observe(containerRef.current);
-      return () => observer.disconnect();
-    }, []);
-
-    if (!image) return null;
-    if (image.type === 'newspaper') {
-      return <BookSpreadViewer srcs={image.srcs} caption={image.caption} microcopy={image.microcopy} />;
-    }
-    return (
-      <div ref={containerRef} className="scroll-fade my-12 group">
-        {/* Removed flex layout to prevent the browser from squashing the video height on interaction */}
-        <div className="w-full bg-slate-50 rounded-2xl border border-slate-200 shadow-sm overflow-hidden relative mb-4 block min-h-[300px] md:min-h-[450px]">
-          
-          {isVisible && (
-            <>
-              {/* NEW: Side-by-side split layout */}
-              {image.type === 'split' && image.srcs ? (
-                  <div className="flex flex-col md:flex-row w-full z-10 relative bg-white overflow-hidden">
-                    <div className="w-full md:w-1/2 relative border-b md:border-b-0 md:border-r border-slate-200">
-                      <img src={image.srcs[0]} alt="Split left" className="w-full h-full max-h-[450px] md:max-h-[600px] object-cover m-0 block" loading="lazy" decoding="async" />
-                    </div>
-                    <div className="w-full md:w-1/2 relative">
-                      <img src={image.srcs[1]} alt="Split right" className="w-full h-full max-h-[450px] md:max-h-[600px] object-cover m-0 block" loading="lazy" decoding="async" />
-                    </div>
-                  </div>
-                ) : image.type === 'video' && image.src ? (
-                  <video 
-                    src={image.src} 
-                    controls 
-                    preload="none"
-                    playsInline 
-                    /* Replaced h-auto with aspect-video to physically lock the height and prevent the browser collapse bug */
-                    className="w-full aspect-video object-cover block z-10 relative bg-black" 
-                  />
-                ) : image.src ? (
-                  /* Added max-h limits and object-contain so tall photos shrink to fit the screen elegantly without zooming in */
-                  <img src={image.src} alt={image.text} className="w-full h-auto max-h-[450px] md:max-h-[600px] block z-10 object-contain mx-auto relative p-0" loading="lazy" decoding="async" />
-                ) : (
-                  <div className="w-full aspect-video flex items-center justify-center p-6 text-center z-10 text-slate-400 font-mono text-xs">{image.text}</div>
-                )}
-                
-                {image.microcopy && (
-                  /* Moved tags to top-4 so they NEVER block the video controls */
-                  <div className="absolute top-4 left-4 flex gap-2 flex-wrap z-20 pointer-events-none">
-                    {image.microcopy.map((label, idx) => (
-                      <span key={idx} className="px-3 py-1.5 bg-white/90 backdrop-blur-sm text-brand-blue text-[9px] font-bold uppercase tracking-widest rounded shadow-sm border border-slate-100 pointer-events-auto">
-                        {label}
-                      </span>
-                    ))}
-                  </div>
-                )}
-            </>
-          )}
-
-        </div>
-        <p className="font-montserrat text-sm text-slate-500 font-medium pl-3 border-l-2 border-brand-accent-blue/30">{image.caption}</p>
-      </div>
-    );
-  };
-
-  const reflectionGridClass = project.reflectionCards.length === 4 
+  const reflectionGridClass = project.reflectionCards && project.reflectionCards.length === 4 
     ? 'grid-cols-1 md:grid-cols-2' 
     : 'grid-cols-1 md:grid-cols-3';
 
@@ -573,8 +559,7 @@ const CaseStudy = () => {
       {/* FIX 1: INVISIBLE SPACER TO PREVENT NAVBAR OVERLAP */}
       <div className="w-full pointer-events-none" style={{ height: '100px' }} aria-hidden="true"></div>
 
-      {/* WATER-FILL STICKY PROGRESS BAR - NO NEGATIVE MARGIN */}
-      {/* THIS IS THE LINE TO EDIT */}
+      {/* WATER-FILL STICKY PROGRESS BAR */}
       <div className="sticky top-[75px] md:top-[60px] -mt-1 md:-mt-22 z-[8000] bg-white/95 backdrop-blur-md border-b border-slate-200 py-3 px-6 shadow-sm w-full transition-all">
         <div className="max-w-4xl mx-auto flex gap-2 md:gap-3 h-10 md:h-12">
           {sections.map((sec, index) => {
@@ -683,17 +668,19 @@ const CaseStudy = () => {
         <ImageBlock image={project.image3} />
 
         {/* INSIGHT CARDS */}
-        <section className="scroll-fade py-12">
-          <h3 className="font-poppins text-sm font-bold uppercase tracking-[0.2em] text-brand-accent-blue mb-8 text-center">Key Insights</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {project.insights.map((insight, idx) => (
-              <div key={idx} className="bg-white border border-slate-200 p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <span className="text-5xl font-poppins font-bold text-slate-100 block mb-6 leading-none">0{idx + 1}</span>
-                <p className="font-montserrat text-sm font-medium text-brand-blue leading-relaxed">{insight}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        {project.insights && project.insights.length > 0 && (
+          <section className="scroll-fade py-12">
+            <h3 className="font-poppins text-sm font-bold uppercase tracking-[0.2em] text-brand-accent-blue mb-8 text-center">Key Insights</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {project.insights.map((insight, idx) => (
+                <div key={idx} className="bg-white border border-slate-200 p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  <span className="text-5xl font-poppins font-bold text-slate-100 block mb-6 leading-none">0{idx + 1}</span>
+                  <p className="font-montserrat text-sm font-medium text-brand-blue leading-relaxed">{insight}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         <ImageBlock image={project.image4} />
 
@@ -713,50 +700,56 @@ const CaseStudy = () => {
         <ImageBlock image={project.image5} />
 
         {/* OUTCOME */}
-        <section id="outcome" className="scroll-fade pt-12 pb-8">
-          <h3 className="font-poppins text-4xl font-bold text-brand-blue mb-6">Outcome</h3>
-          <p className="font-montserrat text-lg font-light text-slate-600 leading-relaxed mb-10">{project.outcome}</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {project.outcomeBullets.map((bullet, idx) => (
-              <div key={idx} className="flex flex-col gap-3 p-6 bg-slate-50 rounded-xl border border-slate-100">
-                <span className="w-8 h-1 bg-brand-accent-blue rounded-full"></span>
-                <p className="font-montserrat text-sm text-slate-700 font-medium leading-relaxed">{bullet}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        {project.outcome && (
+          <section id="outcome" className="scroll-fade pt-12 pb-8">
+            <h3 className="font-poppins text-4xl font-bold text-brand-blue mb-6">Outcome</h3>
+            <p className="font-montserrat text-lg font-light text-slate-600 leading-relaxed mb-10">{project.outcome}</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {project.outcomeBullets.map((bullet, idx) => (
+                <div key={idx} className="flex flex-col gap-3 p-6 bg-slate-50 rounded-xl border border-slate-100">
+                  <span className="w-8 h-1 bg-brand-accent-blue rounded-full"></span>
+                  <p className="font-montserrat text-sm text-slate-700 font-medium leading-relaxed">{bullet}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
         
         <ImageBlock image={project.image6} />
 
         {/* CHALLENGES */}
-        <section id="challenges" className="scroll-fade pt-12 pb-8">
-          <div className="bg-slate-50 border border-slate-200 p-8 md:p-12 rounded-3xl">
-            <h3 className="font-poppins text-3xl font-bold text-brand-blue mb-6 flex items-center gap-3">
-              <svg className="w-8 h-8 text-brand-accent-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-              Challenges
-            </h3>
-            <p className="font-montserrat text-lg font-light text-slate-700 leading-relaxed">{project.challenges}</p>
-          </div>
-        </section>
+        {project.challenges && (
+          <section id="challenges" className="scroll-fade pt-12 pb-8">
+            <div className="bg-slate-50 border border-slate-200 p-8 md:p-12 rounded-3xl">
+              <h3 className="font-poppins text-3xl font-bold text-brand-blue mb-6 flex items-center gap-3">
+                <svg className="w-8 h-8 text-brand-accent-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                Challenges
+              </h3>
+              <p className="font-montserrat text-lg font-light text-slate-700 leading-relaxed">{project.challenges}</p>
+            </div>
+          </section>
+        )}
         
         <ImageBlock image={project.image7} />
 
         {/* REFLECTIONS */}
-        <section className="scroll-fade bg-brand-blue text-white p-10 md:p-16 rounded-[2.5rem] mt-16 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-brand-accent-blue rounded-full blur-[100px] opacity-30 -mr-20 -mt-20 pointer-events-none"></div>
-          
-          <h3 className="font-poppins text-4xl font-bold text-white mb-6 relative z-10">Reflections</h3>
-          <p className="font-montserrat text-lg font-light text-slate-300 leading-relaxed mb-12 max-w-2xl relative z-10">{project.reflections}</p>
-          
-          <div className={`grid ${reflectionGridClass} gap-6 relative z-10`}>
-            {project.reflectionCards.map((card, idx) => (
-              <div key={idx} className="bg-white/5 border border-white/10 backdrop-blur-md p-8 rounded-2xl hover:bg-white/10 transition-colors">
-                <span className="text-xs font-mono text-brand-accent-blue block mb-4 font-bold uppercase tracking-widest">Takeaway 0{idx + 1}</span>
-                <p className="font-montserrat text-sm font-medium text-slate-100 leading-relaxed">{card}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        {project.reflections && project.reflectionCards && (
+          <section className="scroll-fade bg-brand-blue text-white p-10 md:p-16 rounded-[2.5rem] mt-16 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-accent-blue rounded-full blur-[100px] opacity-30 -mr-20 -mt-20 pointer-events-none"></div>
+            
+            <h3 className="font-poppins text-4xl font-bold text-white mb-6 relative z-10">Reflections</h3>
+            <p className="font-montserrat text-lg font-light text-slate-300 leading-relaxed mb-12 max-w-2xl relative z-10">{project.reflections}</p>
+            
+            <div className={`grid ${reflectionGridClass} gap-6 relative z-10`}>
+              {project.reflectionCards.map((card, idx) => (
+                <div key={idx} className="bg-white/5 border border-white/10 backdrop-blur-md p-8 rounded-2xl hover:bg-white/10 transition-colors">
+                  <span className="text-xs font-mono text-brand-accent-blue block mb-4 font-bold uppercase tracking-widest">Takeaway 0{idx + 1}</span>
+                  <p className="font-montserrat text-sm font-medium text-slate-100 leading-relaxed">{card}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
       </div>
     </div>
