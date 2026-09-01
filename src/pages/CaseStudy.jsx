@@ -329,8 +329,12 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
       {/* Shrunk the outer gray background box */}
       <div className="relative w-full max-w-4xl mx-auto bg-[#F7F7F4] rounded-2xl border border-slate-200 shadow-inner overflow-hidden flex items-center justify-center p-8 md:p-12 transition-colors hover:bg-[#f1f1eb]">
         
-        {/* Capped the max-height to 450px so it never gets too tall on large screens */}
-        <div className="relative w-full max-w-3xl h-[300px] md:h-[450px] mx-auto flex shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.25)] rounded-sm bg-white">
+        {/* FIX: Clickable zones cover the ENTIRE grey background */}
+        <div onClick={goPrev} className="absolute inset-y-0 left-0 w-1/2 z-30 cursor-pointer"></div>
+        <div onClick={goNext} className="absolute inset-y-0 right-0 w-1/2 z-30 cursor-pointer"></div>
+
+        {/* Capped the max-height to 450px so it never gets too tall on large screens & added pointer-events-none */}
+        <div className="relative pointer-events-none z-20 w-full max-w-3xl h-[300px] md:h-[450px] mx-auto flex shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.25)] rounded-sm bg-white">
           
           {spreadIndex === 0 ? (
             /* FIX 2: PAGE 1 IS NOW PERFECTLY CENTERED */
@@ -461,12 +465,12 @@ const CarouselViewer = ({ srcs, caption, microcopy }) => {
       {/* Shrunk the outer gray background box */}
       <div className="relative w-full max-w-4xl mx-auto bg-[#F7F7F4] rounded-2xl border border-slate-200 shadow-inner overflow-hidden flex items-center justify-center p-8 md:p-12 transition-colors hover:bg-[#f1f1eb]">
         
-        {/* Locked the inner white box to a realistic playing card size */}
-        <div className="relative w-full max-w-[280px] md:max-w-[360px] h-[380px] md:h-[480px] flex justify-center shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.25)] rounded-xl bg-white">
-          
-          {/* Clickable Zones */}
-          <div onClick={goPrev} className="absolute inset-y-0 left-0 w-1/2 z-20 cursor-pointer"></div>
-          <div onClick={goNext} className="absolute inset-y-0 right-0 w-1/2 z-20 cursor-pointer"></div>
+        {/* FIX: Clickable zones moved here to cover the ENTIRE grey background */}
+        <div onClick={goPrev} className="absolute inset-y-0 left-0 w-1/2 z-30 cursor-pointer"></div>
+        <div onClick={goNext} className="absolute inset-y-0 right-0 w-1/2 z-30 cursor-pointer"></div>
+
+        {/* Locked the inner white box to a realistic playing card size & added pointer-events-none */}
+        <div className="relative pointer-events-none z-20 w-full max-w-[280px] md:max-w-[360px] h-[380px] md:h-[480px] flex justify-center shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.25)] rounded-xl bg-white">
 
           {srcs[currentIndex] && (
             <img 

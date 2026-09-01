@@ -294,10 +294,10 @@ const Skills = () => {
         {/* --- SECTION 5: CREATIVE BEHANCE CTA --- */}
         <section className="py-40 scroll-up flex flex-col items-center text-center">
           <h2 className="font-poppins text-5xl md:text-7xl font-black tracking-tighter text-slate-900 mb-6 max-w-4xl leading-[1.1]">
-            Curious where the <br/> <span className="text-brand-accent-blue">visual storytelling</span> started?
+            Curious where the <br/> <span className="text-brand-accent-blue">storytelling</span> started?
           </h2>
           <p className="font-montserrat text-lg md:text-xl text-slate-500 font-medium mb-12 max-w-2xl leading-relaxed">
-            Before mapping systems, I was designing the visuals. Explore my earlier archive of graphic design, advertising, and creative direction.
+            Before mapping systems. I was a creative strategist. Explore my earlier archive of advertising and creative direction
           </p>
           
           <a 
