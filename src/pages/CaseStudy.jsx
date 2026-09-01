@@ -35,6 +35,14 @@ import bored5 from '../assets/bored-3.png';
 import bored6 from '../assets/bored-4.png';
 
 
+import card1 from '../assets/card1.png';
+import card2 from '../assets/card2.png';
+import card3 from '../assets/card3.png';
+import card4 from '../assets/card4.png';
+import card5 from '../assets/card5.png';
+import card6 from '../assets/card6.png';
+import card7 from '../assets/card7.png';
+
 gsap.registerPlugin(ScrollTrigger);
 
 // --- FULL PROJECT DATA ENGINE ---
@@ -258,7 +266,8 @@ const projectData = {
       "Restriction is not restoration. Phone-free time is an unfamiliar experience that needs to be entered, not imposed.",
       "The gap is systemic. No single person currently owns the transition from phone access to phone-free time."
     ],
-    image3: { type: 'split', srcs: [bored3, bored4] , caption: "The research moved from literature, to people, to systems, to a physical prototype." },
+    image3: { type: 'split', 
+      srcs: [bored3, bored4], caption: "The research moved from literature, to people, to systems, to a physical prototype." },
     image4: { src: bored5 , caption: "Every design decision traces back to a research finding." },
     output: "Bored Directors is a physical instructional card system for young people aged 14–16. The deck creates small, voluntary invitations into phone-free unstructured time. It does not tell young people to be creative, productive or sociable. Instead, it gives them different ways to begin: noticing, making, imagining, communicating, pausing or defining an open problem. There are no correct answers, scores or required outcomes. A card can be picked up, adapted, ignored, passed on or used in a completely unexpected way. The name positions young people as directors of their own unstructured time. The tone is slightly formal, deadpan and speculative, as if the organisation issuing the cards is real. Each department translates a research insight into a different entry point: Observation, Misdirection, Communication, Making, Stillness, and De-Brief.",
     outputBullets: [
@@ -269,7 +278,13 @@ const projectData = {
       "Reusable across future sessions",
       "Designed to fit existing school spaces"
     ],
-    image5: { src: bored6, caption: "Thirty cards. Six departments. No correct answers." },
+    image5: { 
+      type: "carousel", 
+      srcs: [card1, card2, card3, card4, card5, card6, card7], 
+      text: "[ Card Deck Viewer Loaded ]", 
+      microcopy: ["Thirty cards", "Six departments", "No correct answers"], 
+      caption: "The deck creates small, voluntary invitations into phone-free unstructured time, allowing young people to direct their own focus." 
+    },
     outcome: "Bored Directors is not a solution to phone dependence. It is a testable invitation into the space that remains when phone access is restricted. The project demonstrates that the gap between restriction and replacement can be designed for without turning unstructured time into another lesson. It offers a reusable system that makes room for choice, attention, reflection, making and conversation. The next phase is testing the deck with young people in an appropriate educational context. The question is not simply whether they enjoy the cards. It is what they choose to do in the first moments of phone-free unstructured time.",
     outcomeBullets: [
       "Young person: A voluntary, low-pressure entry point into unstructured time.",
@@ -424,6 +439,92 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
   );
 };
 
+// --- SINGLE IMAGE CAROUSEL COMPONENT (For Cards) ---
+const CarouselViewer = ({ srcs, caption, microcopy }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const totalImages = srcs.length;
+
+  const goNext = (e) => {
+    e.stopPropagation();
+    if (currentIndex < totalImages - 1) setCurrentIndex(p => p + 1);
+  };
+
+  const goPrev = (e) => {
+    e.stopPropagation();
+    if (currentIndex > 0) setCurrentIndex(p => p - 1);
+  };
+
+  return (
+    <div className="scroll-fade my-16 w-full flex flex-col group cursor-none">
+      <div className="relative w-full bg-[#F7F7F4] rounded-2xl border border-slate-200 shadow-inner overflow-hidden flex items-center justify-center p-4 md:p-8 transition-colors hover:bg-[#f1f1eb]">
+        
+        <div className="relative w-full max-w-3xl aspect-[4/5] md:aspect-square flex justify-center shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.25)] rounded-xl bg-white">
+          
+          {/* Clickable Zones */}
+          <div onClick={goPrev} className="absolute inset-y-0 left-0 w-1/2 z-20 cursor-pointer"></div>
+          <div onClick={goNext} className="absolute inset-y-0 right-0 w-1/2 z-20 cursor-pointer"></div>
+
+          {srcs[currentIndex] && (
+            <img 
+              src={srcs[currentIndex]} 
+              alt={`Card ${currentIndex + 1}`} 
+              onLoad={() => ScrollTrigger.refresh()}
+              className="w-full h-full object-contain p-4 md:p-8 drop-shadow-xl" 
+              style={{ imageRendering: '-webkit-optimize-contrast' }} 
+            />
+          )}
+        </div>
+
+        {/* Hover Hint - LEFT */}
+        <div className="absolute left-6 top-1/2 -translate-y-1/2 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none hidden md:flex">
+          {currentIndex > 0 && (
+            <span className="bg-brand-blue text-white text-[10px] uppercase tracking-widest px-4 py-2 rounded-full font-bold shadow-xl flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg> Previous
+            </span>
+          )}
+        </div>
+
+        {/* Hover Hint - RIGHT */}
+        <div className="absolute right-6 top-1/2 -translate-y-1/2 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none hidden md:flex">
+          {currentIndex < totalImages - 1 && (
+            <span className="bg-brand-blue text-white text-[10px] uppercase tracking-widest px-4 py-2 rounded-full font-bold shadow-xl flex items-center gap-2">
+              Next <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Controls Bar */}
+      <div className="flex flex-col md:flex-row items-center justify-between gap-6 mt-6">
+        {microcopy && (
+          <div className="flex gap-2 flex-wrap order-2 md:order-1">
+            {microcopy.map((label, idx) => (
+              <span key={idx} className="px-3 py-1.5 bg-slate-50 text-brand-blue text-[9px] font-bold uppercase tracking-widest rounded shadow-sm border border-slate-200">
+                {label}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div className="flex items-center gap-6 order-1 md:order-2 bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm">
+          <button onClick={goPrev} disabled={currentIndex === 0} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors cursor-none ${currentIndex === 0 ? 'bg-slate-50 text-slate-300' : 'bg-slate-100 text-brand-blue hover:bg-brand-accent-blue hover:text-white'}`}>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
+          </button>
+          
+          <span className="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+            Card {currentIndex + 1} of {totalImages}
+          </span>
+          
+          <button onClick={goNext} disabled={currentIndex >= totalImages - 1} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors cursor-none ${currentIndex >= totalImages - 1 ? 'bg-slate-50 text-slate-300' : 'bg-slate-100 text-brand-blue hover:bg-brand-accent-blue hover:text-white'}`}>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
+          </button>
+        </div>
+      </div>
+      <p className="font-montserrat text-sm text-slate-500 font-medium pl-3 border-l-2 border-brand-accent-blue/30 mt-6 self-start">{caption}</p>
+    </div>
+  );
+};
+
 
 // --- IMAGE BLOCK MOVED OUTSIDE OF CASESTUDY COMPONENT TO PREVENT RE-RENDER FLICKER ---
 const ImageBlock = ({ image }) => {
@@ -447,6 +548,9 @@ const ImageBlock = ({ image }) => {
   if (!image) return null;
   if (image.type === 'newspaper') {
     return <BookSpreadViewer srcs={image.srcs} caption={image.caption} microcopy={image.microcopy} />;
+  }
+  if (image.type === 'carousel') {
+    return <CarouselViewer srcs={image.srcs} caption={image.caption} microcopy={image.microcopy} />;
   }
   
   return (
