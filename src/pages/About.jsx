@@ -2,6 +2,7 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import profilePhoto from "../assets/Srushti-Profile.png";
+
 // ALL 15 MEMORY PHOTOS
 import mem1 from '../assets/mem-1.jpg';
 import mem2 from '../assets/mem-2.jpg';
@@ -118,7 +119,6 @@ const About = () => {
 
   useEffect(() => {
     if (terminalEndRef.current) {
-      // Using block: 'nearest' prevents the entire browser window from jumping down
       terminalEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }, [history]);
@@ -144,6 +144,14 @@ const About = () => {
         );
       });
 
+      // Quick fade up for sections
+      gsap.utils.toArray('.scroll-fade-up').forEach((el) => {
+        gsap.fromTo(el, 
+          { y: 40, opacity: 0 }, 
+          { scrollTrigger: { trigger: el, start: "top 85%" }, y: 0, opacity: 1, duration: 1, ease: "power3.out" }
+        );
+      });
+
       const counters = gsap.utils.toArray('.stat-counter');
       counters.forEach(counter => {
         const target = parseFloat(counter.getAttribute('data-target'));
@@ -159,7 +167,7 @@ const About = () => {
       gsap.to(".float-slow", { y: -15, duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut" });
       gsap.to(".float-fast", { y: -8, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.5 });
 
-      // THE HORIZONTAL SCROLL MEMORY WALL (Updated for 15 photos)
+      // THE HORIZONTAL SCROLL MEMORY WALL
       const wrapper = scrollWrapperRef.current;
       if (wrapper) {
         const totalScroll = wrapper.scrollWidth - window.innerWidth;
@@ -213,6 +221,58 @@ const About = () => {
     "A project I held onto with full heart, and every bit of that showed."
   ];
 
+  // --- THE EVIDENCE METAPHORS DATA (WITH CUSTOM GLOWING SVGS) ---
+  const metaphors = [
+    { 
+      id: "01", title: "A Radio", 
+      text: "Because stories, music, and saying the thing that needs to be said have always found me.",
+      color: "from-blue-500",
+      icon: <svg className="w-12 h-12 text-blue-400" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M8 13.5v-3m4 3v-5m4 5v-2m-8 7a9 9 0 1118 0v1a3 3 0 01-3 3H8a3 3 0 01-3-3v-1z" /></svg>
+    },
+    { 
+      id: "02", title: "A Mirror", 
+      text: "Because I reflect, rethink, and rarely leave myself unquestioned.",
+      color: "from-slate-400",
+      icon: <svg className="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16M12 4v16" /></svg>
+    },
+    { 
+      id: "03", title: "Sun, Moon & Clouds", 
+      text: "Because one version of me was never going to be enough.",
+      color: "from-yellow-400",
+      icon: <svg className="w-12 h-12 text-yellow-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.05-7.05l-1.414 1.414M7.364 17.364l-1.414 1.414m11.314 0l-1.414-1.414M7.364 7.364l-1.414-1.414M12 8a4 4 0 100 8 4 4 0 000-8z" /></svg>
+    },
+    { 
+      id: "04", title: "6°", 
+      text: "Because I like people and ideas that feel relatable, not distant.",
+      color: "from-green-400",
+      icon: <svg className="w-12 h-12 text-green-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path strokeLinecap="round" strokeLinejoin="round" d="M8.59 13.51l6.83 3.98m-.01-10.98l-6.82 3.98" /></svg>
+    },
+    { 
+      id: "05", title: "A Chilli", 
+      text: "Because I may not be for everyone, but the right people never forget me.",
+      color: "from-red-500",
+      icon: <svg className="w-12 h-12 text-red-400" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 2c0 0-4 3-4 8a4 4 0 008 0c0-5-4-8-4-8z" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 2v3" /></svg>
+    },
+    { 
+      id: "06", title: "Spotify", 
+      text: "Because I want people to feel fully themselves around me.",
+      color: "from-emerald-500",
+      icon: <svg className="w-12 h-12 text-emerald-400" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    },
+    { 
+      id: "07", title: "A Dog", 
+      text: "Because I love deeply, stay loyal, and show up fully.",
+      color: "from-orange-400",
+      icon: <svg className="w-12 h-12 text-orange-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" /></svg>
+    },
+    { 
+      id: "08", title: "Earrings", 
+      text: "Because small does not mean unnoticed.",
+      color: "from-purple-400",
+      icon: <svg className="w-12 h-12 text-purple-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z" /></svg>
+    }
+  ];
+
   return (
     <div 
       ref={containerRef} 
@@ -253,7 +313,6 @@ const About = () => {
                 <span className="flex">
                   {'The'.split('').map((char, i) => <span key={i} className="char-reveal block">{char}</span>)}
                 </span>
-                {/* This invisible div forces the next item onto a new line */}
                 <div className="w-full h-0"></div>
                 <span className="flex mt-2 md:mt-4">
                   {'Future.'.split('').map((char, i) => <span key={i} className="char-reveal block text-brand-accent-blue">{char}</span>)}
@@ -344,6 +403,61 @@ const About = () => {
           </div>
         </section>
 
+        {/* --- THE EVIDENCE BOARD (3D METAPHOR ARTIFACTS) --- */}
+        <section className="py-32 relative scroll-fade-up">
+          <div className="text-center mb-20">
+            <h2 className={`font-poppins text-3xl font-bold uppercase tracking-widest mb-4 ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>
+              The <span className="text-brand-accent-blue">Evidence</span> Board
+            </h2>
+            <p className={`font-montserrat text-sm md:text-base max-w-2xl mx-auto ${theme === 'light' ? 'text-slate-500' : 'text-slate-400'}`}>
+              Hover over the artifacts to decode the pieces of my personality.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            {metaphors.map((item, i) => (
+              {/* Staggering the vertical position for an organic, scattered look */},
+              <div key={i} className={`group relative h-64 md:h-72 w-full cursor-none ${i % 2 !== 0 ? 'lg:mt-12' : ''}`} style={{ perspective: '1200px' }}>
+                <div className="w-full h-full relative transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:[transform:rotateY(180deg)]" style={{ transformStyle: 'preserve-3d' }}>
+                  
+                  {/* FRONT OF ARTIFACT CARD */}
+                  <div className={`absolute inset-0 flex flex-col items-center justify-center p-6 rounded-2xl border ${glassStyle} shadow-[0_10px_30px_rgba(0,0,0,0.05)] overflow-hidden`} style={{ backfaceVisibility: 'hidden' }}>
+                    <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-[0.15]`}></div>
+                    <div className="absolute top-4 left-5 font-mono text-[9px] text-slate-400 tracking-[0.3em] font-bold">ARTF_{item.id}</div>
+                    
+                    {/* Pulsing Center Icon */}
+                    <div className="relative group-hover:scale-110 transition-transform duration-500 z-10 mt-4">
+                      <div className="absolute inset-0 bg-brand-accent-blue/20 blur-2xl rounded-full"></div>
+                      {item.icon}
+                    </div>
+
+                    <h3 className={`font-poppins font-black text-xl mt-6 text-center uppercase tracking-widest z-10 ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>
+                      {item.title}
+                    </h3>
+                  </div>
+
+                  {/* BACK OF ARTIFACT CARD (REVEALED ON HOVER) */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-8 rounded-2xl border border-brand-accent-blue/50 bg-[#0a0a0a] shadow-[0_0_30px_rgba(124,58,237,0.3)] overflow-hidden" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
+                    {/* Dark tech grid background */}
+                    <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#7c3aed 1px, transparent 1px)', backgroundSize: '12px 12px' }}></div>
+                    
+                    <svg className="w-6 h-6 text-brand-accent-blue/40 absolute top-6 left-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
+                    
+                    <p className="font-montserrat text-sm md:text-sm text-center leading-relaxed font-medium text-slate-200 relative z-10">
+                      "{item.text}"
+                    </p>
+                    
+                    <div className="absolute bottom-5 right-5 font-mono text-[8px] text-brand-accent-blue tracking-widest uppercase font-bold">
+                      // Decoded
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* TERMINAL & STATS */}
         <section className="py-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
@@ -424,6 +538,10 @@ const About = () => {
                     <h3 className="font-poppins font-black text-4xl md:text-6xl text-white leading-[1.1] uppercase tracking-tighter mix-blend-difference">
                       "WHO AM I, <br/><span className="text-[#8244F5]">WITHOUT MY WIDE SMILE.</span>"
                     </h3>
+                    {/* NEW SUBTITLE PLACED EXACTLY HERE */}
+                    <p className="font-montserrat text-slate-400 font-light mt-4 text-sm md:text-base mix-blend-difference opacity-80">
+                      Probably still me. Just with less evidence.
+                    </p>
                   </div>
                 )}
               </React.Fragment>
