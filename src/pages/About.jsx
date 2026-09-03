@@ -399,15 +399,44 @@ const About = () => {
                      animationPlayState: isSystemPaused ? 'paused' : 'running'
                    }}
                    onClick={(e) => {
-                     setActivePlanet(planet);
-                     const isRight = e.clientX > window.innerWidth / 2;
-                     const isBottom = e.clientY > window.innerHeight / 2;
-                     setModalStyles({
-                       left: e.clientX,
-                       top: e.clientY,
-                       transform: `translate(${isRight ? '-110%' : '10%'}, ${isBottom ? '-100%' : '10%'})`
-                     });
-                   }}
+                    e.stopPropagation();
+                    setActivePlanet(planet);
+                    
+                    const x = e.clientX;
+                    const y = e.clientY;
+                    const ww = window.innerWidth;
+                    const wh = window.innerHeight;
+                    
+                    // Approximate maximum dimensions of the modal card
+                    const cardWidth = 384; 
+                    const cardHeight = 350; 
+                    
+                    // 1. Start by placing it slightly below and to the right of your cursor
+                    let finalLeft = x + 20;
+                    let finalTop = y + 20;
+
+                    // 2. If it overflows the right edge, flip it to the left side
+                    if (finalLeft + cardWidth > ww) {
+                      finalLeft = x - cardWidth - 20;
+                    }
+
+                    // 3. If it overflows the bottom edge, flip it above the cursor
+                    if (finalTop + cardHeight > wh) {
+                      finalTop = y - cardHeight - 20;
+                    }
+
+                    // 4. ULTIMATE SAFETY CLAMP: Force it to stay on screen no matter what!
+                    // Keeps it at least 20px from left/right edges
+                    // Keeps it at least 100px from the top so it NEVER hides under your navbar
+                    finalLeft = Math.max(20, Math.min(finalLeft, ww - cardWidth - 20));
+                    finalTop = Math.max(100, Math.min(finalTop, wh - cardHeight - 20));
+
+                    setModalStyles({
+                      left: `${finalLeft}px`,
+                      top: `${finalTop}px`,
+                      transform: 'none' // Kills the old buggy transform completely
+                    });
+                  }}
                  >
                    <span className="text-xl drop-shadow-md pointer-events-none">{planet.icon}</span>
                  </div>
@@ -415,27 +444,7 @@ const About = () => {
             ))}
           </div>
 
-          {/* PLANET CARD MODAL (HUD) */}
-          {activePlanet && (
-             <div 
-               className="fixed z-[100] bg-[#0a0a0a]/95 backdrop-blur-2xl border border-brand-accent-blue/40 p-6 md:p-8 rounded-2xl max-w-sm w-[90%] shadow-[0_0_80px_rgba(124,58,237,0.6)] animate-in fade-in duration-300 cursor-none"
-               style={modalStyles}
-             >
-                <button 
-                  onClick={() => setActivePlanet(null)} 
-                  className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors border border-white/10"
-                >
-                  ✕
-                </button>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-accent-blue mb-2 block font-bold">Orbit 0{activePlanet.id}: {activePlanet.name}</span>
-                <h3 className="font-poppins text-2xl font-bold text-white mb-4 leading-tight">{activePlanet.title}</h3>
-                <p className="font-montserrat text-sm text-slate-300 leading-relaxed mb-6 whitespace-pre-line">{activePlanet.story}</p>
-                <div className="bg-brand-accent-blue/10 border-l-2 border-brand-accent-blue p-4 rounded-r-lg">
-                   <span className="text-[9px] font-mono uppercase tracking-widest text-brand-accent-blue font-bold block mb-1">What Stayed:</span>
-                   <p className="font-montserrat text-xs text-white font-medium leading-relaxed">{activePlanet.stayed}</p>
-                </div>
-             </div>
-          )}
+          {/* PLANET CARD MODAL REMOVED FROM HERE - MOVED TO BOTTOM TO FIX CSS POSITIONING BUG */}
 
           <div className="mt-16 text-center relative z-20">
              <h3 className={`font-poppins text-2xl md:text-4xl font-light tracking-wide ${theme === 'light' ? 'text-brand-blue' : 'text-slate-300'}`}>
@@ -616,6 +625,28 @@ const About = () => {
 
         </div>
       </section>
+
+      {/* --- PLANET CARD MODAL (MOVED HERE TO FIX 'FIXED' POSITION BUG) --- */}
+      {activePlanet && (
+         <div 
+           className="fixed z-[9999] bg-[#0a0a0a]/95 backdrop-blur-2xl border border-brand-accent-blue/40 p-6 md:p-8 rounded-2xl max-w-sm w-[90%] shadow-[0_0_80px_rgba(124,58,237,0.6)] animate-in fade-in duration-200 cursor-none"
+           style={modalStyles}
+         >
+            <button 
+              onClick={() => setActivePlanet(null)} 
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors border border-white/10"
+            >
+              ✕
+            </button>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-accent-blue mb-2 block font-bold">Orbit 0{activePlanet.id}: {activePlanet.name}</span>
+            <h3 className="font-poppins text-2xl font-bold text-white mb-4 leading-tight">{activePlanet.title}</h3>
+            <p className="font-montserrat text-sm text-slate-300 leading-relaxed mb-6 whitespace-pre-line">{activePlanet.story}</p>
+            <div className="bg-brand-accent-blue/10 border-l-2 border-brand-accent-blue p-4 rounded-r-lg">
+               <span className="text-[9px] font-mono uppercase tracking-widest text-brand-accent-blue font-bold block mb-1">What Stayed:</span>
+               <p className="font-montserrat text-xs text-white font-medium leading-relaxed">{activePlanet.stayed}</p>
+            </div>
+         </div>
+      )}
 
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes spin { 100% { transform: rotate(360deg); } }
