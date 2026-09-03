@@ -46,10 +46,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
   const containerRef = useRef(null);
-  const timelineRef = useRef(null);
   const horizontalRef = useRef(null);
   const scrollWrapperRef = useRef(null);
   const terminalEndRef = useRef(null);
+
+  const [activePlanet, setActivePlanet] = useState(null);
+  const [modalStyles, setModalStyles] = useState({});
+  const [isSystemPaused, setIsSystemPaused] = useState(false);
 
   // --- MOUSE TRACKING SPOTLIGHT, 3D TILT & SUN CURSOR ---
   useEffect(() => {
@@ -136,14 +139,6 @@ const About = () => {
         { scaleX: 0 }, { scaleX: 1, duration: 1.5, ease: "expo.inOut", delay: 0.8 }
       );
 
-      const timelineNodes = gsap.utils.toArray('.timeline-node');
-      timelineNodes.forEach((node, i) => {
-        gsap.fromTo(node,
-          { opacity: 0, x: i % 2 === 0 ? -30 : 30 },
-          { scrollTrigger: { trigger: node, start: "top 85%" }, opacity: 1, x: 0, duration: 0.8, ease: "power3.out" }
-        );
-      });
-
       // Quick fade up for sections
       gsap.utils.toArray('.scroll-fade-up').forEach((el) => {
         gsap.fromTo(el, 
@@ -221,56 +216,68 @@ const About = () => {
     "A project I held onto with full heart, and every bit of that showed."
   ];
 
-  // --- THE EVIDENCE METAPHORS DATA (WITH CUSTOM GLOWING SVGS) ---
+  // --- THE EVIDENCE METAPHORS DATA ---
   const metaphors = [
     { 
       id: "01", title: "A Radio", 
       text: "Because stories, music, and saying the thing that needs to be said have always found me.",
       color: "from-blue-500",
-      icon: <svg className="w-12 h-12 text-blue-400" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M8 13.5v-3m4 3v-5m4 5v-2m-8 7a9 9 0 1118 0v1a3 3 0 01-3 3H8a3 3 0 01-3-3v-1z" /></svg>
+      icon: <span className="text-5xl drop-shadow-lg leading-none">📻</span>
     },
     { 
       id: "02", title: "A Mirror", 
       text: "Because I reflect, rethink, and rarely leave myself unquestioned.",
       color: "from-slate-400",
-      icon: <svg className="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16M12 4v16" /></svg>
+      icon: <span className="text-5xl drop-shadow-lg leading-none">🪞</span>
     },
     { 
       id: "03", title: "Sun, Moon & Clouds", 
       text: "Because one version of me was never going to be enough.",
       color: "from-yellow-400",
-      icon: <svg className="w-12 h-12 text-yellow-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.05-7.05l-1.414 1.414M7.364 17.364l-1.414 1.414m11.314 0l-1.414-1.414M7.364 7.364l-1.414-1.414M12 8a4 4 0 100 8 4 4 0 000-8z" /></svg>
+      icon: <span className="text-3xl md:text-4xl drop-shadow-lg tracking-widest leading-none">☀️🌙☁️</span>
     },
     { 
       id: "04", title: "6°", 
       text: "Because I like people and ideas that feel relatable, not distant.",
       color: "from-green-400",
-      icon: <svg className="w-12 h-12 text-green-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path strokeLinecap="round" strokeLinejoin="round" d="M8.59 13.51l6.83 3.98m-.01-10.98l-6.82 3.98" /></svg>
+      icon: <span className="text-5xl drop-shadow-lg leading-none">🤝</span>
     },
     { 
       id: "05", title: "A Chilli", 
       text: "Because I may not be for everyone, but the right people never forget me.",
       color: "from-red-500",
-      icon: <svg className="w-12 h-12 text-red-400" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 2c0 0-4 3-4 8a4 4 0 008 0c0-5-4-8-4-8z" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 2v3" /></svg>
+      icon: <span className="text-5xl drop-shadow-lg leading-none">🌶️</span>
     },
     { 
       id: "06", title: "Spotify", 
       text: "Because I want people to feel fully themselves around me.",
       color: "from-emerald-500",
-      icon: <svg className="w-12 h-12 text-emerald-400" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      icon: <span className="text-5xl drop-shadow-lg leading-none">🎧</span>
     },
     { 
       id: "07", title: "A Dog", 
       text: "Because I love deeply, stay loyal, and show up fully.",
       color: "from-orange-400",
-      icon: <svg className="w-12 h-12 text-orange-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" /></svg>
+      icon: <span className="text-5xl drop-shadow-lg leading-none">🐕</span>
     },
     { 
       id: "08", title: "Earrings", 
       text: "Because small does not mean unnoticed.",
       color: "from-purple-400",
-      icon: <svg className="w-12 h-12 text-purple-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z" /></svg>
+      icon: <span className="text-5xl drop-shadow-lg leading-none">✨</span>
     }
+  ];
+
+  // --- THE NEW CONSTELLATION PLANET DATA ---
+  const constellationData = [
+    { id: 1, name: "The Story Planet", title: "Raised on stories.", story: "My dad could make an ordinary moment worth listening to. My mum made sure I got on stage and found my own voice.", stayed: "Stories can make people pause, feel, and understand.", icon: "🎙️", size: 40, orbitSize: 280, duration: 45, color: "from-purple-500 to-indigo-500" },
+    { id: 2, name: "The Translation Planet", title: "Four languages. Many ways to listen.", story: "By six, I was moving between four languages. It taught me that the same idea can mean something different depending on who is hearing it.", stayed: "Listening is also translation.", icon: "💬", size: 36, orbitSize: 380, duration: 60, color: "from-blue-400 to-cyan-400" },
+    { id: 3, name: "The Side-Quest Planet", title: "My 48-hour-day era.", story: "Journalism. Graphic design. Video. Events. PR. Freelance work. Creative strategy. A gift-hamper business.\n\nI said yes to a lot, learned fast, and discovered that the messy middle is where I work best.", stayed: "The best experiences look simple because someone thought through the chaos.", icon: "🎟️", size: 48, orbitSize: 480, duration: 80, color: "from-pink-500 to-rose-400" },
+    { id: 4, name: "The Attention Planet", title: "First, I studied attention.", story: "Advertising taught me to ask: what makes people notice, trust, question, or choose?", stayed: "Relevance is never accidental.", icon: "📡", size: 44, orbitSize: 580, duration: 95, color: "from-amber-400 to-orange-500" },
+    { id: 5, name: "The Experience Planet", title: "Then, I widened the lens.", story: "Service design made me ask a bigger question: what happens before, during, and after someone receives that message?\n\nNot just, “Will it land?”\nBut, “Will the experience actually work?”", stayed: "I moved from studying choices to designing the conditions around them.", icon: "🧩", size: 56, orbitSize: 700, duration: 115, color: "from-emerald-400 to-green-500" },
+    { id: 6, name: "The People Planet", title: "People give me better questions.", story: "Moving to Glasgow, designing with people from different countries, and mentoring students through Inforens taught me that there is no “average user.”\n\nThere are only people, contexts, fears, hopes, and stories you have not heard yet.", stayed: "Every honest conversation is research.", icon: "🌍", size: 52, orbitSize: 820, duration: 135, color: "from-sky-400 to-blue-500" },
+    { id: 7, name: "The Kitchen Planet", title: "Cooking is my love language.", story: "Indian vegetarian food, no eggs, lots of experiments, and usually enough food for more people than planned.\n\nCooking reminds me that good experiences are built through care, attention, timing, and knowing who is at the table.", stayed: "Making something for someone is a form of listening.", icon: "🌶️", size: 40, orbitSize: 940, duration: 155, color: "from-red-500 to-rose-600" },
+    { id: 8, name: "The Quiet Moon", title: "Social battery: powerful, not unlimited.", story: "I love conversations, new people, and a room full of stories. Then I go quiet, recharge, process everything, and come back with more questions.", stayed: "Curiosity needs both people and pause.", icon: "🌒", size: 32, orbitSize: 1060, duration: 190, color: "from-slate-400 to-slate-600" }
   ];
 
   return (
@@ -301,6 +308,7 @@ const About = () => {
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
 
+        {/* HERO SECTION */}
         <section className="min-h-[80vh] flex flex-col justify-center mb-32 relative pt-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
@@ -342,64 +350,97 @@ const About = () => {
           </div>
         </section>
 
-        {/* NEON SKILL GALAXY */}
-        <section className="py-24 relative flex flex-col items-center justify-center min-h-[70vh]">
-          <h2 className={`font-poppins text-3xl font-bold uppercase tracking-widest mb-24 text-center ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>
-            Skill <span className="text-brand-accent-blue">Universe</span>
-          </h2>
-
-          <div className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px] flex items-center justify-center float-fast">
-            
-            <div className={`absolute w-28 h-28 backdrop-blur-md border border-brand-accent-blue rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(124,58,237,0.3)] z-20 cursor-none hover:scale-110 transition-transform ${glassStyle}`}>
-              <span className={`font-mono text-xs font-bold tracking-widest text-center ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>SERVICE<br/>DESIGN</span>
-            </div>
-
-            <div className="absolute w-full h-full rounded-full animate-[spin_25s_linear_infinite] border-2 border-[#00f3ff] shadow-[0_0_30px_rgba(0,243,255,0.4),inset_0_0_30px_rgba(0,243,255,0.4)]">
-              <div className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 backdrop-blur-sm border rounded-full flex items-center justify-center animate-[spin_25s_linear_infinite_reverse] hover:bg-brand-accent-blue hover:text-white hover:scale-125 transition-all cursor-none group ${glassStyle}`}>
-                <span className="font-mono text-[10px] text-center font-bold">Journey<br/>Mapping</span>
-              </div>
-              <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-20 h-20 backdrop-blur-sm border rounded-full flex items-center justify-center animate-[spin_25s_linear_infinite_reverse] hover:bg-brand-accent-blue hover:text-white hover:scale-125 transition-all cursor-none group ${glassStyle}`}>
-                <span className="font-mono text-[10px] text-center font-bold">Insight<br/>Synthesis</span>
-              </div>
-            </div>
-
-            <div className="absolute w-[65%] h-[65%] rounded-full animate-[spin_18s_linear_infinite_reverse] border-2 border-[#b026ff] shadow-[0_0_30px_rgba(176,38,255,0.4),inset_0_0_30px_rgba(176,38,255,0.4)]">
-              <div className={`absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-20 h-20 backdrop-blur-sm border rounded-full flex items-center justify-center animate-[spin_18s_linear_infinite] hover:bg-brand-accent-blue hover:text-white hover:scale-125 transition-all cursor-none group ${glassStyle}`}>
-                <span className="font-mono text-[10px] text-center font-bold">UX<br/>Strategy</span>
-              </div>
-              <div className={`absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-20 h-20 backdrop-blur-sm border rounded-full flex items-center justify-center animate-[spin_18s_linear_infinite] hover:bg-brand-accent-blue hover:text-white hover:scale-125 transition-all cursor-none group ${glassStyle}`}>
-                <span className="font-mono text-[10px] text-center font-bold">Co-Design</span>
-              </div>
-            </div>
-
+        {/* --- THE NEW CONSTELLATION SECTION --- */}
+        <section className="py-24 relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden scroll-fade-up border-y border-white/5">
+          <div className="text-center mb-12 relative z-20">
+            <h2 className={`font-poppins text-4xl md:text-5xl font-black uppercase tracking-widest mb-4 ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>
+              My <span className="text-brand-accent-blue">Constellation</span>
+            </h2>
+            <p className={`font-montserrat text-sm md:text-base max-w-2xl mx-auto ${theme === 'light' ? 'text-slate-500' : 'text-slate-400'}`}>
+              The people, places, plot twists, and questions that shaped how I see. <br className="hidden md:block"/> Hover over a planet to explore.
+            </p>
           </div>
-        </section>
 
-        {/* ROADMAP */}
-        <section className="py-24 relative">
-          <h2 className={`font-poppins text-3xl font-bold uppercase tracking-widest mb-16 text-center ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>
-            The <span className="text-brand-accent-blue">Roadmap</span>
-          </h2>
+          {/* SOLAR SYSTEM INTERACTIVE CONTAINER */}
+          <div 
+            className="relative flex items-center justify-center w-[300px] h-[300px] md:w-[600px] md:h-[600px] lg:w-[1000px] lg:h-[1000px] my-10 scale-[0.4] sm:scale-[0.55] md:scale-75 lg:scale-100 transition-transform duration-700"
+            onMouseEnter={() => setIsSystemPaused(true)}
+            onMouseLeave={() => setIsSystemPaused(false)}
+          >
+            {/* CENTER PLANET: SRUSHTI */}
+            <div className="absolute z-30 w-32 h-32 rounded-full bg-gradient-to-br from-brand-accent-blue to-purple-700 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(124,58,237,0.6)] cursor-none group">
+              <span className="font-poppins font-black text-white text-xl tracking-widest drop-shadow-md">SRUSHTI</span>
+              
+              {/* HOVER TOOLTIP */}
+              <div className="absolute w-72 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none bg-black/90 backdrop-blur-xl border border-white/10 p-5 rounded-xl -top-40 left-1/2 -translate-x-1/2 shadow-2xl text-center z-50">
+                 <p className="text-[10px] text-brand-accent-blue uppercase tracking-widest mb-3 font-bold leading-tight">A world built from stories, questions, and very good food.</p>
+                 <p className="text-xs text-slate-300 leading-relaxed font-montserrat">I grew up in a joint family, where every person had a different opinion, story, and way of seeing things. I think that is where I started learning to listen.</p>
+              </div>
+            </div>
 
-          <div className="relative border-l-2 border-brand-accent-blue/30 ml-6 md:ml-12" ref={timelineRef}>
-            <div className="absolute top-0 left-[-2px] w-1 h-full bg-gradient-to-b from-brand-accent-blue via-transparent to-transparent origin-top scale-y-0 scroll-line"></div>
-
-            {[
-              { year: 'PRESENT', title: 'Inforens', desc: 'UX Strategy & Service Design Internship. Helping a student platform feel as trustworthy as the service behind it.' },
-              { year: 'RECENT', title: 'Scottish Widows x GSA', desc: 'Designing income protection for people whose lives do not fit a fixed salary through deep qualitative research.' },
-              { year: 'PAST', title: 'Sweet Lies & Bitter Truth', desc: 'Inclusive Education & Editorial Design. Using one biscuit to open up a much bigger story about empire, labour, and identity.' },
-              { year: 'ORIGIN', title: 'The Foundation', desc: 'Transitioned from journalism and media to uncovering human-centric insights and building strategic service systems.' }
-            ].map((node, i) => (
-              <div key={i} className="timeline-node relative pl-12 md:pl-20 py-8 group">
-                <div className="absolute top-10 left-[-9px] w-4 h-4 rounded-full bg-white border-2 border-brand-accent-blue group-hover:bg-brand-accent-blue group-hover:shadow-[0_0_15px_rgba(124,58,237,0.8)] transition-all duration-300"></div>
-                
-                <span className="font-mono text-xs font-bold text-brand-accent-blue tracking-widest block mb-2">{node.year}</span>
-                <div className={`backdrop-blur-md ${glassStyle} p-6 rounded-xl hover:border-brand-accent-blue transition-colors duration-300 cursor-none shadow-lg group-hover:-translate-y-1 transform`}>
-                  <h3 className={`font-poppins text-xl font-bold mb-2 ${theme === 'light' ? 'text-brand-blue' : 'text-white'}`}>{node.title}</h3>
-                  <p className={`font-montserrat text-sm leading-relaxed ${theme === 'light' ? 'text-slate-600' : 'text-slate-400'}`}>{node.desc}</p>
-                </div>
+            {/* ORBITS & PLANETS */}
+            {constellationData.map((planet, i) => (
+              <div 
+                key={i} 
+                className="absolute rounded-full border border-brand-accent-blue/20 border-dashed pointer-events-none"
+                style={{ 
+                  width: `${planet.orbitSize}px`, 
+                  height: `${planet.orbitSize}px`,
+                  animation: `spin ${planet.duration}s linear infinite`,
+                  animationPlayState: isSystemPaused ? 'paused' : 'running'
+                }}
+              >
+                 <div 
+                   className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full flex items-center justify-center cursor-none hover:scale-125 transition-all duration-300 bg-gradient-to-br ${planet.color} shadow-lg shadow-${planet.color.split('-')[1]}/50 pointer-events-auto`}
+                   style={{ 
+                     width: `${planet.size}px`, 
+                     height: `${planet.size}px`,
+                     animation: `spin-reverse ${planet.duration}s linear infinite`,
+                     animationPlayState: isSystemPaused ? 'paused' : 'running'
+                   }}
+                   onClick={(e) => {
+                     setActivePlanet(planet);
+                     const isRight = e.clientX > window.innerWidth / 2;
+                     const isBottom = e.clientY > window.innerHeight / 2;
+                     setModalStyles({
+                       left: e.clientX,
+                       top: e.clientY,
+                       transform: `translate(${isRight ? '-110%' : '10%'}, ${isBottom ? '-100%' : '10%'})`
+                     });
+                   }}
+                 >
+                   <span className="text-xl drop-shadow-md pointer-events-none">{planet.icon}</span>
+                 </div>
               </div>
             ))}
+          </div>
+
+          {/* PLANET CARD MODAL (HUD) */}
+          {activePlanet && (
+             <div 
+               className="fixed z-[100] bg-[#0a0a0a]/95 backdrop-blur-2xl border border-brand-accent-blue/40 p-6 md:p-8 rounded-2xl max-w-sm w-[90%] shadow-[0_0_80px_rgba(124,58,237,0.6)] animate-in fade-in duration-300 cursor-none"
+               style={modalStyles}
+             >
+                <button 
+                  onClick={() => setActivePlanet(null)} 
+                  className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors border border-white/10"
+                >
+                  ✕
+                </button>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-accent-blue mb-2 block font-bold">Orbit 0{activePlanet.id}: {activePlanet.name}</span>
+                <h3 className="font-poppins text-2xl font-bold text-white mb-4 leading-tight">{activePlanet.title}</h3>
+                <p className="font-montserrat text-sm text-slate-300 leading-relaxed mb-6 whitespace-pre-line">{activePlanet.story}</p>
+                <div className="bg-brand-accent-blue/10 border-l-2 border-brand-accent-blue p-4 rounded-r-lg">
+                   <span className="text-[9px] font-mono uppercase tracking-widest text-brand-accent-blue font-bold block mb-1">What Stayed:</span>
+                   <p className="font-montserrat text-xs text-white font-medium leading-relaxed">{activePlanet.stayed}</p>
+                </div>
+             </div>
+          )}
+
+          <div className="mt-16 text-center relative z-20">
+             <h3 className={`font-poppins text-2xl md:text-4xl font-light tracking-wide ${theme === 'light' ? 'text-brand-blue' : 'text-slate-300'}`}>
+               I collect stories. <br className="md:hidden"/><span className="font-bold text-brand-accent-blue">Then I design with what they reveal.</span>
+             </h3>
           </div>
         </section>
 
@@ -416,7 +457,6 @@ const About = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {metaphors.map((item, i) => (
-              {/* Staggering the vertical position for an organic, scattered look */},
               <div key={i} className={`group relative h-64 md:h-72 w-full cursor-none ${i % 2 !== 0 ? 'lg:mt-12' : ''}`} style={{ perspective: '1200px' }}>
                 <div className="w-full h-full relative transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:[transform:rotateY(180deg)]" style={{ transformStyle: 'preserve-3d' }}>
                   
@@ -538,7 +578,6 @@ const About = () => {
                     <h3 className="font-poppins font-black text-4xl md:text-6xl text-white leading-[1.1] uppercase tracking-tighter mix-blend-difference">
                       "WHO AM I, <br/><span className="text-[#8244F5]">WITHOUT MY WIDE SMILE.</span>"
                     </h3>
-                    {/* NEW SUBTITLE PLACED EXACTLY HERE */}
                     <p className="font-montserrat text-slate-400 font-light mt-4 text-sm md:text-base mix-blend-difference opacity-80">
                       Probably still me. Just with less evidence.
                     </p>
@@ -579,6 +618,8 @@ const About = () => {
       </section>
 
       <style dangerouslySetInnerHTML={{__html: `
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
         @keyframes scan { 
           0% { transform: translateY(-100%); opacity: 0; } 
           10% { opacity: 1; } 
