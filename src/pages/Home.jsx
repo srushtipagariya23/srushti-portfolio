@@ -153,21 +153,17 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           
           <div className="lg:col-span-6 flex flex-col items-start">
-            <div className="hero-fade mb-6">
+            {/* Tighter margin (mb-4) to match the space below the headline */}
+            <div className="hero-fade mb-4">
               <span className="px-4 py-1.5 bg-brand-accent-blue/10 border border-brand-accent-blue/20 text-brand-accent-blue text-[10px] font-mono uppercase tracking-[0.25em] font-bold rounded-full shadow-sm">
-                SERVICE Designer
+                Glasgow, UK
               </span>
             </div>
 
-            <h1 className="char-reveal font-poppins text-4xl md:text-5xl lg:text-[3.5rem] font-black tracking-tighter text-brand-blue leading-[1.1] mb-8">
+            {/* Fixed Tailwind typos and reduced margin to mb-4 for perfectly equal spacing */}
+            <h1 className="char-reveal font-poppins text-3xl md:text-4xl lg:text-[2.6rem] xl:text-[3.2rem] font-black tracking-tighter text-brand-blue leading-[1.1] mb-4 xl:whitespace-nowrap">
               <div className="overflow-hidden pb-1"><span className="block origin-bottom-left">I Make Services Make sense</span></div>
-              <div className="overflow-hidden pb-1"><span className="block origin-bottom-left text-brand-accent-blue"></span></div>
             </h1>
-
-            <p className="hero-fade font-montserrat font-light text-slate-500 text-lg md:text-xl leading-relaxed mb-6 max-w-xl">
-              I make complex experiences easier to understand and easier to use.
-            </p>
-
             <p className="hero-fade font-montserrat font-medium text-slate-700 text-lg md:text-xl leading-relaxed mb-10 max-w-xl border-l-2 border-brand-accent-blue pl-4">
               I am a service designer interested in how people actually experience the things built around them. My work is about making services feel clearer, more useful, and easier to move through.
             </p>
@@ -234,8 +230,9 @@ const Home = () => {
           <h3 className="scroll-line-reveal font-poppins text-xs font-bold uppercase tracking-[0.3em] text-brand-accent-blue mb-6">
             The Ethos // सृष्टि
           </h3>
-          <h2 className="scroll-line-reveal font-poppins text-4xl md:text-5xl font-black text-brand-blue tracking-tighter uppercase mb-8">
-            Srushti means <span className="text-brand-accent-blue">world</span>. <br/>It also means <span className="text-brand-accent-blue">creation</span>.
+          <h2 className="scroll-line-reveal font-poppins text-4xl md:text-5xl font-black text-brand-blue uppercase mb-8 leading-[1.1]">
+            Srushti means <span className="text-brand-accent-blue">world</span>.<br/>
+            It also means <span className="text-brand-accent-blue">creation</span>.
           </h2>
           <p className="scroll-line-reveal font-montserrat text-lg md:text-xl text-slate-500 font-light leading-relaxed max-w-3xl mx-auto">
             "Maybe that is why I am drawn to shaping how people move through services, systems, and experiences."

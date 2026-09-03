@@ -10,9 +10,9 @@ const Navbar = () => {
       {/* Brutalist Logo - NOW WITH GLASSMORPHISM BLUR SHIELD */}
       <Link 
         to="/" 
-        className="font-poppins font-black text-xl md:text-2xl tracking-tighter uppercase text-brand-blue pointer-events-auto hover:text-brand-accent-blue transition-colors cursor-none bg-white/70 backdrop-blur-md px-3 py-1.5 rounded-md shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-white/50"
+        className="font-roboto font-black text-xl md:text-2xl tracking-normal uppercase text-brand-blue pointer-events-auto hover:text-brand-accent-blue transition-colors cursor-none bg-white/70 backdrop-blur-md px-3 py-1.5 rounded-md shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-white/50 [-webkit-text-stroke:1px_currentColor]"
       >
-        SRUSHTI <span className="ml-2">PAGARIYA</span>
+        SRUSHTI<span className="ml-2">PAGARIYA</span>
       </Link>
 
       {/* Floating Glassmorphism Menu */}

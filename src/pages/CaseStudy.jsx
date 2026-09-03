@@ -64,9 +64,8 @@ const projectData = {
     brief: "The project began with a broad question around protection, but it quickly became clear that income protection carried a particular kind of tension. For many people, it sat somewhere between something important and something they had never fully seen themselves needing. The challenge was to understand what created that distance, what emotional and practical barriers shaped people’s responses, and how the experience could feel more supportive from the very beginning.",
     image2: { 
       type: 'split', 
-      srcs: [scottish2, scottish3], // Passes both images side-by-side
-      microcopy: ["Focus area", "Stakeholder landscape"], 
-      caption: "We began broadly with sticky-note ideation, then structured our findings into a clear stakeholder landscape." 
+      srcs: [scottish2, scottish3], // Passes both images side-by-side 
+      caption: "Why we chose income protection and testing our assumptions." 
     },
     approach: "This was a fully collaborative group project, so the work moved across the whole process together rather than through fixed individual roles. We used exploratory design methods to understand the space first, then gradually built a clearer direction through research, mapping, synthesis, and prototyping.",
     approachBullets: [
@@ -133,7 +132,7 @@ const projectData = {
     ],
     image1: { src: sweet1, caption: "An editorial learning experience designed to hold difficult history with honesty, structure, and care." },
     brief: "The brief was to create a learning resource around Scottish afternoon tea for young learners, with a focus on historical power and empire. What sounded simple at first quickly opened into something much larger. The challenge was to communicate a deeply sensitive history in a way that respected young audiences, worked in real classrooms, and remained accessible to different learner needs without reducing the depth of the subject.",
-    image2: { src: sweet2, microcopy: ["One biscuit", "Six countries", "Centuries of exploitation"], caption: "What first looked like a simple object quickly opened into a much wider story of labour, trade, empire, and identity." },
+    image2: { src: sweet2, microcopy: ["One biscuit", "Six countries"], caption: "Stakeholder insight helped define what the resource needed to do in real classrooms, not just what sounded engaging in theory." },
     approach: "This project was shaped through stakeholder listening, concept testing, editorial decision-making, and repeated simplification. Because we could not speak directly with the end users due to ethical constraints, we relied on expert input, student reactions to existing learning formats, and careful judgment throughout the process.",
     approachBullets: [
       "Conducted site visits and listened to stakeholder presentations.",
@@ -143,13 +142,13 @@ const projectData = {
       "Rejected ideas that distracted from the history or created access barriers.",
       "Chose a newspaper format because it felt clearer, more realistic, and more respectful to the content."
     ],
-    image3: { src: sweet3, microcopy: ["Teachers have limited time", "Accessibility starts early", "Content must stay honest"], caption: "Stakeholder insight helped define what the resource needed to do in real classrooms, not just what sounded engaging in theory." },
+    image3: { src: sweet3, microcopy: ["Teachers have limited time", "Accessibility starts early", "Content must stay honest"], caption: "Some of the strongest decisions in the project came from the ideas we chose not to pursue." },
     insights: [
       "Teenagers did not need to be over-entertained. They needed to be respected with real content.",
       "Format should support learning, not overpower it.",
       "Accessibility had to shape the resource from the beginning, not the final polish."
     ],
-    image4: { src: sweet4, caption: "Some of the strongest decisions in the project came from the ideas we chose not to pursue." },
+    image4: { src: sweet4, caption: "The newspaper format allowed the content to unfold gradually, helping learners move through a difficult subject with more clarity and confidence." },
     output: "The final output was an eight-page educational newspaper where every element was deliberately structured, edited, and reviewed several times. The wording, pacing, and sequencing were shaped carefully so the experience could stay clear, sensitive, and educational without losing depth.",
     outputBullets: [
       "Eight-page newspaper prototype",
@@ -163,7 +162,7 @@ const projectData = {
       srcs: [news1, news2, news3, news4, news5, news6, news7, news8], 
       text: "[ Newspaper Viewer Loaded ]", 
       microcopy: ["Chunked learning", "Editorial pacing", "One clear idea per page"], 
-      caption: "The newspaper format allowed the content to unfold gradually, helping learners move through a difficult subject with more clarity and confidence." 
+      caption: "The final prototype: Sweet lies, Bitter Ttruth." 
     },
     outcome: "The project showed that difficult histories can be taught more effectively when the format is simple, content-led, and designed with real access conditions in mind. It also demonstrated how editorial design, storytelling, and accessibility can work together to create a more meaningful learning experience.",
     outcomeBullets: [
@@ -250,7 +249,7 @@ const projectData = {
       "Focus: Phone-free unstructured time for young people aged 14-16",
       "Methods: Desk research, stakeholder interviews, affinity clustering, co-design, precedent analysis, journey mapping, service blueprinting and physical prototyping"
     ],
-    image1: { src: bored1, caption: "The research question narrowed through evidence, stakeholder feedback and testing." },
+    image1: { src: bored1 },
     brief: "The project began with a broad question about boredom and creativity in Scottish secondary schools. It quickly became clear that the more urgent question sat inside a live policy moment: phones were being restricted, but no one had designed for the time left behind. The brief was not about whether phones are good or bad. It was about what comes after restriction. What fills the time. Who takes responsibility for it. And what conditions might help something creative, reflective or self-directed emerge. I began with the question: How is boredom linked to creativity in Scottish secondary schools? I finished with: What conditions could support creative and critical thinking in phone-free unstructured time for young people aged 14–16? Each shift was forced by research and feedback, not intuition.",
     image2: { src: bored2, caption: "The research question narrowed through evidence, stakeholder feedback and testing." },
     approach: "I used the Double Diamond to separate problem framing from problem solving. The first phase focused on understanding the gap between phone restriction and the experience of young people inside that policy. The second phase translated the research into possible design directions. I used three main approaches: Affinity clustering to identify repeated patterns across eight stakeholder interviews. Co-design to explore emerging ideas through a shared session with Daydream Believers. Precedent-led design to test ideas against creative practices such as Brian Eno’s Oblique Strategies, Yoko Ono’s Grapefruit and Bruno Munari’s approach to curiosity and making. The final deck did not begin as a predetermined answer. It developed from the evidence.",
@@ -267,8 +266,8 @@ const projectData = {
       "The gap is systemic. No single person currently owns the transition from phone access to phone-free time."
     ],
     image3: { type: 'split', 
-      srcs: [bored3, bored4], caption: "The research moved from literature, to people, to systems, to a physical prototype." },
-    image4: { src: bored5 , caption: "Every design decision traces back to a research finding." },
+      srcs: [bored3, bored4], caption: "Stakeholder mapping that led to affinity mapping." },
+    image4: { src: bored5 , caption: "Brainstorming ideas and Rejected concepts." },
     output: "Bored Directors is a physical instructional card system for young people aged 14–16. The deck creates small, voluntary invitations into phone-free unstructured time. It does not tell young people to be creative, productive or sociable. Instead, it gives them different ways to begin: noticing, making, imagining, communicating, pausing or defining an open problem. There are no correct answers, scores or required outcomes. A card can be picked up, adapted, ignored, passed on or used in a completely unexpected way. The name positions young people as directors of their own unstructured time. The tone is slightly formal, deadpan and speculative, as if the organisation issuing the cards is real. Each department translates a research insight into a different entry point: Observation, Misdirection, Communication, Making, Stillness, and De-Brief.",
     outputBullets: [
       "Voluntary entry into phone-free time",

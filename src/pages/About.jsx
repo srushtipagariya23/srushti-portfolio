@@ -212,7 +212,7 @@ const About = () => {
     "Edinburgh looked even better with an internship to celebrate.",
     "Goa, the kind of place that never feels finished the first time.",
     "Dumbarton nearly blew me away, but the view still won.",
-    "Loch Lomond, my first Scottish trip, and the beginning of a very big love story.",
+    "Loch Lomond, my first Scottish trip, and the beginning of a love story towards Scotland.",
     "A project I held onto with full heart, and every bit of that showed."
   ];
 
@@ -272,12 +272,12 @@ const About = () => {
   const constellationData = [
     { id: 1, name: "The Story Planet", title: "Raised on stories.", story: "My dad could make an ordinary moment worth listening to. My mum made sure I got on stage and found my own voice.", stayed: "Stories can make people pause, feel, and understand.", icon: "🎙️", size: 40, orbitSize: 280, duration: 45, color: "from-purple-500 to-indigo-500" },
     { id: 2, name: "The Translation Planet", title: "Four languages. Many ways to listen.", story: "By six, I was moving between four languages. It taught me that the same idea can mean something different depending on who is hearing it.", stayed: "Listening is also translation.", icon: "💬", size: 36, orbitSize: 380, duration: 60, color: "from-blue-400 to-cyan-400" },
-    { id: 3, name: "The Side-Quest Planet", title: "My 48-hour-day era.", story: "Journalism. Graphic design. Video. Events. PR. Freelance work. Creative strategy. A gift-hamper business.\n\nI said yes to a lot, learned fast, and discovered that the messy middle is where I work best.", stayed: "The best experiences look simple because someone thought through the chaos.", icon: "🎟️", size: 48, orbitSize: 480, duration: 80, color: "from-pink-500 to-rose-400" },
+    { id: 3, name: "The Side-Quest Planet", title: "My 48-hour-day era.", story: "Journalism. Graphic design. Video. Events. PR. Freelance work. Creative strategy. A gift-hamper business.\n\nI said yes to a lot, learned fast, and discovered that the messy middle is where I work best.", stayed: "The best experiences look simple because someone thought through the chaos.", icon: "📰", size: 48, orbitSize: 480, duration: 80, color: "from-pink-500 to-rose-400" },
     { id: 4, name: "The Attention Planet", title: "First, I studied attention.", story: "Advertising taught me to ask: what makes people notice, trust, question, or choose?", stayed: "Relevance is never accidental.", icon: "📡", size: 44, orbitSize: 580, duration: 95, color: "from-amber-400 to-orange-500" },
-    { id: 5, name: "The Experience Planet", title: "Then, I widened the lens.", story: "Service design made me ask a bigger question: what happens before, during, and after someone receives that message?\n\nNot just, “Will it land?”\nBut, “Will the experience actually work?”", stayed: "I moved from studying choices to designing the conditions around them.", icon: "🧩", size: 56, orbitSize: 700, duration: 115, color: "from-emerald-400 to-green-500" },
-    { id: 6, name: "The People Planet", title: "People give me better questions.", story: "Moving to Glasgow, designing with people from different countries, and mentoring students through Inforens taught me that there is no “average user.”\n\nThere are only people, contexts, fears, hopes, and stories you have not heard yet.", stayed: "Every honest conversation is research.", icon: "🌍", size: 52, orbitSize: 820, duration: 135, color: "from-sky-400 to-blue-500" },
-    { id: 7, name: "The Kitchen Planet", title: "Cooking is my love language.", story: "Indian vegetarian food, no eggs, lots of experiments, and usually enough food for more people than planned.\n\nCooking reminds me that good experiences are built through care, attention, timing, and knowing who is at the table.", stayed: "Making something for someone is a form of listening.", icon: "🌶️", size: 40, orbitSize: 940, duration: 155, color: "from-red-500 to-rose-600" },
-    { id: 8, name: "The Quiet Moon", title: "Social battery: powerful, not unlimited.", story: "I love conversations, new people, and a room full of stories. Then I go quiet, recharge, process everything, and come back with more questions.", stayed: "Curiosity needs both people and pause.", icon: "🌒", size: 32, orbitSize: 1060, duration: 190, color: "from-slate-400 to-slate-600" }
+    { id: 5, name: "The Experience Planet", title: "Then, I widened the lens.", story: "Service design made me ask a bigger question: what happens before, during, and after someone receives that message?\n\nNot just, “Will it land?”\nBut, “Will the experience actually work?”", stayed: "I moved from studying choices to designing the conditions around them.", icon: "🔎", size: 56, orbitSize: 700, duration: 115, color: "from-emerald-400 to-green-500" },
+    { id: 6, name: "The People Planet", title: "People give me better questions.", story: "Moving to Glasgow, designing with people from different countries, and mentoring students through Inforens taught me that there is no “average user.”\n\nThere are only people, contexts, fears, hopes, and stories you have not heard yet.", stayed: "Every honest conversation is research.", icon: "✈️", size: 52, orbitSize: 820, duration: 135, color: "from-sky-400 to-blue-500" },
+    { id: 7, name: "The Kitchen Planet", title: "Cooking is my love language.", story: "Cooking reminds me that good experiences are built through care, attention, timing, and knowing who is at the table.", stayed: "Making something for someone is a form of listening.", icon: "🌶️", size: 40, orbitSize: 940, duration: 155, color: "from-red-500 to-rose-600" },
+    { id: 8, name: "The Quiet Moon", title: "Social battery: powerful, not unlimited.", story: "I love conversations, new people, and a room full of stories. Then I go quiet, recharge, process everything, and come back with more questions.", stayed: "Curiosity needs both people and pause.", icon: "🔋", size: 32, orbitSize: 1060, duration: 190, color: "from-slate-400 to-slate-600" }
   ];
 
   return (
@@ -382,12 +382,15 @@ const About = () => {
             {constellationData.map((planet, i) => (
               <div 
                 key={i} 
-                className="absolute rounded-full border border-brand-accent-blue/20 border-dashed pointer-events-none"
+                className="absolute rounded-full pointer-events-none"
                 style={{ 
                   width: `${planet.orbitSize}px`, 
                   height: `${planet.orbitSize}px`,
                   animation: `spin ${planet.duration}s linear infinite`,
-                  animationPlayState: isSystemPaused ? 'paused' : 'running'
+                  animationPlayState: isSystemPaused ? 'paused' : 'running',
+                  /* Thicker, Highly Glowing Purple/Blue Neon Ring */
+                  border: '2px solid rgba(124, 58, 237, 0.4)',
+                  boxShadow: '0 0 25px rgba(124, 58, 237, 0.4), inset 0 0 25px rgba(124, 58, 237, 0.4)'
                 }}
               >
                  <div 
@@ -447,8 +450,9 @@ const About = () => {
           {/* PLANET CARD MODAL REMOVED FROM HERE - MOVED TO BOTTOM TO FIX CSS POSITIONING BUG */}
 
           <div className="mt-16 text-center relative z-20">
-             <h3 className={`font-poppins text-2xl md:text-4xl font-light tracking-wide ${theme === 'light' ? 'text-brand-blue' : 'text-slate-300'}`}>
-               I collect stories. <br className="md:hidden"/><span className="font-bold text-brand-accent-blue">Then I design with what they reveal.</span>
+             <h3 className={`font-poppins text-2xl md:text-4xl font-light tracking-wide leading-relaxed ${theme === 'light' ? 'text-brand-blue' : 'text-slate-300'}`}>
+               I collect stories.<br />
+               <span className="font-bold text-brand-accent-blue inline-block mt-2 md:mt-4">Then I design with what they reveal.</span>
              </h3>
           </div>
         </section>
@@ -587,7 +591,7 @@ const About = () => {
                     <h3 className="font-poppins font-black text-4xl md:text-6xl text-white leading-[1.1] uppercase tracking-tighter mix-blend-difference">
                       "WHO AM I, <br/><span className="text-[#8244F5]">WITHOUT MY WIDE SMILE.</span>"
                     </h3>
-                    <p className="font-montserrat text-slate-400 font-light mt-4 text-sm md:text-base mix-blend-difference opacity-80">
+                    <p className="font-montserrat text-slate-400 font-light mt-4 text-xl md:text-2xl mix-blend-difference opacity-90">
                       Probably still me. Just with less evidence.
                     </p>
                   </div>
