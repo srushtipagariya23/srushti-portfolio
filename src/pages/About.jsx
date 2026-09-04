@@ -278,12 +278,13 @@ const About = () => {
               </div>
             </div>
 
-            <div className="lg:col-span-5 flex justify-center float-slow relative group">
-              <div className="absolute inset-0 bg-brand-accent-blue/20 blur-[60px] rounded-full group-hover:bg-brand-accent-blue/40 group-hover:scale-125 transition-all duration-700 -z-10"></div>
-              <div className="relative w-64 h-64 md:w-96 md:h-96 rounded-full p-2 bg-gradient-to-tr from-brand-accent-blue to-transparent transform-gpu group-hover:rotate-6 transition-transform duration-700 md:cursor-none">
+            {/* Added tabIndex and group-focus to make hover effects work perfectly on mobile tap */}
+            <div className="lg:col-span-5 flex justify-center float-slow relative group" tabIndex="0">
+              <div className="absolute inset-0 bg-brand-accent-blue/20 blur-[60px] rounded-full group-hover:bg-brand-accent-blue/40 group-focus:bg-brand-accent-blue/40 group-hover:scale-125 group-focus:scale-125 transition-all duration-700 -z-10"></div>
+              <div className="relative w-64 h-64 md:w-96 md:h-96 rounded-full p-2 bg-gradient-to-tr from-brand-accent-blue to-transparent transform-gpu group-hover:rotate-6 group-focus:rotate-6 transition-transform duration-700 md:cursor-none">
                 <div className="w-full h-full rounded-full overflow-hidden bg-brand-blue relative">
-                  <img src={profilePhoto} alt="Srushti" className="w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-110 transition-all duration-700" />
-                  <div className="absolute top-0 left-0 w-full h-1 bg-[#ccff00]/80 blur-[2px] -translate-y-full group-hover:animate-[scan_2s_ease-in-out_infinite] z-30"></div>
+                  <img src={profilePhoto} alt="Srushti" className="w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal group-focus:mix-blend-normal group-hover:scale-110 group-focus:scale-110 transition-all duration-700" />
+                  <div className="absolute top-0 left-0 w-full h-1 bg-[#ccff00]/80 blur-[2px] -translate-y-full group-hover:animate-[scan_2s_ease-in-out_infinite] group-focus:animate-[scan_2s_ease-in-out_infinite] z-30"></div>
                 </div>
               </div>
             </div>
@@ -301,8 +302,9 @@ const About = () => {
             </p>
           </div>
 
+          {/* Scaled down mathematically to 0.25 so the 1060px outer orbit completely fits within narrow phone screens (1060 * 0.25 = 265px width) */}
           <div 
-            className="relative flex items-center justify-center w-[250px] h-[250px] md:w-[600px] md:h-[600px] lg:w-[1000px] lg:h-[1000px] my-10 scale-[0.55] sm:scale-[0.7] md:scale-75 lg:scale-100 transition-transform duration-700"
+            className="relative flex items-center justify-center w-[250px] h-[250px] md:w-[600px] md:h-[600px] lg:w-[1000px] lg:h-[1000px] my-10 scale-[0.25] sm:scale-[0.4] md:scale-75 lg:scale-100 transition-transform duration-700"
             onMouseEnter={() => setIsSystemPaused(true)}
             onMouseLeave={() => setIsSystemPaused(false)}
           >
@@ -389,8 +391,14 @@ const About = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {metaphors.map((item, i) => (
-              <div key={i} className={`group relative h-64 md:h-72 w-full md:cursor-none ${i % 2 !== 0 ? 'lg:mt-12' : ''}`} style={{ perspective: '1200px' }}>
-                <div className="w-full h-full relative transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:[transform:rotateY(180deg)]" style={{ transformStyle: 'preserve-3d' }}>
+              <div 
+                key={i} 
+                tabIndex="0" 
+                onClick={(e) => e.currentTarget.focus()} 
+                className={`group relative h-64 md:h-72 w-full outline-none md:cursor-none ${i % 2 !== 0 ? 'lg:mt-12' : ''}`} 
+                style={{ perspective: '1200px' }}
+              >
+                <div className="w-full h-full relative transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:[transform:rotateY(180deg)] group-focus:[transform:rotateY(180deg)]" style={{ transformStyle: 'preserve-3d' }}>
                   
                   <div className={`absolute inset-0 flex flex-col items-center justify-center p-6 rounded-2xl border ${glassStyle} shadow-[0_10px_30px_rgba(0,0,0,0.05)] overflow-hidden`} style={{ backfaceVisibility: 'hidden' }}>
                     <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-[0.15]`}></div>
@@ -475,13 +483,18 @@ const About = () => {
 
             return (
               <React.Fragment key={i}>
-                <div className={`relative ${width} ${marginTop} transform ${rotate} hover:rotate-0 hover:scale-125 hover:z-50 transition-all duration-500 ease-out md:cursor-none group`}>
-                  <span className="absolute -bottom-4 -left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#ccff00] text-black font-mono text-[9px] uppercase tracking-widest font-bold px-3 py-2 z-20 shadow-sm max-w-[150px] md:max-w-[200px] whitespace-normal text-left leading-tight">
+                {/* Added onClick to force mobile browsers to respect the focus/hover states without highlighting */}
+                <div 
+                  tabIndex="0" 
+                  onClick={(e) => e.currentTarget.focus()}
+                  className={`relative ${width} ${marginTop} transform ${rotate} hover:rotate-0 focus:rotate-0 hover:scale-125 focus:scale-125 hover:z-50 focus:z-50 transition-all duration-500 ease-out md:cursor-none outline-none group`}
+                >
+                  <span className="absolute -bottom-4 -left-3 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 bg-[#ccff00] text-black font-mono text-[9px] uppercase tracking-widest font-bold px-3 py-2 z-20 shadow-sm max-w-[150px] md:max-w-[200px] whitespace-normal text-left leading-tight">
                     {memoryCaptions[i]}
                   </span>
                   <div className="relative overflow-hidden bg-white p-1.5 shadow-[0_15px_40px_rgba(0,0,0,0.3)]">
-                    <img src={mem} alt={`Memory ${i+1}`} className="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
-                    <div className="absolute top-0 left-0 w-full h-1 bg-[#ccff00]/80 blur-[2px] -translate-y-full group-hover:animate-[scan_2s_ease-in-out_infinite] z-30"></div>
+                    <img src={mem} alt={`Memory ${i+1}`} className="w-full h-auto object-cover grayscale group-hover:grayscale-0 group-focus:grayscale-0 transition-all duration-500" />
+                    <div className="absolute top-0 left-0 w-full h-1 bg-[#ccff00]/80 blur-[2px] -translate-y-full group-hover:animate-[scan_2s_ease-in-out_infinite] group-focus:animate-[scan_2s_ease-in-out_infinite] z-30"></div>
                   </div>
                 </div>
 
