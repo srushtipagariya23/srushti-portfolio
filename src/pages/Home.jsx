@@ -8,7 +8,6 @@ import inforensCover from '../assets/inforens-cover.png';
 import widowsCover from '../assets/widows-cover.png';
 import sweetLiesCover from '../assets/sweet-lies-cover.png';
 import boredDirectorsCover from '../assets/bored-cover.png';
-//import boredDirectorsCover from '../assets/bored-directors-cover.png'; // Make sure you add this image to your assets!
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,19 +17,19 @@ const Home = () => {
   const globeRef = useRef(null);
   const textSectionRef = useRef(null);
   
-  // NEW: State for the Interactive Earth Modal
   const [isBioOpen, setIsBioOpen] = useState(false);
   const [visitorName, setVisitorName] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  // LIVE SEARCH STATE
+  const [searchQuery, setSearchQuery] = useState('');
 
-  // List of global greetings to combine with the user's name
   const globalGreetings = [
     "Hello", "Bonjour", "Hola", "Ciao", "こんにちは", "안녕하세요", "नमस्ते", "Привет", "مرحبا",
     "Hallo", "Olá", "Hej", "Ahoj", "Szia", "Cześć", "Γεια σας", "Merhaba", "שלום", "Sawubona",
     "Jambo", "Sveiki", "Halò", "Kamusta", "Xin chào", "Aloha", "Kia ora", "Namaskara", "Vanakkam"
   ];
 
-  // Generate random positions and sizes for the names ONLY when the user submits their name
   const floatingNames = React.useMemo(() => {
     if (!isSubmitted || !visitorName) return [];
     return globalGreetings.map((greet, i) => ({
@@ -38,12 +37,11 @@ const Home = () => {
       text: `${greet}, ${visitorName}`,
       top: Math.floor(Math.random() * 85) + "%",
       left: Math.floor(Math.random() * 85) + "%",
-      fontSize: (Math.random() * 1.5 + 1) + "rem", // Random size between 1rem and 2.5rem
-      opacity: Math.random() * 0.4 + 0.1, // Random opacity between 0.1 and 0.5
+      fontSize: (Math.random() * 1.5 + 1) + "rem", 
+      opacity: Math.random() * 0.4 + 0.1, 
     }));
   }, [isSubmitted, visitorName]);
 
-  // Lock scrolling when open, and totally reset the name/form when closed
   useEffect(() => {
     if (isBioOpen) {
       document.body.style.overflow = 'hidden';
@@ -57,7 +55,6 @@ const Home = () => {
     return () => { document.body.style.overflow = 'auto'; };
   }, [isBioOpen]);
 
-  // GSAP Animation: Explodes the names onto the screen when submitted
   useEffect(() => {
     if (isSubmitted) {
       gsap.fromTo(".floating-name",
@@ -71,11 +68,10 @@ const Home = () => {
     }
   }, [isSubmitted]);
   
-
-  // --- DYNAMIC LIGHTING & MOUSE SPOTLIGHT ENGINE ---
   useEffect(() => {
     const handleMouseMove = (e) => {
-      if (!heroRef.current) return;
+      // Disable parallax globe rotation on mobile for performance
+      if (!heroRef.current || window.innerWidth < 768) return;
       const { left, top, width, height } = heroRef.current.getBoundingClientRect();
       const x = (e.clientX - left) / width;
       const y = (e.clientY - top) / height;
@@ -99,7 +95,6 @@ const Home = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []); 
 
-  // --- GSAP TEXT REVEALS ---
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       gsap.fromTo(".char-reveal span", 
@@ -137,12 +132,17 @@ const Home = () => {
     { id: "bored-directors", tag: "Education / Research", title: "Bored Directors", desc: "Designing for the phone-free time that remains when the screen is put away.", image: boredDirectorsCover }
   ];
 
+  const filteredProjects = projects.filter(project => 
+    project.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    project.tag.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <main ref={pageRef} className="w-full overflow-hidden bg-white text-brand-blue selection:bg-brand-accent-blue selection:text-white">
       
       <section 
         ref={heroRef}
-        className="relative min-h-screen pt-32 pb-24 flex items-center overflow-hidden"
+        className="relative min-h-screen pt-32 pb-24 flex items-center z-40"
         style={{ background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(124,58,237,0.06) 0%, transparent 50%)' }}
       >
         <div className="absolute inset-0 pointer-events-none z-0">
@@ -152,15 +152,13 @@ const Home = () => {
 
         <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           
-          <div className="lg:col-span-6 flex flex-col items-start">
-            {/* Tighter margin (mb-4) to match the space below the headline */}
+          <div className="lg:col-span-6 flex flex-col items-start mt-8 md:mt-0">
             <div className="hero-fade mb-4">
               <span className="px-4 py-1.5 bg-brand-accent-blue/10 border border-brand-accent-blue/20 text-brand-accent-blue text-[10px] font-mono uppercase tracking-[0.25em] font-bold rounded-full shadow-sm">
                 Glasgow, UK
               </span>
             </div>
 
-            {/* Fixed Tailwind typos and reduced margin to mb-4 for perfectly equal spacing */}
             <h1 className="char-reveal font-poppins text-3xl md:text-4xl lg:text-[2.6rem] xl:text-[3.2rem] font-black tracking-tighter text-brand-blue leading-[1.1] mb-4 xl:whitespace-nowrap">
               <div className="overflow-hidden pb-1"><span className="block origin-bottom-left">I Make Services Make sense</span></div>
             </h1>
@@ -168,22 +166,56 @@ const Home = () => {
               I am a service designer interested in how people actually experience the things built around them. My work is about making services feel clearer, more useful, and easier to move through.
             </p>
 
-            <div className="hero-fade relative z-20 w-full max-w-lg">
-              <div className="bg-white/70 backdrop-blur-xl rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.03)] border border-slate-200/60 p-2 flex items-center justify-between group hover:border-brand-accent-blue/30 transition-all duration-500">
-                <div className="flex items-center gap-3 pl-4 text-slate-400 group-hover:text-brand-accent-blue transition-colors duration-300">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                  <span className="font-montserrat text-xs font-semibold tracking-wide text-slate-400">Discover Case Studies...</span>
+            <div className="hero-fade relative z-50 w-full max-w-lg">
+              <div className="bg-white/70 backdrop-blur-xl rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.03)] border border-slate-200/60 p-2 flex items-center justify-between group hover:border-brand-accent-blue/30 transition-all duration-500 relative z-50">
+                <div className="flex items-center gap-3 pl-4 text-slate-400 group-focus-within:text-brand-accent-blue transition-colors duration-300 flex-grow">
+                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                  <input 
+                    type="text" 
+                    placeholder="Discover Case Studies..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="bg-transparent border-none outline-none font-montserrat text-xs font-semibold tracking-wide text-brand-blue placeholder:text-slate-400 w-full"
+                  />
                 </div>
-                <Link to="/work" className="bg-brand-blue text-white font-mono text-[10px] font-bold uppercase tracking-widest px-6 py-3 rounded-full hover:bg-brand-accent-blue hover:scale-105 transition-all shadow-md shadow-brand-blue/10 cursor-none">
+                <Link to="/work" className="bg-brand-blue text-white font-mono text-[10px] font-bold uppercase tracking-widest px-6 py-3 rounded-full hover:bg-brand-accent-blue hover:scale-105 transition-all shadow-md shadow-brand-blue/10 md:cursor-none flex-shrink-0 ml-2">
                   Explore
                 </Link>
               </div>
+
+              {searchQuery.trim().length > 0 && (
+                <div className="absolute top-[110%] left-0 w-full max-w-[calc(100vw-3rem)] md:max-w-full bg-white/95 backdrop-blur-2xl border border-slate-200/80 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] overflow-hidden z-[9999] animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="p-2 max-h-64 overflow-y-auto">
+                    {filteredProjects.length > 0 ? (
+                      filteredProjects.map((project, idx) => (
+                        <Link 
+                          key={idx} 
+                          to={`/case-study/${project.id}`}
+                          className="flex items-center gap-4 p-3 hover:bg-brand-accent-blue/5 rounded-xl group transition-colors md:cursor-none"
+                        >
+                          <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0 border border-slate-200/50">
+                            {project.image && <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />}
+                          </div>
+                          <div>
+                            <h4 className="font-poppins text-sm font-bold text-brand-blue group-hover:text-brand-accent-blue transition-colors leading-tight">{project.title}</h4>
+                            <p className="font-mono text-[9px] uppercase tracking-widest text-slate-400 mt-1">{project.tag}</p>
+                          </div>
+                        </Link>
+                      ))
+                    ) : (
+                      <div className="p-6 text-center">
+                        <p className="font-montserrat text-sm text-slate-500 font-medium">No projects found for "{searchQuery}"</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
-          <div className="lg:col-span-6 flex justify-center items-center relative h-[500px]">
-            <div className="absolute w-[360px] h-[360px] md:w-[460px] md:h-[460px] rounded-full border border-dashed border-brand-accent-blue/20 animate-[spin_40s_linear_infinite] pointer-events-none z-0 flex items-center justify-center">
-              <svg className="w-full h-full absolute inset-0" viewBox="0 0 100 100">
+          <div className="lg:col-span-6 flex justify-center items-center relative h-[350px] md:h-[500px]">
+            <div className="absolute w-[280px] h-[280px] md:w-[460px] md:h-[460px] rounded-full border border-dashed border-brand-accent-blue/20 animate-[spin_40s_linear_infinite] pointer-events-none z-0 flex items-center justify-center">
+              <svg className="w-full h-full absolute inset-0 hidden md:block" viewBox="0 0 100 100">
                 <path id="circlePath" d="M 50, 50 m -43, 0 a 43,43 0 1,1 86,0 a 43,43 0 1,1 -86,0" fill="none" />
                 <text className="font-mono text-[2.8px] fill-brand-accent-blue/40 uppercase tracking-[6px] font-bold">
                   <textPath href="#circlePath">CREATION • THE WORLD OF IDEAS • INNOVATION WITHOUT LIMITS • </textPath>
@@ -191,20 +223,17 @@ const Home = () => {
               </svg>
             </div>
 
-            <div className="absolute w-[300px] h-[300px] md:w-[380px] md:h-[380px] rounded-full animate-[spin_12s_linear_infinite] pointer-events-none z-10">
+            <div className="absolute w-[250px] h-[250px] md:w-[380px] md:h-[380px] rounded-full animate-[spin_12s_linear_infinite] pointer-events-none z-10">
               <div className="absolute top-0 left-1/2 w-2 h-2 rounded-full bg-brand-accent-blue shadow-[0_0_10px_#7c3aed]"></div>
             </div>
 
-            {/* THE HYPER-REALISTIC EARTH: NASA textures and atmospheric scattering (No Clouds). */}
             <div 
               ref={globeRef}
               onClick={() => setIsBioOpen(true)}
-              className="relative flex-shrink-0 aspect-square w-[75vw] h-[75vw] max-w-[18rem] max-h-[18rem] md:max-w-none md:max-h-none md:w-80 md:h-80 md:min-w-[20rem] md:min-h-[20rem] rounded-full group transition-all duration-700 bg-black z-10 transform-gpu cursor-pointer overflow-hidden hover:scale-105 hover:shadow-[0_0_100px_rgba(124,58,237,0.4)]"
+              className="relative flex-shrink-0 aspect-square w-[65vw] h-[65vw] max-w-[15rem] max-h-[15rem] md:max-w-none md:max-h-none md:w-80 md:h-80 md:min-w-[20rem] md:min-h-[20rem] rounded-full group transition-all duration-700 bg-black z-10 transform-gpu cursor-pointer overflow-hidden hover:scale-105 hover:shadow-[0_0_100px_rgba(124,58,237,0.4)]"
              >
-              {/* 1. True 3D Spherical Shading (Day/Night Terminator) */}
               <div className="absolute inset-0 rounded-full shadow-[inset_-50px_-30px_60px_rgba(0,0,0,0.9),inset_10px_10px_40px_rgba(255,255,255,0.4)] z-30 pointer-events-none border border-white/10"></div>
               
-              {/* 2. Natural Earth Map (No clouds!) */}
               <div 
                 className="absolute top-0 left-0 h-full w-[400%] animate-[earthSpin_40s_linear_infinite] z-10 pointer-events-none opacity-100"
                 style={{
@@ -215,7 +244,6 @@ const Home = () => {
                 }}
               ></div>
 
-              {/* 3. Subtle Blue Atmospheric Edge Glow */}
               <div className="absolute inset-0 rounded-full shadow-[inset_0_0_20px_rgba(100,150,255,0.3)] z-40 pointer-events-none mix-blend-screen"></div>
             </div>
 
@@ -225,12 +253,12 @@ const Home = () => {
         </div>
       </section>
 
-      <section ref={textSectionRef} className="py-32 relative bg-slate-50 border-y border-slate-200/40">
+      <section ref={textSectionRef} className="py-24 md:py-32 relative bg-slate-50 border-y border-slate-200/40">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h3 className="scroll-line-reveal font-poppins text-xs font-bold uppercase tracking-[0.3em] text-brand-accent-blue mb-6">
             The Ethos // सृष्टि
           </h3>
-          <h2 className="scroll-line-reveal font-poppins text-4xl md:text-5xl font-black text-brand-blue uppercase mb-8 leading-[1.1]">
+          <h2 className="scroll-line-reveal font-poppins text-3xl md:text-5xl font-black text-brand-blue uppercase mb-8 leading-[1.1]">
             Srushti means <span className="text-brand-accent-blue">world</span>.<br/>
             It also means <span className="text-brand-accent-blue">creation</span>.
           </h2>
@@ -240,23 +268,23 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-32 relative bg-white">
+      <section className="py-24 md:py-32 relative bg-white">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="scroll-anim mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="scroll-anim mb-16 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <h3 className="font-mono text-xs font-bold uppercase tracking-[0.3em] text-brand-accent-blue mb-4 flex items-center gap-4">
                 <span className="w-8 h-[1px] bg-brand-accent-blue"></span> Case Studies
               </h3>
               <h2 className="font-poppins text-4xl md:text-5xl font-black text-brand-blue tracking-tighter">Selected Work</h2>
             </div>
-            <Link to="/work" className="font-mono text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-brand-accent-blue transition-colors cursor-none pb-1 border-b border-transparent hover:border-brand-accent-blue w-max">
+            <Link to="/work" className="font-mono text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-brand-accent-blue transition-colors md:cursor-none pb-1 border-b border-transparent hover:border-brand-accent-blue w-max">
               View All Work &rarr;
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
             {projects.map((project, idx) => (
-              <Link to={`/case-study/${project.id}`} key={idx} className="scroll-anim group flex flex-col h-full bg-white rounded-2xl border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_25px_60px_rgba(124,58,237,0.08)] hover:-translate-y-2 transition-all duration-500 overflow-hidden cursor-none">
+              <Link to={`/case-study/${project.id}`} key={idx} className="scroll-anim group flex flex-col h-full bg-white rounded-2xl border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_25px_60px_rgba(124,58,237,0.08)] hover:-translate-y-2 transition-all duration-500 overflow-hidden md:cursor-none">
                 <div className="h-64 bg-slate-50 relative overflow-hidden flex items-center justify-center">
                   <div className="absolute inset-0 bg-brand-blue/5 group-hover:bg-transparent z-10 transition-colors duration-500"></div>
                   {project.image ? (
@@ -273,11 +301,11 @@ const Home = () => {
                   </div>
                 </div>
 
-                <div className="p-8 flex flex-col flex-grow relative bg-white">
-                  <div className="absolute top-0 right-8 -mt-6 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 group-hover:bg-brand-accent-blue group-hover:text-white text-slate-400 transition-all duration-500 z-20">
+                <div className="p-6 md:p-8 flex flex-col flex-grow relative bg-white">
+                  <div className="absolute top-0 right-6 md:right-8 -mt-6 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 group-hover:bg-brand-accent-blue group-hover:text-white text-slate-400 transition-all duration-500 z-20">
                     <svg className="w-5 h-5 transform group-hover:rotate-45 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                   </div>
-                  <h4 className="font-poppins text-2xl font-bold text-brand-blue mb-3 group-hover:text-brand-accent-blue transition-colors duration-300">{project.title}</h4>
+                  <h4 className="font-poppins text-xl md:text-2xl font-bold text-brand-blue mb-3 group-hover:text-brand-accent-blue transition-colors duration-300">{project.title}</h4>
                   <p className="font-montserrat text-sm text-slate-400 font-medium leading-relaxed flex-grow">
                     {project.desc}
                   </p>
@@ -288,7 +316,7 @@ const Home = () => {
         </div>
       </section>
 
-      <footer className="relative bg-brand-blue w-full pt-40 pb-12 overflow-hidden flex flex-col items-center border-t border-slate-800">
+      <footer className="relative bg-brand-blue w-full pt-32 md:pt-40 pb-12 overflow-hidden flex flex-col items-center border-t border-slate-800">
         <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.04]">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -300,48 +328,44 @@ const Home = () => {
           </svg>
         </div>
 
-        <div className="relative z-10 w-full text-center px-6 mb-32">
-          {/* Stepped typography sizing from mobile to desktop, added break-words to prevent overflow */}
-          <h2 className="font-poppins font-black text-4xl sm:text-5xl md:text-[8rem] lg:text-[10rem] leading-[1.1] md:leading-[0.85] text-white uppercase tracking-tighter break-words">
+        <div className="relative z-10 w-full text-center px-6 mb-24 md:mb-32">
+          <h2 className="font-poppins font-black text-5xl sm:text-7xl md:text-[8rem] lg:text-[10rem] leading-[1.1] md:leading-[0.85] text-white uppercase tracking-tighter break-words">
             ALWAYS <br/>
             <span className="text-brand-accent-blue block mt-2">BRINGING</span>
             THE VALUE.
           </h2>
         </div>
 
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 z-20 w-[300px] md:w-[500px] pointer-events-none mix-blend-screen opacity-50">
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 z-20 w-[250px] md:w-[500px] pointer-events-none mix-blend-screen opacity-50">
            <img src={profilePhoto} alt="Srushti" className="w-full h-auto object-cover grayscale blur-[0.5px]" />
         </div>
 
-        <div className="relative z-30 w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-16 text-center md:text-left mb-24">
-        <div className="flex flex-col items-center md:items-start gap-4">
+        <div className="relative z-30 w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 text-center md:text-left mb-24">
+          <div className="flex flex-col items-center md:items-start gap-4">
             <span className="font-mono text-[10px] text-brand-accent-blue uppercase tracking-[0.2em] mb-2 font-bold">Pages</span>
-            {/* Switched to React <Link> to fix routing issues and changed Home to About */}
-            <Link to="/about" className="font-poppins font-black text-white text-2xl md:text-3xl hover:text-brand-accent-blue hover:translate-x-2 transition-all duration-300 cursor-none uppercase tracking-tight">About</Link>
-            <Link to="/work" className="font-poppins font-black text-white text-2xl md:text-3xl hover:text-brand-accent-blue hover:translate-x-2 transition-all duration-300 cursor-none uppercase tracking-tight">Work</Link>
-            <Link to="/skills" className="font-poppins font-black text-white text-2xl md:text-3xl hover:text-brand-accent-blue hover:translate-x-2 transition-all duration-300 cursor-none uppercase tracking-tight">Skills</Link>
+            <Link to="/about" className="font-poppins font-black text-white text-2xl md:text-3xl hover:text-brand-accent-blue hover:translate-x-2 transition-all duration-300 md:cursor-none uppercase tracking-tight">About</Link>
+            <Link to="/work" className="font-poppins font-black text-white text-2xl md:text-3xl hover:text-brand-accent-blue hover:translate-x-2 transition-all duration-300 md:cursor-none uppercase tracking-tight">Work</Link>
+            <Link to="/skills" className="font-poppins font-black text-white text-2xl md:text-3xl hover:text-brand-accent-blue hover:translate-x-2 transition-all duration-300 md:cursor-none uppercase tracking-tight">Skills</Link>
           </div>
 
-          <div className="flex justify-center items-end mt-24 md:mt-32 z-30">
-            {/* Switched to a direct Gmail web link so it works perfectly for everyone, even without a desktop mail app */}
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=srushtisachinpagariya@gmail.com" target="_blank" rel="noreferrer" className="relative overflow-hidden group bg-brand-accent-blue text-white font-poppins font-bold uppercase tracking-widest px-8 py-5 rounded-full shadow-[0_0_40px_rgba(124,58,237,0.3)] hover:shadow-[0_0_60px_rgba(124,58,237,0.6)] transition-all duration-500 flex items-center gap-4 cursor-none hover:scale-105">
-              <span className="relative z-10">Let's Talk</span>
+          <div className="flex justify-center items-end mt-12 md:mt-32 z-30">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=srushtisachinpagariya@gmail.com" target="_blank" rel="noreferrer" className="relative overflow-hidden group bg-brand-accent-blue text-white font-poppins font-bold uppercase tracking-widest px-8 py-4 md:py-5 rounded-full shadow-[0_0_40px_rgba(124,58,237,0.3)] hover:shadow-[0_0_60px_rgba(124,58,237,0.6)] transition-all duration-500 flex items-center gap-4 md:cursor-none hover:scale-105">
+              <span className="relative z-10 text-sm md:text-base">Let's Talk</span>
               <svg className="w-5 h-5 transform group-hover:rotate-90 transition-transform duration-500 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </a>
           </div>
 
-          <div className="flex flex-col items-center md:items-end gap-4">
+          <div className="flex flex-col items-center md:items-end gap-4 mt-8 md:mt-0">
             <span className="font-mono text-[10px] text-brand-accent-blue uppercase tracking-[0.2em] mb-2 font-bold">Follow On</span>
-            {/* HOW TO ADD YOUR LINKEDIN: Paste your profile URL inside the href quotes below */}
-            <a href="https://www.linkedin.com/in/srushti-pagariya/" target="_blank" rel="noreferrer" className="font-poppins font-black text-white text-2xl md:text-3xl hover:text-brand-accent-blue hover:-translate-x-2 transition-all duration-300 cursor-none uppercase tracking-tight">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/srushti-pagariya/" target="_blank" rel="noreferrer" className="font-poppins font-black text-white text-2xl md:text-3xl hover:text-brand-accent-blue hover:-translate-x-2 transition-all duration-300 md:cursor-none uppercase tracking-tight">LinkedIn</a>
           </div>
         </div>
 
         <div className="relative z-30 w-full bg-slate-950 py-6 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center text-slate-500 font-mono text-[10px] uppercase tracking-[0.2em] gap-4 md:gap-0 text-center md:text-left">
           <span>&copy; {new Date().getFullYear()} Srushti Pagariya.</span>
           <div className="flex gap-8">
-            <span className="cursor-none hover:text-white transition-colors">Privacy</span>
-            <span className="cursor-none hover:text-white transition-colors">Terms</span>
+            <span className="md:cursor-none hover:text-white transition-colors">Privacy</span>
+            <span className="md:cursor-none hover:text-white transition-colors">Terms</span>
           </div>
         </div>
       </footer>
@@ -352,22 +376,18 @@ const Home = () => {
           100% { transform: translateX(-50%); }
         }
       `}} />
-      {/* --- THE INTERACTIVE EARTH OVERLAY --- */}
+      
       {isBioOpen && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#02010a]/95 backdrop-blur-xl overflow-hidden">
-          
-          {/* Close Button */}
           <button 
             onClick={() => setIsBioOpen(false)}
-            className="absolute top-8 right-8 w-12 h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors z-50 cursor-none"
+            className="absolute top-6 right-6 md:top-8 md:right-8 w-10 h-10 md:w-12 md:h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors z-50 md:cursor-none"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
 
           <div className="w-full h-full flex items-center justify-center relative">
-            
             {!isSubmitted ? (
-              /* STEP 1: The Input Screen */
               <div className="flex flex-col items-center text-center px-6 z-10 w-full max-w-2xl">
                 <span className="inline-block px-4 py-1.5 bg-brand-accent-blue/20 text-brand-accent-blue border border-brand-accent-blue/30 text-[10px] font-mono uppercase tracking-widest font-bold rounded-full mb-8">
                   Connection Established
@@ -375,7 +395,6 @@ const Home = () => {
                 <h2 className="font-poppins text-3xl md:text-5xl font-bold text-white mb-12">
                   Who is visiting my world?
                 </h2>
-                
                 <form 
                   onSubmit={(e) => { e.preventDefault(); if(visitorName.trim()) setIsSubmitted(true); }}
                   className="w-full flex flex-col items-center"
@@ -385,22 +404,20 @@ const Home = () => {
                     value={visitorName}
                     onChange={(e) => setVisitorName(e.target.value)}
                     placeholder="Enter your name..."
-                    className="w-full bg-transparent border-b-2 border-white/20 focus:border-brand-accent-blue text-white text-center font-poppins text-4xl md:text-6xl font-black outline-none pb-4 mb-12 placeholder:text-white/10 transition-colors"
+                    className="w-full bg-transparent border-b-2 border-white/20 focus:border-brand-accent-blue text-white text-center font-poppins text-3xl md:text-6xl font-black outline-none pb-4 mb-12 placeholder:text-white/10 transition-colors"
                     autoFocus
                   />
                   <button 
                     type="submit"
                     disabled={!visitorName.trim()}
-                    className="bg-brand-accent-blue text-white font-mono text-xs font-bold uppercase tracking-widest px-10 py-5 rounded-full hover:shadow-[0_0_40px_rgba(124,58,237,0.6)] hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:hover:shadow-none transition-all duration-300 cursor-none"
+                    className="bg-brand-accent-blue text-white font-mono text-xs font-bold uppercase tracking-widest px-10 py-5 rounded-full hover:shadow-[0_0_40px_rgba(124,58,237,0.6)] hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:hover:shadow-none transition-all duration-300 md:cursor-none"
                   >
                     Enter The World
                   </button>
                 </form>
               </div>
             ) : (
-              /* STEP 2: The Translated Floating Names Screen */
               <div className="absolute inset-0 w-full h-full">
-                {/* The scattered background names */}
                 {floatingNames.map((item) => (
                   <div 
                     key={item.id}
@@ -410,33 +427,28 @@ const Home = () => {
                       top: item.top,
                       left: item.left,
                       fontSize: item.fontSize,
-                      opacity: 0 // initial opacity is 0, GSAP handles the reveal
+                      opacity: 0 
                     }}
                   >
                     {item.text}
                   </div>
                 ))}
-
-                {/* The glowing center message */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
-                  <div className="center-welcome bg-[#02010a]/60 backdrop-blur-md border border-white/10 px-12 py-8 rounded-3xl text-center shadow-[0_0_100px_rgba(124,58,237,0.5)]">
-                    <p className="font-mono text-sm text-brand-accent-blue uppercase tracking-[0.3em] font-bold mb-4">
+                <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none p-6">
+                  <div className="center-welcome bg-[#02010a]/60 backdrop-blur-md border border-white/10 px-8 py-6 md:px-12 md:py-8 rounded-3xl text-center shadow-[0_0_100px_rgba(124,58,237,0.5)]">
+                    <p className="font-mono text-xs md:text-sm text-brand-accent-blue uppercase tracking-[0.3em] font-bold mb-4">
                       Welcome to Srushti's World
                     </p>
-                    <h2 className="font-poppins text-5xl md:text-7xl font-black text-white capitalize">
+                    <h2 className="font-poppins text-4xl md:text-7xl font-black text-white capitalize break-words">
                       {visitorName}
                     </h2>
                   </div>
                 </div>
               </div>
             )}
-
           </div>
         </div>
       )}
-
     </main>
-
   );
 };
 

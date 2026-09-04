@@ -64,7 +64,7 @@ const projectData = {
     brief: "The project began with a broad question around protection, but it quickly became clear that income protection carried a particular kind of tension. For many people, it sat somewhere between something important and something they had never fully seen themselves needing. The challenge was to understand what created that distance, what emotional and practical barriers shaped people’s responses, and how the experience could feel more supportive from the very beginning.",
     image2: { 
       type: 'split', 
-      srcs: [scottish2, scottish3], // Passes both images side-by-side 
+      srcs: [scottish2, scottish3], 
       caption: "Why we chose income protection and testing our assumptions." 
     },
     approach: "This was a fully collaborative group project, so the work moved across the whole process together rather than through fixed individual roles. We used exploratory design methods to understand the space first, then gradually built a clearer direction through research, mapping, synthesis, and prototyping.",
@@ -95,7 +95,6 @@ const projectData = {
       "Service blueprint and journey framework",
       "Redesigned website journey prototype"
     ],
-    /* We set image5 to null because 4 and 5 are now combined side-by-side in image4! */
     image5: { 
       type: 'video',
       src: scottish7, 
@@ -162,7 +161,7 @@ const projectData = {
       srcs: [news1, news2, news3, news4, news5, news6, news7, news8], 
       text: "[ Newspaper Viewer Loaded ]", 
       microcopy: ["Chunked learning", "Editorial pacing", "One clear idea per page"], 
-      caption: "The final prototype: Sweet lies, Bitter Ttruth." 
+      caption: "The final prototype: Sweet lies, Bitter Truth." 
     },
     outcome: "The project showed that difficult histories can be taught more effectively when the format is simple, content-led, and designed with real access conditions in mind. It also demonstrated how editorial design, storytelling, and accessibility can work together to create a more meaningful learning experience.",
     outcomeBullets: [
@@ -171,7 +170,7 @@ const projectData = {
       "A more respectful and accessible way of engaging with colonial history."
     ],
     challenges: "This project had several important constraints. We could not speak directly to the end users because of ethical concerns and the sensitivity of the subject, so we had to build the work through stakeholder insight, secondary feedback, and careful interpretation. Time and budget shaped every decision too.",
-    reflections: "This project taught me that simplicity does not mean losing depth. Sometimes the most respectful design choice is the Math that removes spectacle and lets the content do the work. It also made me more aware of how budget, ethics, time, and accessibility shape what good design really looks like in practice.",
+    reflections: "This project taught me that simplicity does not mean losing depth. Sometimes the most respectful design choice is the one that removes spectacle and lets the content do the work. It also made me more aware of how budget, ethics, time, and accessibility shape what good design really looks like in practice.",
     reflectionCards: [
       "Content-led experiences can be more powerful than highly interactive ones.",
       "Budget and access shape design just as much as creativity does.",
@@ -304,8 +303,6 @@ const projectData = {
 // --- SYNCHRONIZED BOOK SPREAD COMPONENT ---
 const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
   const [spreadIndex, setSpreadIndex] = useState(0);
-  
-  // NEW MATH: Page 1 is centered. Remaining pages are grouped in 2.
   const totalSpreads = srcs.length > 0 ? 1 + Math.ceil((srcs.length - 1) / 2) : 0;
 
   const goNext = (e) => {
@@ -318,29 +315,20 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
     if (spreadIndex > 0) setSpreadIndex(p => p - 1);
   };
 
-  // Logic to properly align pages 2 & 3, 4 & 5 etc.
   const leftImageIndex = spreadIndex === 0 ? -1 : (spreadIndex * 2) - 1;
   const rightImageIndex = spreadIndex === 0 ? 0 : (spreadIndex * 2);
 
   return (
-    <div className="scroll-fade my-16 w-full flex flex-col group cursor-none">
-      
-      {/* Shrunk the outer gray background box */}
-      <div className="relative w-full max-w-4xl mx-auto bg-[#F7F7F4] rounded-2xl border border-slate-200 shadow-inner overflow-hidden flex items-center justify-center p-8 md:p-12 transition-colors hover:bg-[#f1f1eb]">
+    <div className="scroll-fade my-12 md:my-16 w-full flex flex-col group md:cursor-none">
+      <div className="relative w-full max-w-4xl mx-auto bg-[#F7F7F4] rounded-2xl border border-slate-200 shadow-inner overflow-hidden flex items-center justify-center p-4 md:p-12 transition-colors hover:bg-[#f1f1eb]">
         
-        {/* FIX: Clickable zones cover the ENTIRE grey background */}
         <div onClick={goPrev} className="absolute inset-y-0 left-0 w-1/2 z-30 cursor-pointer"></div>
         <div onClick={goNext} className="absolute inset-y-0 right-0 w-1/2 z-30 cursor-pointer"></div>
 
-        {/* Capped the max-height to 450px so it never gets too tall on large screens & added pointer-events-none */}
-        <div className="relative pointer-events-none z-20 w-full max-w-3xl h-[300px] md:h-[450px] mx-auto flex shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.25)] rounded-sm bg-white">
+        <div className="relative pointer-events-none z-20 w-full max-w-3xl h-[220px] md:h-[450px] mx-auto flex shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.25)] rounded-sm bg-white">
           
           {spreadIndex === 0 ? (
-            /* FIX 2: PAGE 1 IS NOW PERFECTLY CENTERED */
-            <div 
-              onClick={goNext}
-              className="w-full h-full relative flex items-center justify-center overflow-hidden cursor-pointer hover:bg-slate-50 transition-colors bg-white"
-            >
+            <div className="w-full h-full relative flex items-center justify-center overflow-hidden bg-white">
               {srcs[0] && (
                 <img 
                   src={srcs[0]} 
@@ -352,16 +340,11 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
               )}
             </div>
           ) : (
-            /* PAGES 2 ONWARD STAGGER LEFT & RIGHT */
             <>
-              {/* LEFT PAGE */}
-              <div 
-                onClick={goPrev}
-                className={`w-1/2 h-full relative flex items-center justify-center overflow-hidden cursor-pointer hover:bg-slate-50 transition-colors ${leftImageIndex < 0 ? 'bg-transparent cursor-default hover:bg-transparent' : 'bg-white border-r border-slate-300'}`}
-              >
+              <div className={`w-1/2 h-full relative flex items-center justify-center overflow-hidden ${leftImageIndex < 0 ? 'bg-transparent' : 'bg-white border-r border-slate-300'}`}>
                 {leftImageIndex >= 0 && srcs[leftImageIndex] && (
                   <>
-                    <div className="absolute inset-y-0 right-0 w-8 md:w-16 bg-gradient-to-l from-black/15 to-transparent z-10 pointer-events-none mix-blend-multiply"></div>
+                    <div className="absolute inset-y-0 right-0 w-4 md:w-16 bg-gradient-to-l from-black/15 to-transparent z-10 pointer-events-none mix-blend-multiply"></div>
                     <img 
                       src={srcs[leftImageIndex]} 
                       alt={`Left Page ${leftImageIndex + 1}`} 
@@ -373,12 +356,8 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
                 )}
               </div>
 
-              {/* RIGHT PAGE */}
-              <div 
-                onClick={goNext}
-                className="w-1/2 h-full relative bg-white flex items-center justify-center overflow-hidden cursor-pointer hover:bg-slate-50 transition-colors"
-              >
-                <div className="absolute inset-y-0 left-0 w-8 md:w-16 bg-gradient-to-r from-black/15 to-transparent z-10 pointer-events-none mix-blend-multiply"></div>
+              <div className="w-1/2 h-full relative bg-white flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-y-0 left-0 w-4 md:w-16 bg-gradient-to-r from-black/15 to-transparent z-10 pointer-events-none mix-blend-multiply"></div>
                 {rightImageIndex < srcs.length && srcs[rightImageIndex] && (
                   <img 
                     src={srcs[rightImageIndex]} 
@@ -394,7 +373,6 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
 
         </div>
 
-        {/* Hover Hint - LEFT SIDE (Previous) */}
         <div className="absolute left-6 top-1/2 -translate-y-1/2 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none hidden md:flex">
           {spreadIndex > 0 && (
             <span className="bg-brand-blue text-white text-[10px] uppercase tracking-widest px-4 py-2 rounded-full font-bold shadow-xl flex items-center gap-2">
@@ -403,7 +381,6 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
           )}
         </div>
 
-        {/* Hover Hint - RIGHT SIDE (Next) */}
         <div className="absolute right-6 top-1/2 -translate-y-1/2 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none hidden md:flex">
           {spreadIndex < totalSpreads - 1 && (
             <span className="bg-brand-blue text-white text-[10px] uppercase tracking-widest px-4 py-2 rounded-full font-bold shadow-xl flex items-center gap-2">
@@ -413,38 +390,37 @@ const BookSpreadViewer = ({ srcs, caption, microcopy }) => {
         </div>
       </div>
 
-      {/* Interactive Controls Bar */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-6 mt-6">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 mt-4 md:mt-6">
         {microcopy && (
-          <div className="flex gap-2 flex-wrap order-2 md:order-1">
+          <div className="flex gap-2 flex-wrap justify-center order-2 md:order-1">
             {microcopy.map((label, idx) => (
-              <span key={idx} className="px-3 py-1.5 bg-slate-50 text-brand-blue text-[9px] font-bold uppercase tracking-widest rounded shadow-sm border border-slate-200">
+              <span key={idx} className="px-2 md:px-3 py-1 md:py-1.5 bg-slate-50 text-brand-blue text-[8px] md:text-[9px] font-bold uppercase tracking-widest rounded shadow-sm border border-slate-200">
                 {label}
               </span>
             ))}
           </div>
         )}
 
-        <div className="flex items-center gap-6 order-1 md:order-2 bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm">
-          <button onClick={goPrev} disabled={spreadIndex === 0} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors cursor-none ${spreadIndex === 0 ? 'bg-slate-50 text-slate-300' : 'bg-slate-100 text-brand-blue hover:bg-brand-accent-blue hover:text-white'}`}>
+        <div className="flex items-center gap-4 md:gap-6 order-1 md:order-2 bg-white px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-slate-200 shadow-sm">
+          <button onClick={goPrev} disabled={spreadIndex === 0} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors md:cursor-none ${spreadIndex === 0 ? 'bg-slate-50 text-slate-300' : 'bg-slate-100 text-brand-blue hover:bg-brand-accent-blue hover:text-white'}`}>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
           </button>
           
-          <span className="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+          <span className="font-mono text-[9px] md:text-[10px] font-bold text-slate-500 uppercase tracking-widest">
             Spread {spreadIndex + 1} of {totalSpreads}
           </span>
           
-          <button onClick={goNext} disabled={spreadIndex >= totalSpreads - 1} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors cursor-none ${spreadIndex >= totalSpreads - 1 ? 'bg-slate-50 text-slate-300' : 'bg-slate-100 text-brand-blue hover:bg-brand-accent-blue hover:text-white'}`}>
+          <button onClick={goNext} disabled={spreadIndex >= totalSpreads - 1} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors md:cursor-none ${spreadIndex >= totalSpreads - 1 ? 'bg-slate-50 text-slate-300' : 'bg-slate-100 text-brand-blue hover:bg-brand-accent-blue hover:text-white'}`}>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
           </button>
         </div>
       </div>
-      <p className="font-montserrat text-sm text-slate-500 font-medium pl-3 border-l-2 border-brand-accent-blue/30 mt-6 self-start">{caption}</p>
+      <p className="font-montserrat text-xs md:text-sm text-slate-500 font-medium pl-3 border-l-2 border-brand-accent-blue/30 mt-4 md:mt-6 self-start">{caption}</p>
     </div>
   );
 };
 
-// --- SINGLE IMAGE CAROUSEL COMPONENT (For Cards) ---
+// --- SINGLE IMAGE CAROUSEL COMPONENT ---
 const CarouselViewer = ({ srcs, caption, microcopy }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalImages = srcs.length;
@@ -460,29 +436,25 @@ const CarouselViewer = ({ srcs, caption, microcopy }) => {
   };
 
   return (
-    <div className="scroll-fade my-16 w-full flex flex-col group cursor-none">
-      {/* Shrunk the outer gray background box */}
-      <div className="relative w-full max-w-4xl mx-auto bg-[#F7F7F4] rounded-2xl border border-slate-200 shadow-inner overflow-hidden flex items-center justify-center p-8 md:p-12 transition-colors hover:bg-[#f1f1eb]">
+    <div className="scroll-fade my-12 md:my-16 w-full flex flex-col group md:cursor-none">
+      <div className="relative w-full max-w-4xl mx-auto bg-[#F7F7F4] rounded-2xl border border-slate-200 shadow-inner overflow-hidden flex items-center justify-center p-4 md:p-12 transition-colors hover:bg-[#f1f1eb]">
         
-        {/* FIX: Clickable zones moved here to cover the ENTIRE grey background */}
         <div onClick={goPrev} className="absolute inset-y-0 left-0 w-1/2 z-30 cursor-pointer"></div>
         <div onClick={goNext} className="absolute inset-y-0 right-0 w-1/2 z-30 cursor-pointer"></div>
 
-        {/* Locked the inner white box to a realistic playing card size & added pointer-events-none */}
-        <div className="relative pointer-events-none z-20 w-full max-w-[280px] md:max-w-[360px] h-[380px] md:h-[480px] flex justify-center shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.25)] rounded-xl bg-white">
+        <div className="relative pointer-events-none z-20 w-full max-w-[240px] md:max-w-[360px] h-[320px] md:h-[480px] flex justify-center shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.25)] rounded-xl bg-white">
 
           {srcs[currentIndex] && (
             <img 
               src={srcs[currentIndex]} 
               alt={`Card ${currentIndex + 1}`} 
               onLoad={() => ScrollTrigger.refresh()}
-              className="w-full h-full object-contain p-4 md:p-8 drop-shadow-xl" 
+              className="w-full h-full object-contain p-2 md:p-8 drop-shadow-xl" 
               style={{ imageRendering: '-webkit-optimize-contrast' }} 
             />
           )}
         </div>
 
-        {/* Hover Hint - LEFT */}
         <div className="absolute left-6 top-1/2 -translate-y-1/2 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none hidden md:flex">
           {currentIndex > 0 && (
             <span className="bg-brand-blue text-white text-[10px] uppercase tracking-widest px-4 py-2 rounded-full font-bold shadow-xl flex items-center gap-2">
@@ -491,7 +463,6 @@ const CarouselViewer = ({ srcs, caption, microcopy }) => {
           )}
         </div>
 
-        {/* Hover Hint - RIGHT */}
         <div className="absolute right-6 top-1/2 -translate-y-1/2 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none hidden md:flex">
           {currentIndex < totalImages - 1 && (
             <span className="bg-brand-blue text-white text-[10px] uppercase tracking-widest px-4 py-2 rounded-full font-bold shadow-xl flex items-center gap-2">
@@ -501,39 +472,37 @@ const CarouselViewer = ({ srcs, caption, microcopy }) => {
         </div>
       </div>
 
-      {/* Controls Bar */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-6 mt-6">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 mt-4 md:mt-6">
         {microcopy && (
-          <div className="flex gap-2 flex-wrap order-2 md:order-1">
+          <div className="flex gap-2 flex-wrap justify-center order-2 md:order-1">
             {microcopy.map((label, idx) => (
-              <span key={idx} className="px-3 py-1.5 bg-slate-50 text-brand-blue text-[9px] font-bold uppercase tracking-widest rounded shadow-sm border border-slate-200">
+              <span key={idx} className="px-2 md:px-3 py-1 md:py-1.5 bg-slate-50 text-brand-blue text-[8px] md:text-[9px] font-bold uppercase tracking-widest rounded shadow-sm border border-slate-200">
                 {label}
               </span>
             ))}
           </div>
         )}
 
-        <div className="flex items-center gap-6 order-1 md:order-2 bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm">
-          <button onClick={goPrev} disabled={currentIndex === 0} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors cursor-none ${currentIndex === 0 ? 'bg-slate-50 text-slate-300' : 'bg-slate-100 text-brand-blue hover:bg-brand-accent-blue hover:text-white'}`}>
+        <div className="flex items-center gap-4 md:gap-6 order-1 md:order-2 bg-white px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-slate-200 shadow-sm">
+          <button onClick={goPrev} disabled={currentIndex === 0} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors md:cursor-none ${currentIndex === 0 ? 'bg-slate-50 text-slate-300' : 'bg-slate-100 text-brand-blue hover:bg-brand-accent-blue hover:text-white'}`}>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
           </button>
           
-          <span className="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+          <span className="font-mono text-[9px] md:text-[10px] font-bold text-slate-500 uppercase tracking-widest">
             Card {currentIndex + 1} of {totalImages}
           </span>
           
-          <button onClick={goNext} disabled={currentIndex >= totalImages - 1} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors cursor-none ${currentIndex >= totalImages - 1 ? 'bg-slate-50 text-slate-300' : 'bg-slate-100 text-brand-blue hover:bg-brand-accent-blue hover:text-white'}`}>
+          <button onClick={goNext} disabled={currentIndex >= totalImages - 1} className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors md:cursor-none ${currentIndex >= totalImages - 1 ? 'bg-slate-50 text-slate-300' : 'bg-slate-100 text-brand-blue hover:bg-brand-accent-blue hover:text-white'}`}>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
           </button>
         </div>
       </div>
-      <p className="font-montserrat text-sm text-slate-500 font-medium pl-3 border-l-2 border-brand-accent-blue/30 mt-6 self-start">{caption}</p>
+      <p className="font-montserrat text-xs md:text-sm text-slate-500 font-medium pl-3 border-l-2 border-brand-accent-blue/30 mt-4 md:mt-6 self-start">{caption}</p>
     </div>
   );
 };
 
 
-// --- IMAGE BLOCK MOVED OUTSIDE OF CASESTUDY COMPONENT TO PREVENT RE-RENDER FLICKER ---
 const ImageBlock = ({ image }) => {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef(null);
@@ -561,17 +530,17 @@ const ImageBlock = ({ image }) => {
   }
   
   return (
-    <div ref={containerRef} className="scroll-fade my-12 group">
-      <div className="w-full bg-slate-50 rounded-2xl border border-slate-200 shadow-sm overflow-hidden relative mb-4 block min-h-[300px] md:min-h-[450px]">
+    <div ref={containerRef} className="scroll-fade my-10 md:my-12 group">
+      <div className="w-full bg-slate-50 rounded-2xl border border-slate-200 shadow-sm overflow-hidden relative mb-4 block min-h-[250px] md:min-h-[450px]">
         
         {isVisible && (
           <>
             {image.type === 'split' && image.srcs ? (
                 <div className="flex flex-col md:flex-row w-full z-10 relative bg-white overflow-hidden">
-                  <div className="w-full md:w-1/2 relative border-b md:border-b-0 md:border-r border-slate-200 aspect-[4/3] md:aspect-square">
+                  <div className="w-full md:w-1/2 relative border-b md:border-b-0 md:border-r border-slate-200 aspect-square">
                     <img src={image.srcs[0]} alt="Split left" onLoad={() => ScrollTrigger.refresh()} className="absolute inset-0 w-full h-full object-cover m-0 block" />
                   </div>
-                  <div className="w-full md:w-1/2 relative aspect-[4/3] md:aspect-square">
+                  <div className="w-full md:w-1/2 relative aspect-square">
                     <img src={image.srcs[1]} alt="Split right" onLoad={() => ScrollTrigger.refresh()} className="absolute inset-0 w-full h-full object-cover m-0 block" />
                   </div>
                 </div>
@@ -585,7 +554,7 @@ const ImageBlock = ({ image }) => {
                   className="w-full aspect-video object-cover block z-10 relative bg-black" 
                 />
               ) : image.src ? (
-                <img src={image.src} alt={image.text || "Project Visual"} onLoad={() => ScrollTrigger.refresh()} className="w-full h-auto max-h-[450px] md:max-h-[600px] block z-10 object-contain mx-auto relative p-0" />
+                <img src={image.src} alt={image.text || "Project Visual"} onLoad={() => ScrollTrigger.refresh()} className="w-full h-auto max-h-[350px] md:max-h-[600px] block z-10 object-contain mx-auto relative p-0" />
               ) : (
                 <div className="w-full aspect-video flex items-center justify-center p-6 text-center z-10 text-slate-400 font-mono text-xs">{image.text}</div>
               )}
@@ -593,7 +562,7 @@ const ImageBlock = ({ image }) => {
               {image.microcopy && (
                 <div className="absolute top-4 left-4 flex gap-2 flex-wrap z-20 pointer-events-none">
                   {image.microcopy.map((label, idx) => (
-                    <span key={idx} className="px-3 py-1.5 bg-white/90 backdrop-blur-sm text-brand-blue text-[9px] font-bold uppercase tracking-widest rounded shadow-sm border border-slate-100 pointer-events-auto">
+                    <span key={idx} className="px-2 md:px-3 py-1 md:py-1.5 bg-white/90 backdrop-blur-sm text-brand-blue text-[8px] md:text-[9px] font-bold uppercase tracking-widest rounded shadow-sm border border-slate-100 pointer-events-auto">
                       {label}
                     </span>
                   ))}
@@ -603,7 +572,7 @@ const ImageBlock = ({ image }) => {
         )}
 
       </div>
-      <p className="font-montserrat text-sm text-slate-500 font-medium pl-3 border-l-2 border-brand-accent-blue/30">{image.caption}</p>
+      <p className="font-montserrat text-xs md:text-sm text-slate-500 font-medium pl-3 border-l-2 border-brand-accent-blue/30">{image.caption}</p>
     </div>
   );
 };
@@ -682,12 +651,11 @@ const CaseStudy = () => {
   return (
     <div ref={pageRef} className="w-full min-h-screen bg-white text-slate-900 pb-24"> 
       
-      {/* FIX 1: INVISIBLE SPACER TO PREVENT NAVBAR OVERLAP */}
-      <div className="w-full pointer-events-none" style={{ height: '100px' }} aria-hidden="true"></div>
+      <div className="w-full pointer-events-none" style={{ height: '80px', minHeight: '80px' }} aria-hidden="true"></div>
 
       {/* WATER-FILL STICKY PROGRESS BAR */}
-      <div className="sticky top-[75px] md:top-[60px] -mt-1 md:-mt-22 z-[8000] bg-white/95 backdrop-blur-md border-b border-slate-200 py-3 px-6 shadow-sm w-full transition-all">
-        <div className="max-w-4xl mx-auto flex gap-2 md:gap-3 h-10 md:h-12">
+      <div className="sticky top-[68px] md:top-[60px] z-[8000] bg-white/95 backdrop-blur-md border-b border-slate-200 py-2.5 md:py-3 px-4 md:px-6 shadow-sm w-full transition-all">
+        <div className="max-w-4xl mx-auto flex gap-1.5 md:gap-3 h-8 md:h-12">
           {sections.map((sec, index) => {
             const sectionSpan = 100 / sections.length;
             const startOffset = index * sectionSpan;
@@ -698,23 +666,17 @@ const CaseStudy = () => {
               <button 
                 key={sec} 
                 onClick={() => scrollToSection(sec)}
-                className="flex-1 relative bg-brand-accent-blue/10 rounded-full md:rounded-lg overflow-hidden flex items-center justify-center shadow-inner cursor-none transition-transform duration-300 hover:scale-[1.03]"
+                className="flex-1 relative bg-brand-accent-blue/10 rounded-full md:rounded-lg overflow-hidden flex items-center justify-center shadow-inner md:cursor-none transition-transform duration-300 hover:scale-[1.03]"
               >
-                {/* GPU HARDWARE-ACCELERATED SMOOTH FILL */}
                 <div 
                   className="absolute left-0 top-0 bottom-0 w-full bg-brand-accent-blue shadow-[2px_0_10px_rgba(124,58,237,0.4)]"
-                  style={{ 
-                    transform: `scaleX(${fillPercent / 100})`,
-                    transformOrigin: 'left',
-                    transition: 'transform 0.15s ease-out',
-                    willChange: 'transform'
-                  }}
+                  style={{ transform: `scaleX(${fillPercent / 100})`, transformOrigin: 'left', transition: 'transform 0.15s ease-out', willChange: 'transform' }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/10"></div>
                 </div>
 
                 <span 
-                  className={`relative z-10 hidden md:block font-poppins text-xs font-bold uppercase tracking-wider transition-colors duration-300
+                  className={`relative z-10 text-[9px] md:text-xs font-poppins font-bold uppercase tracking-wider transition-colors duration-300
                     ${isTextWhite ? 'text-white' : 'text-brand-accent-blue/70'}
                   `}
                 >
@@ -726,37 +688,34 @@ const CaseStudy = () => {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 md:px-12 pt-12">
+      <div className="max-w-4xl mx-auto px-6 md:px-12 pt-10 md:pt-12">
         
-        {/* HEADER */}
-        <div className="animate-up mb-16 text-center">
-          <span className="inline-block px-4 py-1.5 bg-slate-50 border border-slate-200 text-brand-accent-blue text-[10px] font-mono uppercase tracking-widest font-bold rounded-full mb-8 shadow-sm">
+        <div className="animate-up mb-12 md:mb-16 text-center">
+          <span className="inline-block px-3 py-1.5 md:px-4 md:py-1.5 bg-slate-50 border border-slate-200 text-brand-accent-blue text-[9px] md:text-[10px] font-mono uppercase tracking-widest font-bold rounded-full mb-6 md:mb-8 shadow-sm">
             {project.tag}
           </span>
-          <h1 className="font-poppins text-4xl md:text-6xl font-bold tracking-tight text-brand-blue mb-6 leading-tight">
+          <h1 className="font-poppins text-3xl md:text-6xl font-bold tracking-tight text-brand-blue mb-4 md:mb-6 leading-tight">
             {project.title}
           </h1>
-          <h2 className="font-montserrat text-xl md:text-2xl text-slate-600 font-medium leading-relaxed max-w-3xl mx-auto mb-10">
+          <h2 className="font-montserrat text-lg md:text-2xl text-slate-600 font-medium leading-relaxed max-w-3xl mx-auto mb-8 md:mb-10">
             {project.heroSubtitle}
           </h2>
         </div>
 
         <ImageBlock image={project.image1} />
 
-        {/* HERO COPY */}
-        <div className="animate-up text-lg md:text-xl font-montserrat font-light text-slate-700 leading-relaxed border-l-4 border-brand-accent-blue pl-6 md:pl-10 my-16">
+        <div className="animate-up text-base md:text-xl font-montserrat font-light text-slate-700 leading-relaxed border-l-4 border-brand-accent-blue pl-5 md:pl-10 my-12 md:my-16">
           {project.heroCopy}
         </div>
 
-        {/* QUICK FACTS */}
-        <div className="animate-up mb-24 border-y border-slate-200 py-12">
-          <h3 className="font-poppins text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-8 text-center">Project Overview</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-10">
+        <div className="animate-up mb-16 md:mb-24 border-y border-slate-200 py-10 md:py-12">
+          <h3 className="font-poppins text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-6 md:mb-8 text-center md:text-left">Project Overview</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-8 md:gap-y-10">
             {project.quickFacts.map((fact, idx) => {
               const [key, val] = fact.split(': ');
               return (
                 <div key={idx} className="flex flex-col">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-brand-accent-blue font-bold mb-2">{key}</span>
+                  <span className="text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-brand-accent-blue font-bold mb-1 md:mb-2">{key}</span>
                   <span className="font-montserrat text-sm md:text-base font-medium text-brand-blue leading-snug">{val}</span>
                 </div>
               );
@@ -764,25 +723,23 @@ const CaseStudy = () => {
           </div>
         </div>
 
-        {/* BRIEF */}
-        <section id="brief" className="scroll-fade pt-12 pb-8">
-          <h3 className="font-poppins text-4xl font-bold text-brand-blue mb-8">Brief</h3>
-          <p className="font-montserrat text-lg font-light text-slate-600 leading-relaxed">{project.brief}</p>
+        <section id="brief" className="scroll-fade pt-8 md:pt-12 pb-6 md:pb-8">
+          <h3 className="font-poppins text-3xl md:text-4xl font-bold text-brand-blue mb-6 md:mb-8">Brief</h3>
+          <p className="font-montserrat text-base md:text-lg font-light text-slate-600 leading-relaxed">{project.brief}</p>
         </section>
 
         <ImageBlock image={project.image2} />
 
-        {/* APPROACH */}
-        <section id="approach" className="scroll-fade pt-12 pb-8">
-          <div className="bg-slate-50 border border-slate-100 rounded-3xl p-8 md:p-12 mb-12">
-            <h3 className="font-poppins text-4xl font-bold text-brand-blue mb-6">Approach</h3>
-            <p className="font-montserrat text-lg font-light text-slate-600 leading-relaxed mb-10">{project.approach}</p>
-            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100">
-              <h4 className="font-mono text-xs font-bold uppercase tracking-widest text-slate-400 mb-6">Process Steps</h4>
-              <ul className="space-y-4 font-montserrat text-slate-700 font-medium text-sm md:text-base">
+        <section id="approach" className="scroll-fade pt-8 md:pt-12 pb-6 md:pb-8">
+          <div className="bg-slate-50 border border-slate-100 rounded-3xl p-6 md:p-12 mb-8 md:mb-12">
+            <h3 className="font-poppins text-3xl md:text-4xl font-bold text-brand-blue mb-4 md:mb-6">Approach</h3>
+            <p className="font-montserrat text-base md:text-lg font-light text-slate-600 leading-relaxed mb-8 md:mb-10">{project.approach}</p>
+            <div className="bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-slate-100">
+              <h4 className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-widest text-slate-400 mb-4 md:mb-6">Process Steps</h4>
+              <ul className="space-y-3 md:space-y-4 font-montserrat text-slate-700 font-medium text-sm md:text-base">
                 {project.approachBullets.map((bullet, idx) => (
-                  <li key={idx} className="flex items-start gap-4">
-                    <span className="w-6 h-6 rounded-full bg-brand-accent-blue/10 text-brand-accent-blue flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">{idx + 1}</span>
+                  <li key={idx} className="flex items-start gap-3 md:gap-4">
+                    <span className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-brand-accent-blue/10 text-brand-accent-blue flex items-center justify-center text-[9px] md:text-[10px] font-bold shrink-0 mt-0.5">{idx + 1}</span>
                     {bullet}
                   </li>
                 ))}
@@ -793,14 +750,13 @@ const CaseStudy = () => {
 
         <ImageBlock image={project.image3} />
 
-        {/* INSIGHT CARDS */}
         {project.insights && project.insights.length > 0 && (
-          <section className="scroll-fade py-12">
-            <h3 className="font-poppins text-sm font-bold uppercase tracking-[0.2em] text-brand-accent-blue mb-8 text-center">Key Insights</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <section className="scroll-fade py-8 md:py-12">
+            <h3 className="font-poppins text-[10px] md:text-sm font-bold uppercase tracking-[0.2em] text-brand-accent-blue mb-6 md:mb-8 text-center">Key Insights</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
               {project.insights.map((insight, idx) => (
-                <div key={idx} className="bg-white border border-slate-200 p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  <span className="text-5xl font-poppins font-bold text-slate-100 block mb-6 leading-none">0{idx + 1}</span>
+                <div key={idx} className="bg-white border border-slate-200 p-6 md:p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  <span className="text-4xl md:text-5xl font-poppins font-bold text-slate-100 block mb-4 md:mb-6 leading-none">0{idx + 1}</span>
                   <p className="font-montserrat text-sm font-medium text-brand-blue leading-relaxed">{insight}</p>
                 </div>
               ))}
@@ -810,13 +766,12 @@ const CaseStudy = () => {
 
         <ImageBlock image={project.image4} />
 
-        {/* OUTPUT */}
-        <section id="output" className="scroll-fade pt-12 pb-8">
-          <h3 className="font-poppins text-4xl font-bold text-brand-blue mb-6">Output</h3>
-          <p className="font-montserrat text-lg font-light text-slate-600 leading-relaxed mb-10">{project.output}</p>
-          <div className="flex flex-wrap gap-3">
+        <section id="output" className="scroll-fade pt-8 md:pt-12 pb-6 md:pb-8">
+          <h3 className="font-poppins text-3xl md:text-4xl font-bold text-brand-blue mb-4 md:mb-6">Output</h3>
+          <p className="font-montserrat text-base md:text-lg font-light text-slate-600 leading-relaxed mb-8 md:mb-10">{project.output}</p>
+          <div className="flex flex-wrap gap-2 md:gap-3">
             {project.outputBullets.map((bullet, idx) => (
-              <span key={idx} className="px-5 py-2.5 bg-white border border-slate-200 rounded-full text-xs font-mono font-medium text-slate-700 hover:border-brand-accent-blue hover:text-brand-accent-blue hover:shadow-[0_5px_15px_rgba(124,58,237,0.15)] hover:-translate-y-1 transition-all duration-300 cursor-none">
+              <span key={idx} className="px-4 py-2 md:px-5 md:py-2.5 bg-white border border-slate-200 rounded-full text-[10px] md:text-xs font-mono font-medium text-slate-700 hover:border-brand-accent-blue hover:text-brand-accent-blue transition-all duration-300 md:cursor-none">
                 {bullet}
               </span>
             ))}
@@ -825,15 +780,14 @@ const CaseStudy = () => {
 
         <ImageBlock image={project.image5} />
 
-        {/* OUTCOME */}
         {project.outcome && (
-          <section id="outcome" className="scroll-fade pt-12 pb-8">
-            <h3 className="font-poppins text-4xl font-bold text-brand-blue mb-6">Outcome</h3>
-            <p className="font-montserrat text-lg font-light text-slate-600 leading-relaxed mb-10">{project.outcome}</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <section id="outcome" className="scroll-fade pt-8 md:pt-12 pb-6 md:pb-8">
+            <h3 className="font-poppins text-3xl md:text-4xl font-bold text-brand-blue mb-4 md:mb-6">Outcome</h3>
+            <p className="font-montserrat text-base md:text-lg font-light text-slate-600 leading-relaxed mb-8 md:mb-10">{project.outcome}</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
               {project.outcomeBullets.map((bullet, idx) => (
-                <div key={idx} className="flex flex-col gap-3 p-6 bg-slate-50 rounded-xl border border-slate-100">
-                  <span className="w-8 h-1 bg-brand-accent-blue rounded-full"></span>
+                <div key={idx} className="flex flex-col gap-2 md:gap-3 p-5 md:p-6 bg-slate-50 rounded-xl border border-slate-100">
+                  <span className="w-6 h-1 bg-brand-accent-blue rounded-full"></span>
                   <p className="font-montserrat text-sm text-slate-700 font-medium leading-relaxed">{bullet}</p>
                 </div>
               ))}
@@ -843,33 +797,31 @@ const CaseStudy = () => {
         
         <ImageBlock image={project.image6} />
 
-        {/* CHALLENGES */}
         {project.challenges && (
-          <section id="challenges" className="scroll-fade pt-12 pb-8">
-            <div className="bg-slate-50 border border-slate-200 p-8 md:p-12 rounded-3xl">
-              <h3 className="font-poppins text-3xl font-bold text-brand-blue mb-6 flex items-center gap-3">
-                <svg className="w-8 h-8 text-brand-accent-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+          <section id="challenges" className="scroll-fade pt-8 md:pt-12 pb-6 md:pb-8">
+            <div className="bg-slate-50 border border-slate-200 p-6 md:p-12 rounded-3xl">
+              <h3 className="font-poppins text-2xl md:text-3xl font-bold text-brand-blue mb-4 md:mb-6 flex items-center gap-3">
+                <svg className="w-6 h-6 md:w-8 md:h-8 text-brand-accent-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                 Challenges
               </h3>
-              <p className="font-montserrat text-lg font-light text-slate-700 leading-relaxed">{project.challenges}</p>
+              <p className="font-montserrat text-base md:text-lg font-light text-slate-700 leading-relaxed">{project.challenges}</p>
             </div>
           </section>
         )}
         
         <ImageBlock image={project.image7} />
 
-        {/* REFLECTIONS */}
         {project.reflections && project.reflectionCards && (
-          <section className="scroll-fade bg-brand-blue text-white p-10 md:p-16 rounded-[2.5rem] mt-16 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-accent-blue rounded-full blur-[100px] opacity-30 -mr-20 -mt-20 pointer-events-none"></div>
+          <section className="scroll-fade bg-brand-blue text-white p-8 md:p-16 rounded-[2rem] md:rounded-[2.5rem] mt-12 md:mt-16 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-48 h-48 md:w-64 md:h-64 bg-brand-accent-blue rounded-full blur-[100px] opacity-30 -mr-16 -mt-16 pointer-events-none"></div>
             
-            <h3 className="font-poppins text-4xl font-bold text-white mb-6 relative z-10">Reflections</h3>
-            <p className="font-montserrat text-lg font-light text-slate-300 leading-relaxed mb-12 max-w-2xl relative z-10">{project.reflections}</p>
+            <h3 className="font-poppins text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6 relative z-10">Reflections</h3>
+            <p className="font-montserrat text-base md:text-lg font-light text-slate-300 leading-relaxed mb-8 md:mb-12 max-w-2xl relative z-10">{project.reflections}</p>
             
-            <div className={`grid ${reflectionGridClass} gap-6 relative z-10`}>
+            <div className={`grid ${reflectionGridClass} gap-4 md:gap-6 relative z-10`}>
               {project.reflectionCards.map((card, idx) => (
-                <div key={idx} className="bg-white/5 border border-white/10 backdrop-blur-md p-8 rounded-2xl hover:bg-white/10 transition-colors">
-                  <span className="text-xs font-mono text-brand-accent-blue block mb-4 font-bold uppercase tracking-widest">Takeaway 0{idx + 1}</span>
+                <div key={idx} className="bg-white/5 border border-white/10 backdrop-blur-md p-6 md:p-8 rounded-2xl hover:bg-white/10 transition-colors">
+                  <span className="text-[10px] md:text-xs font-mono text-brand-accent-blue block mb-3 md:mb-4 font-bold uppercase tracking-widest">Takeaway 0{idx + 1}</span>
                   <p className="font-montserrat text-sm font-medium text-slate-100 leading-relaxed">{card}</p>
                 </div>
               ))}
