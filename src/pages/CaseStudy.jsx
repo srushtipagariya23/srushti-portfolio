@@ -18,6 +18,11 @@ import sweet3 from '../assets/sweet-3.png';
 import sweet4 from '../assets/sweet-4.png';
 
 import inforens1 from '../assets/inforens-1.png';
+import inforens2 from '../assets/inforens-2.png';
+import inforens3 from '../assets/inforens-3.png';
+import inforens4 from '../assets/inforens-4.png';
+import inforens5 from '../assets/inforens-5.png';
+import inforens6 from '../assets/inforens-6.png';
 
 import scottish1 from '../assets/scottish-1.png';
 import scottish2 from '../assets/scottish-2.png';
@@ -190,9 +195,9 @@ const projectData = {
       "Role: Service Designer",
       "Scope: Website experience, service visibility, and reward system design"
     ],
-    image1: { text: "[ Polished dark mockup of the Inforens site ]", caption: "A service and UX project focused on turning hidden value into a clearer student-facing experience." },
+    image1: { src: inforens2, caption: "Homepage of Inforens." },
     brief: "Inforens already offered strong student value through peer mentorship, post-arrival support, proprietary tools, and structured service bundles, but much of that value was buried or weakly communicated for first-time visitors. The challenge was to make those strengths more visible and shape a clearer experience of trust, progression, and usefulness across the platform.",
-    image2: { text: "[ Comparison visual showing what Inforens actually offers versus website ]", microcopy: ["Strong product", "Weak communication", "Hidden value"], caption: "The gap was not in the service itself, but in how little of its value was visible to a first-time user." },
+    image2: { src: inforens3, microcopy: ["Strong product", "Weak communication", "Hidden value"], caption: "The gap was not in the service itself, but in how little of its value was visible to a first-time user." },
     approach: "The work was approached through a first-time-user and service design lens. Rather than treating the platform as a set of isolated screens, I looked at how visibility, structure, trust, and progression worked across the whole experience.",
     approachBullets: [
       "Audited the website experience from a first-time user perspective.",
@@ -201,13 +206,13 @@ const projectData = {
       "Proposed journey improvements across plans, tools, and post-arrival support.",
       "Built a reward logic system based on actual Inforens services rather than generic discounts."
     ],
-    image3: { text: "[ Report spread or diagram showing the main website experience findings. ]", caption: "The audit focused on the places where strong service value already existed, but was not visible enough to first-time users." },
+    image3: { src: inforens4, caption: "The audit focused on the places where strong service value already existed, but was not visible enough to first-time users." },
     insights: [
       "The product was stronger than the website communication.",
       "Trust was being weakened by hidden pricing, buried tools, and low visibility of human proof.",
       "Students need to feel the outcome before they fully understand the service."
     ],
-    image4: { text: "[ Homepage recommendation visual ]", caption: "The recommendations focused on making trust signals and service value visible earlier in the journey." },
+    image4: { src: inforens5, caption: "The recommendations focused on making trust signals and service value visible earlier in the journey." },
     output: "The work resulted in a set of connected strategic and UX deliverables designed to improve clarity, visibility, and conversion without losing the student-first quality of the service. Each recommendation aimed to make the platform feel less hidden, less fragmented, and more trustworthy from the first interaction onward.",
     outputBullets: [
       "Website experience report",
@@ -216,7 +221,7 @@ const projectData = {
       "Structural improvements across plans and tools",
       "Four-tier mystery reward system tied to real Inforens services"
     ],
-    image5: { text: "[ Strong report page showing homepage recommendations ]", microcopy: ["Clear promise", "Visible pricing", "Human proof"], caption: "The recommendations focused on making the service easier to understand before asking users to commit." },
+    image5: { src: inforens6, microcopy: ["Clear promise", "Visible pricing", "Human proof"], caption: "The recommendations focused on making the service easier to understand before asking users to commit." },
     outcome: "The project helped turn hidden platform strengths into clearer user-facing opportunities. It also created a stronger framework for thinking about trust, progression, pricing visibility, and rewards as connected parts of one service experience rather than separate features.",
     outcomeBullets: [
       "Clearer communication of student value",
@@ -224,9 +229,7 @@ const projectData = {
       "Better trust-building before commitment",
       "More meaningful reward design tied to real services"
     ],
-    image6: { text: "[ Clean reward-system visual showing the four reward tiers ]", caption: "The reward system was designed around real platform services, turning engagement into meaningful value instead of generic offers." },
     challenges: "One challenge was that the issues were spread across multiple touchpoints rather than sitting inside one isolated feature. That meant the work had to stay strategic and systemic, not only visual. Another challenge was balancing business value with user trust.",
-    image7: { text: "[ Simple impact grid showing visibility, trust, progression, and value. ]", caption: "The work focused on making the platform’s strongest qualities easier to see, understand, and act on." },
     reflections: "This project taught me that trust is rarely built by one feature alone. It usually comes from the consistency of signals across pricing, structure, language, proof, and visibility. It also reinforced that discovery is increasingly mobile-first for younger audiences, even if later decisions happen elsewhere.",
     reflectionCards: [
       "Trust is cumulative.",
