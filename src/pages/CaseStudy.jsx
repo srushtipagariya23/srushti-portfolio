@@ -212,7 +212,7 @@ const projectData = {
       "Trust was being weakened by hidden pricing, buried tools, and low visibility of human proof.",
       "Students need to feel the outcome before they fully understand the service."
     ],
-    image4: { src: inforens5, caption: "The recommendations focused on making trust signals and service value visible earlier in the journey." },
+    image4: { src: inforens6, caption: "The recommendations focused on making trust signals and service value visible earlier in the journey." },
     output: "The work resulted in a set of connected strategic and UX deliverables designed to improve clarity, visibility, and conversion without losing the student-first quality of the service. Each recommendation aimed to make the platform feel less hidden, less fragmented, and more trustworthy from the first interaction onward.",
     outputBullets: [
       "Website experience report",
@@ -221,7 +221,7 @@ const projectData = {
       "Structural improvements across plans and tools",
       "Four-tier mystery reward system tied to real Inforens services"
     ],
-    image5: { src: inforens6, microcopy: ["Clear promise", "Visible pricing", "Human proof"], caption: "The recommendations focused on making the service easier to understand before asking users to commit." },
+    image5: { src: inforens5, microcopy: ["Clear promise", "Visible pricing", "Human proof"], caption: "The recommendations focused on making the service easier to understand before asking users to commit." },
     outcome: "The project helped turn hidden platform strengths into clearer user-facing opportunities. It also created a stronger framework for thinking about trust, progression, pricing visibility, and rewards as connected parts of one service experience rather than separate features.",
     outcomeBullets: [
       "Clearer communication of student value",
