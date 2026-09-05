@@ -355,11 +355,26 @@ const Home = () => {
             </a>
           </div>
 
-          <div className="flex flex-col items-center md:items-end gap-4 mt-8 md:mt-0">
-            <span className="font-mono text-[10px] text-brand-accent-blue uppercase tracking-[0.2em] mb-2 font-bold">Follow On</span>
-            <a href="https://www.linkedin.com/in/srushti-pagariya/" target="_blank" rel="noreferrer" className="font-poppins font-black text-white text-2xl md:text-3xl hover:text-brand-accent-blue hover:-translate-x-2 transition-all duration-300 md:cursor-none uppercase tracking-tight">LinkedIn</a>
+          {/* Right Column Container */}
+          <div className="flex flex-col items-center md:items-end gap-10 mt-8 md:mt-0">
+            
+            {/* Follow On Block */}
+            <div className="flex flex-col items-center md:items-end gap-4">
+              <span className="font-mono text-[10px] text-brand-accent-blue uppercase tracking-[0.2em] mb-2 font-bold">Follow On</span>
+              <a href="https://www.linkedin.com/in/srushti-pagariya/" target="_blank" rel="noreferrer" className="font-poppins font-black text-white text-2xl md:text-3xl hover:text-brand-accent-blue hover:-translate-x-2 transition-all duration-300 md:cursor-none uppercase tracking-tight">LinkedIn</a>
+            </div>
+            
+            {/* Featured Block */}
+            <div className="flex flex-col items-center md:items-end gap-4">
+              <span className="font-mono text-[10px] text-brand-accent-blue uppercase tracking-[0.2em] mb-2 font-bold">Also</span>
+              <a href="https://gsamediacentre.co.uk/the-glasgow-school-of-art-launches-postgraduate-degree-show-2026-showcasing-next-generation-of-global-creatives-redefining-contemporary-craft-and-socially-responsive-design/" target="_blank" rel="noreferrer" className="font-poppins font-black text-white text-2xl md:text-3xl hover:text-brand-accent-blue hover:-translate-x-2 transition-all duration-300 md:cursor-none uppercase tracking-tight">Featured</a>
+            </div>
+
           </div>
         </div>
+        
+        
+        
 
         <div className="relative z-30 w-full bg-slate-950 py-6 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center text-slate-500 font-mono text-[10px] uppercase tracking-[0.2em] gap-4 md:gap-0 text-center md:text-left">
           <span>&copy; {new Date().getFullYear()} Srushti Pagariya.</span>
