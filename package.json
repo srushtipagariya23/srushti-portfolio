@@ -7,14 +7,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "postbuild": "react-snap",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
-  },
-  "reactSnap": {
-    "source": "dist"
   },
   "dependencies": {
     "@studio-freight/lenis": "^1.0.42",
@@ -31,7 +27,6 @@
     "@vitejs/plugin-react": "^6.0.3",
     "gh-pages": "^6.3.0",
     "oxlint": "^1.71.0",
-    "react-snap": "^1.23.0",
     "vite": "^8.1.1"
   }
 }
