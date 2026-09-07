@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { GlobalLayout } from './components/GlobalLayout';
 import Navbar from './components/Navbar';
@@ -12,7 +12,7 @@ import Skills from './pages/Skills';
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <GlobalLayout>
         
         {/* The Navbar is back online! */}
@@ -27,7 +27,7 @@ function App() {
         </Routes>
         
       </GlobalLayout>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

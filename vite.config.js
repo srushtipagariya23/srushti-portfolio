@@ -9,4 +9,8 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  build: {
+    // This forces Vite to transpile modern JS into older JS that react-snap can read
+    target: 'es2019' 
+  }
 })
