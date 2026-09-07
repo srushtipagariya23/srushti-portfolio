@@ -12,7 +12,7 @@ import Skills from './pages/Skills';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <GlobalLayout>
         
         {/* The Navbar is back online! */}
@@ -27,7 +27,7 @@ function App() {
         </Routes>
         
       </GlobalLayout>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
